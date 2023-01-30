@@ -71,9 +71,7 @@ class LoginController extends Controller
     }
     public function attemptLogin(Request $request)
     {    // check user role  
-        $user = User::where(['email' => $request->email, 'is_active' => 1, 'is_deleted' => 0])->where(function($query) {
-            $query->where('role','user');
-        })->first();
+        $user = User::where(['email' => $request->email,'role'=> 'user', 'is_active' => 1, 'is_deleted' => 0])->first();
 
         if(isset($user->is_active) && $user->is_active == 0){
             return response()->json(['status' => false, 'msg' => 'Your account is Deactive'], 200);
