@@ -6,12 +6,38 @@
     <div class="slider-area margin-bottom-80">
         <div class="bend niceties preview-2">
             <div id="ensign-nivoslider" class="slides">
-                <img src="{{asset('assets/img/slider/slider-1/1.jpg')}}" alt="" title="#slider-direction-1" />
+                @foreach($banners as $key=>$banner)
+                    <img src="{{imageUrl($banner->image, 'banner','banner.jpg','false')}}" alt="" title="#slider-direction-{{$key}}" />
+                @endforeach
+                <!-- <img src="{{asset('assets/img/slider/slider-1/1.jpg')}}" alt="" title="#slider-direction-1" />
                 <img src="{{asset('assets/img/slider/slider-1/2.jpg')}}" alt="" title="#slider-direction-2" />
-                <img src="{{asset('assets/img/slider/slider-1/3.jpg')}}" alt="" title="#slider-direction-3" />
+                <img src="{{asset('assets/img/slider/slider-1/3.jpg')}}" alt="" title="#slider-direction-3" /> -->
             </div>
+            @foreach($banners as $key=>$banner)
+                <div id="slider-direction-{{$key}}" class="t-cn slider-direction">
+                    <div class="slider-progress"></div>
+                    <div class="slider-content t-lfl s-tb">
+                        <div class="title-container s-tb-c title-compress">
+                            <div class="slider-1">
+                                <div class="wow fadeInUpBig" data-wow-duration="1.2s" data-wow-delay="0.5s">
+                                    <h1 class="title1">{{$banner->title}}</h1>
+                                </div>
+                                <div class="image wow fadeInUpBig" data-wow-duration="1.5s" data-wow-delay="0.7s">
+                                    <span><img src="{{asset('assets/img/slider/slider-1/slider-border.png')}}" alt="" /></span>
+                                </div>
+                                <div class="wow fadeInUpBig" data-wow-duration="1.8s" data-wow-delay="0.9s">
+                                    <p class="slider-brief">{!! html_entity_decode($banner->description) !!}</p>
+                                </div>
+                                <!-- <div class="wow fadeInUpBig" data-wow-duration="2s" data-wow-delay="1.1s">
+                                    <a href="#" class="shop-now">shop now</a>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
             <!-- direction 1 -->
-            <div id="slider-direction-1" class="t-cn slider-direction">
+            <!-- <div id="slider-direction-1" class="t-cn slider-direction">
                 <div class="slider-progress"></div>
                 <div class="slider-content t-lfl s-tb">
                     <div class="title-container s-tb-c title-compress">
@@ -33,9 +59,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- direction 2 -->
-            <div id="slider-direction-2" class="slider-direction">
+            <!-- <div id="slider-direction-2" class="slider-direction">
                 <div class="slider-progress"></div>
                 <div class="slider-content t-lfl s-tb">
                     <div class="title-container s-tb-c title-compress">
@@ -57,9 +83,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- direction 3 -->
-            <div id="slider-direction-3" class="slider-direction">
+            <!-- <div id="slider-direction-3" class="slider-direction">
                 <div class="slider-progress"></div>
                 <div class="slider-content t-lfl s-tb">
                     <div class="title-container s-tb-c title-compress">
@@ -81,7 +107,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- SLIDER-AREA END -->
