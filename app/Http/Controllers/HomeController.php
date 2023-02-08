@@ -4,20 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Banner;
-use Config;
+use App\Models\Category;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    /* public function __construct()
-    {
-        $this->middleware('auth');
-    } */
-
     /**
      * Show the application dashboard.
      *
@@ -25,9 +16,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $banners=Banner::where('is_active',1)->orderBy('created_at','ASC')->get();
-       /*  echo(Config::get('app.image_url').'/uploads/banner/1675165115_2.jpg');
-        exit; */
-        return view('home',compact('banners'));
+        $banners=Banner::where(['is_active'=>1,'is_deleted'=>0])->orderBy('created_at','ASC')->get();
+        $categories=Category::where(['is_active'=>1,'is_parent'=>1,'is_deleted'=>0])->limit(3)->orderBy('created_at','ASC')->get();
+        $products=Product::with('productOneImage')->where(['is_active'=>1,'is_deleted'=>0])->orderBy('created_at','DESC')->limit(10)->get();
+       
+        return view('home',compact('banners','categories','products'));
     }
 }

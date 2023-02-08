@@ -7,11 +7,8 @@
         <div class="bend niceties preview-2">
             <div id="ensign-nivoslider" class="slides">
                 @foreach($banners as $key=>$banner)
-                    <img src="{{imageUrl($banner->image, 'banner','banner.jpg','false')}}" alt="" title="#slider-direction-{{$key}}" />
+                    <img src="{{imageUrl($banner->image, 'banner','banner.jpg','false')}}" alt="#" title="#slider-direction-{{$key}}" />
                 @endforeach
-                <!-- <img src="{{asset('assets/img/slider/slider-1/1.jpg')}}" alt="" title="#slider-direction-1" />
-                <img src="{{asset('assets/img/slider/slider-1/2.jpg')}}" alt="" title="#slider-direction-2" />
-                <img src="{{asset('assets/img/slider/slider-1/3.jpg')}}" alt="" title="#slider-direction-3" /> -->
             </div>
             @foreach($banners as $key=>$banner)
                 <div id="slider-direction-{{$key}}" class="t-cn slider-direction">
@@ -36,78 +33,6 @@
                     </div>
                 </div>
             @endforeach
-            <!-- direction 1 -->
-            <!-- <div id="slider-direction-1" class="t-cn slider-direction">
-                <div class="slider-progress"></div>
-                <div class="slider-content t-lfl s-tb">
-                    <div class="title-container s-tb-c title-compress">
-                        <div class="slider-1">
-                            <div class="wow fadeInUpBig" data-wow-duration="1.2s" data-wow-delay="0.5s">
-                                <h1 class="title1">new fashion collection</h1>
-                            </div>
-                            <div class="image wow fadeInUpBig" data-wow-duration="1.5s" data-wow-delay="0.7s">
-                                <span><img src="{{asset('assets/img/slider/slider-1/slider-border.png')}}"
-                                        alt="" /></span>
-                            </div>
-                            <div class="wow fadeInUpBig" data-wow-duration="1.8s" data-wow-delay="0.9s">
-                                <p class="slider-brief">Simply dummy text of the printing and typesetting industry.
-                                    simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="wow fadeInUpBig" data-wow-duration="2s" data-wow-delay="1.1s">
-                                <a href="#" class="shop-now">shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- direction 2 -->
-            <!-- <div id="slider-direction-2" class="slider-direction">
-                <div class="slider-progress"></div>
-                <div class="slider-content t-lfl s-tb">
-                    <div class="title-container s-tb-c title-compress">
-                        <div class="slider-1">
-                            <div class="wow fadeInUpBig" data-wow-duration="1.2s" data-wow-delay="0.5s">
-                                <h1 class="title1">Men's fashion collection</h1>
-                            </div>
-                            <div class="image wow fadeInUpBig" data-wow-duration="1.5s" data-wow-delay="0.7s">
-                                <span><img src="{{asset('assets/img/slider/slider-1/slider-border.png')}}"
-                                        alt="" /></span>
-                            </div>
-                            <div class="wow fadeInUpBig" data-wow-duration="1.8s" data-wow-delay="0.9s">
-                                <p class="slider-brief">Simply dummy text of the printing and typesetting industry.
-                                    simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="wow fadeInUpBig" data-wow-duration="2s" data-wow-delay="1.1s">
-                                <a href="#" class="shop-now">shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- direction 3 -->
-            <!-- <div id="slider-direction-3" class="slider-direction">
-                <div class="slider-progress"></div>
-                <div class="slider-content t-lfl s-tb">
-                    <div class="title-container s-tb-c title-compress">
-                        <div class="slider-1">
-                            <div class="wow fadeInUpBig" data-wow-duration="1.2s" data-wow-delay="0.5s">
-                                <h1 class="title1">Women's fashion collection</h1>
-                            </div>
-                            <div class="image wow fadeInUpBig" data-wow-duration="1.5s" data-wow-delay="0.7s">
-                                <span><img src="{{asset('assets/img/slider/slider-1/slider-border.png')}}"
-                                        alt="" /></span>
-                            </div>
-                            <div class="wow fadeInUpBig" data-wow-duration="1.8s" data-wow-delay="0.9s">
-                                <p class="slider-brief">Simply dummy text of the printing and typesetting industry.
-                                    simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="wow fadeInUpBig" data-wow-duration="2s" data-wow-delay="1.1s">
-                                <a href="#" class="shop-now">shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
     <!-- SLIDER-AREA END -->
@@ -119,27 +44,23 @@
                     <h2 class="border-left-right-btm">New Collection</h2>
                 </div>
             </div>
+            @foreach($categories as $category)
             <div class="col-xl-4 col-md-6 col-sm-6 padding-0">
                 <div class="single-collection">
                     <div class="collection-photo">
-                        <a href="#"><img src="{{asset('assets/img/new-collection/1.jpg')}}" alt="" /></a>
+                        <a href="{{route('getCategoryWiseproducts',$category->slug)}}"><img src="{{imageUrl($category->image, 'category','category.jpg','false')}}" alt="#" /></a>
                     </div>
                     <div class="collection-brief">
                         <div class="text-right">
                             <span class="new">new</span>
                         </div>
-                        <h2>new <br /> <span>fashion</span></h2>
-                        <!-- <ul>
-									<li>100% cotton</li>
-									<li>fress product</li>
-									<li>black color</li>
-									<li>high qualiety</li>
-								</ul> -->
-                        <a href="#" class="shop-now active-shop-now">shop now</a>
+                        <h2>new <br /> <span>{{$category->title}}</span></h2>
+                        <a href="{{route('getCategoryWiseproducts',$category->slug)}}" class="shop-now active-shop-now">shop now</a>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-md-6 col-sm-6 padding-0">
+            @endforeach
+            <!-- <div class="col-xl-4 col-md-6 col-sm-6 padding-0">
                 <div class="single-collection">
                     <div class="collection-photo">
                         <a href="#"><img src="{{asset('assets/img/new-collection/2.jpg')}}" alt="" /></a>
@@ -149,12 +70,6 @@
                             <span class="new">new</span>
                         </div>
                         <h2>new <br /> <span>fashion</span></h2>
-                        <!-- <ul>
-									<li>100% cotton</li>
-									<li>fress product</li>
-									<li>black color</li>
-									<li>high qualiety</li>
-								</ul> -->
                         <a href="#" class="shop-now active-shop-now">shop now</a>
                     </div>
                 </div>
@@ -169,16 +84,10 @@
                             <span class="new">new</span>
                         </div>
                         <h2>new <br /> <span>fashion</span></h2>
-                        <!-- <ul>
-									<li>100% cotton</li>
-									<li>fress product</li>
-									<li>black color</li>
-									<li>high qualiety</li>
-								</ul> -->
                         <a href="#" class="shop-now active-shop-now">shop now</a>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- NEW-COLLECTION END -->
@@ -195,17 +104,17 @@
         </div>
         <div id="active-product" class="product-slider">
             <!-- Single-product start -->
+            @foreach($products as $product)
             <div class="single-product">
                 <div class="product-photo">
                     <a href="#">
-                        <img class="primary-photo" src="{{asset('assets/img/product/1.jpg')}}" alt="" />
-                        <img class="secondary-photo" src="{{asset('assets/img/product/5.jpg')}}" alt="" />
+                        <img class="primary-photo" src="{{imageUrl($product->productOneImage->name, 'product','product.jpg','false')}}" alt="" />
+                        <!-- <img class="primary-photo" src="{{asset('assets/img/product/1.jpg')}}" alt="" /> -->
+                        <!-- <img class="secondary-photo" src="{{asset('assets/img/product/5.jpg')}}" alt="" /> -->
                     </a>
                     <div class="pro-action">
-                        <a href="wishlist.html" class="action-btn"><i class="sp-heart"></i><span>Wishlist</span></a>
-                        <a href="cart.html" class="action-btn"><i class="sp-shopping-cart"></i><span>Add to
-                                cart</span></a>
-                        <!-- <a href="#" class="action-btn"><i class="sp-compare-alt"></i><span>Compare</span></a> -->
+                        <a href="#" class="action-btn"><i class="sp-heart"></i><span>Wishlist</span></a>
+                        <a href="#" class="action-btn"><i class="sp-shopping-cart"></i><span>Add to cart</span></a>
                     </div>
                 </div>
                 <div class="product-brief">
@@ -216,145 +125,17 @@
                         <a href="#"><i class="sp-star rating-1"></i></a>
                         <a href="#"><i class="sp-star rating-2"></i></a>
                     </div>
-                    <h2><a href="single-product.html">Randomised Words</a></h2>
-                    <h3>$450.00</h3>
+                    <h2><a href="#">{{$product->title}}</a></h2>
+                    <h3>
+                        @php
+                            $after_discount=($product->price-($product->price*$product->discount)/100);
+                        @endphp
+                        ${{number_format($after_discount,2)}}
+                        <del style="padding-left:4%;">${{number_format($product->price,2)}}</del>
+                    </h3>
                 </div>
             </div>
-            <!-- Single-product end -->
-            <!-- Single-product start -->
-            <div class="single-product">
-                <div class="product-photo">
-                    <a href="#">
-                        <img class="primary-photo" src="{{asset('assets/img/product/2.jpg')}}" alt="" />
-                        <img class="secondary-photo" src="{{asset('assets/img/product/4.jpg')}}" alt="" />
-                    </a>
-                    <div class="pro-action">
-                        <a href="wishlist.html" class="action-btn"><i class="sp-heart"></i><span>Wishlist</span></a>
-                        <a href="cart.html" class="action-btn"><i class="sp-shopping-cart"></i><span>Add to
-                                cart</span></a>
-                        <!-- <a href="#" class="action-btn"><i class="sp-compare-alt"></i><span>Compare</span></a> -->
-                    </div>
-                </div>
-                <div class="product-brief">
-                    <div class="pro-rating">
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-2"></i></a>
-                    </div>
-                    <h2><a href="single-product.html">Randomised Words</a></h2>
-                    <h3>$500.00</h3>
-                </div>
-            </div>
-            <!-- Single-product end -->
-            <!-- Single-product start -->
-            <div class="single-product">
-                <div class="product-photo">
-                    <a href="#">
-                        <img class="primary-photo" src="{{asset('assets/img/product/3.jpg')}}" alt="" />
-                        <img class="secondary-photo" src="{{asset('assets/img/product/1.jpg')}}" alt="" />
-                    </a>
-                    <div class="pro-action">
-                        <a href="wishlist.html" class="action-btn"><i class="sp-heart"></i><span>Wishlist</span></a>
-                        <a href="cart.html" class="action-btn"><i class="sp-shopping-cart"></i><span>Add to
-                                cart</span></a>
-                        <!-- <a href="#" class="action-btn"><i class="sp-compare-alt"></i><span>Compare</span></a> -->
-                    </div>
-                </div>
-                <div class="product-brief">
-                    <div class="pro-rating">
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-2"></i></a>
-                    </div>
-                    <h2><a href="single-product.html">Randomised Words</a></h2>
-                    <h3>$500.00</h3>
-                </div>
-            </div>
-            <!-- Single-product end -->
-            <!-- Single-product start -->
-            <div class="single-product">
-                <div class="product-photo">
-                    <a href="#">
-                        <img class="primary-photo" src="{{asset('assets/img/product/4.jpg')}}" alt="" />
-                        <img class="secondary-photo" src="{{asset('assets/img/product/2.jpg')}}" alt="" />
-                    </a>
-                    <div class="pro-action">
-                        <a href="wishlist.html" class="action-btn"><i class="sp-heart"></i><span>Wishlist</span></a>
-                        <a href="cart.html" class="action-btn"><i class="sp-shopping-cart"></i><span>Add to
-                                cart</span></a>
-                        <!-- <a href="#" class="action-btn"><i class="sp-compare-alt"></i><span>Compare</span></a> -->
-                    </div>
-                </div>
-                <div class="product-brief">
-                    <div class="pro-rating">
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-2"></i></a>
-                    </div>
-                    <h2><a href="single-product.html">Women's Fashion</a></h2>
-                    <h3>$450.00</h3>
-                </div>
-            </div>
-            <!-- Single-product end -->
-            <!-- Single-product start -->
-            <div class="single-product">
-                <div class="product-photo">
-                    <a href="#">
-                        <img class="primary-photo" src="{{asset('assets/img/product/5.jpg')}}" alt="" />
-                        <img class="secondary-photo" src="{{asset('assets/img/product/3.jpg')}}" alt="" />
-                    </a>
-                    <div class="pro-action">
-                        <a href="wishlist.html" class="action-btn"><i class="sp-heart"></i><span>Wishlist</span></a>
-                        <a href="cart.html" class="action-btn"><i class="sp-shopping-cart"></i><span>Add to
-                                cart</span></a>
-                        <!-- <a href="#" class="action-btn"><i class="sp-compare-alt"></i><span>Compare</span></a> -->
-                    </div>
-                </div>
-                <div class="product-brief">
-                    <div class="pro-rating">
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-2"></i></a>
-                    </div>
-                    <h2><a href="single-product.html">Randomised Words</a></h2>
-                    <h3>$500.00</h3>
-                </div>
-            </div>
-            <!-- Single-product end -->
-            <!-- Single-product start -->
-            <div class="single-product">
-                <div class="product-photo">
-                    <a href="#">
-                        <img class="primary-photo" src="{{asset('assets/img/product/1.jpg')}}" alt="" />
-                        <img class="secondary-photo" src="{{asset('assets/img/product/3.jpg')}}" alt="" />
-                    </a>
-                    <div class="pro-action">
-                        <a href="wishlist.html" class="action-btn"><i class="sp-heart"></i><span>Wishlist</span></a>
-                        <a href="cart.html" class="action-btn"><i class="sp-shopping-cart"></i><span>Add to
-                                cart</span></a>
-                        <!-- <a href="#" class="action-btn"><i class="sp-compare-alt"></i><span>Compare</span></a> -->
-                    </div>
-                </div>
-                <div class="product-brief">
-                    <div class="pro-rating">
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-2"></i></a>
-                    </div>
-                    <h2><a href="single-product.html">Randomised Words</a></h2>
-                    <h3>$500.00</h3>
-                </div>
-            </div>
+            @endforeach
             <!-- Single-product end -->
         </div>
     </div>
@@ -406,34 +187,6 @@
         </div>
     </div>
     <!-- PROMOTIONAL-BANNER END -->
-    <!-- ALL-PRODUCT-VIEW START -->
-    <div class="all-product-view-area margin-bottom-80">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="all-product-view">
-                        <div class="row">
-                            <div class="col-lg-7 col-md-8 offset-md-1 offset-lg-2">
-                                <div class="all-product-brief">
-                                    <h2>to view all products together !!</h2>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority
-                                        have suffered alteration in some form. There are many variations of passages of
-                                        Lorem Ipsum available, but the majority have suffered alteration in some form
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="all-product-view-link">
-                                    <a href="#" class="shop-now">View All</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ALL-PRODUCT-VIEW END -->
     <!-- FEATURED-AREA START -->
     <div class="featured-area margin-bottom-80">
         <div class="container">
@@ -468,43 +221,6 @@
         </div>
     </div>
     <!-- FEATURED-AREA END -->
-    <!-- BRAND-LOGO-AREA START -->
-    <div class="brand-logo-area margin-bottom-80">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5">
-                    <div class="brand-brief">
-                        <h2 class="border-left-right">they are with us</h2>
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a
-                            page when looking at its layout. </p>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="brand-logo fix">
-                        <div class="single-logo">
-                            <img src="{{asset('assets/img/brand/1.png')}}" alt="" />
-                        </div>
-                        <div class="single-logo">
-                            <img src="{{asset('assets/img/brand/2.png')}}" alt="" />
-                        </div>
-                        <div class="single-logo">
-                            <img src="{{asset('assets/img/brand/3.png')}}" alt="" />
-                        </div>
-                        <div class="single-logo">
-                            <img src="{{asset('assets/img/brand/4.png')}}" alt="" />
-                        </div>
-                        <div class="single-logo">
-                            <img src="{{asset('assets/img/brand/5.png')}}" alt="" />
-                        </div>
-                        <div class="single-logo">
-                            <img src="{{asset('assets/img/brand/6.png')}}" alt="" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- BRAND-LOGO-AREA END -->
     <!-- TESTIMONIAL-AREA START -->
     <div class="testimonial-area margin-bottom-80" style="background: rgba(0, 0, 0, 0) url('{{asset('assets/img/bg/testimonial-bg.jpg')}}') no-repeat scroll center center;">
         <div class="testimonial">
@@ -667,28 +383,5 @@
         </div>
     </div>
     <!-- BLOG-AREA END -->
-    <!-- SUBSCRIBE-AREA START -->
-    <div class="suscribe-area margin-bottom-80">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="subscribe">
-                        <div class="subscribe-brief">
-                            <h3>enter your email address</h3>
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                                suffered alteration in some form.</p>
-                        </div>
-                        <div class="subscribe-form">
-                            <form action="#">
-                                <input type="text" placeholder="Enter email to subscribe" />
-                                <button type="submit">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- SUBSCRIBE-AREA START END -->
 </section>
 @endsection

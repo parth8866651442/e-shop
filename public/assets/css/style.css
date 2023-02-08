@@ -473,7 +473,7 @@ label{
 .mega-menu span {
     float: left;
     padding-right: 30px;
-    width: 22%;
+    width: 33%;
 }
 .mega-menu span a {
   color: #000;
@@ -1867,11 +1867,11 @@ label{
 /* --- Promo-Banner 2 --- */
 
 .style-2 .promo-banner-3 {
-  background: rgba(0, 0, 0, 0) url("img/banner/promo-banner/3.jpg") no-repeat scroll center center / cover ;
+  background: rgba(0, 0, 0, 0) url("../img/banner/promo-banner/3.jpg") no-repeat scroll center center / cover ;
   width: 56%;
 }
 .style-2 .promo-banner-4 {
-  background: rgba(0, 0, 0, 0) url("img/banner/promo-banner/4.jpg") no-repeat scroll 0 0 / cover ;
+  background: rgba(0, 0, 0, 0) url("../img/banner/promo-banner/4.jpg") no-repeat scroll 0 0 / cover ;
   width: 44%;
 }
 .style-2 .promo-banner-3, .style-2 .promo-banner-4 {
@@ -2197,7 +2197,7 @@ label{
   text-transform: uppercase;
 }
 .shop-select {
-  background: rgba(0, 0, 0, 0) url("img/bg/select.png") no-repeat scroll right center;
+  background: rgba(0, 0, 0, 0) url("../img/bg/select.png") no-repeat scroll right center;
   border: 1px solid #dedede;
   font-size: 13px;
   font-weight: 300;
@@ -2271,13 +2271,17 @@ label{
   margin: 13px 0;
   text-transform: uppercase;
 }
+.widget-categories li > ul, li > ol {
+  margin-bottom: 0;
+  margin-left: 1.5em;
+}
 .widget-categories ul li {
-  border: 1px solid #dedede;
+  /* border: 1px solid #dedede; */
   border-bottom: 0px;
   font-size: 16px;
   font-weight: 400;
-  height: 52px;
-  line-height: 51px;
+  /* height: 52px; */
+  line-height: 35px;
   text-transform: uppercase;
 }
 .widget-categories ul li:last-child {

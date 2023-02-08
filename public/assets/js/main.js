@@ -116,7 +116,7 @@
 	/*----------------------------
 	 price-slider active
 	------------------------------ */
-	$("#slider-range").slider({
+	/* $("#slider-range").slider({
 		range: true,
 		min: 15,
 		max: 721,
@@ -130,7 +130,7 @@
 	$("#amount").val("$" + $("#slider-range").slider("values", 0) +
 		" - " + "$" + $("#slider-range").slider("values", 1));
 	$('input[name="first_price"]').val('$' + $("#slider-range").slider("values", 0));
-	$('input[name="last_price"]').val('$' + $("#slider-range").slider("values", 1));
+	$('input[name="last_price"]').val('$' + $("#slider-range").slider("values", 1)); */
 
 	/*---------------------
 	 Lightbox

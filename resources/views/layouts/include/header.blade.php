@@ -65,41 +65,14 @@
                     <div class="main-menu float-end">
                         <nav>
                             <ul>
-                                <li><a href="index.html">home</a></li>
-                                <li><a href="shop.html">mens</a></li>
-                                <!-- <li><a href="shop-list.html">womens</a></li> -->
-                                <li><a href="shop.html">shop</a>
-                                    <div class="mega-menu">
-                                        <span>
-                                            <a class="mega-menu-title" href="#">WOMEN CLOTH</a>
-                                            <a href="#">casual shirt</a>
-                                            <a href="#">rikke t-shirt</a>
-                                            <a href="#">mia top</a>
-                                            <a href="#">mia top</a>
-                                            <a href="#">muscle tee</a>
-                                            <a href="#">seine blouse</a>
-                                        </span>
-                                        <span>
-                                            <a class="mega-menu-title" href="#">MEN CLOTH</a>
-                                            <a href="#">casual shirt</a>
-                                            <a href="#">t-shirt</a>
-                                            <a href="#">t-shirt</a>
-                                            <a href="#">zeans</a>
-                                            <a href="#">trousers/ pants </a>
-                                            <a href="#">sweamwear</a>
-                                        </span>
-                                        <span>
-                                            <a class="mega-menu-title" href="#">WOMEN JEWELRY</a>
-                                            <a href="#">necklace</a>
-                                            <a href="#">samhar cuff</a>
-                                            <a href="#">samhar cuff</a>
-                                            <a href="#">samhar cuff</a>
-                                            <a href="#">nail set</a>
-                                            <a href="#">drop earrings</a>
-                                        </span>
-                                        <span class="mega-menu-photo">
+                                <li><a href="{{route('home')}}">home</a></li>
+                                <li><a href="#">Products</a></li>
+                                <li><a href="#">shop</a>
+                                <div class="mega-menu">
+                                        {{Helper::getHeaderCategory()}}
+                                        <!-- <span class="mega-menu-photo">
                                             <a href="#"><img src="{{asset('assets/img/megamenu/1.jpg')}}" alt="" /></a>
-                                        </span>
+                                        </span> -->
                                     </div>
                                 </li>
                                 <li><a href="blog.html">blog</a></li>
