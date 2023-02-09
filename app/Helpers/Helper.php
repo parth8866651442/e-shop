@@ -15,12 +15,12 @@ class Helper
             foreach($menu as $parentCat){
         ?>
             <span>
-                <a class="mega-menu-title" href="#"><?php echo $parentCat->title; ?></a>
+                <a class="mega-menu-title" href="<?php echo route('getCategoryWiseproducts',$parentCat->slug)?>"><?php echo $parentCat->title; ?></a>
                 <?php
                     // child category
                     foreach($parentCat->getChildCategory as $subCategory){
                 ?>
-                    <a href="#"><?php echo $subCategory->title; ?></a>
+                    <a href="<?php echo route('getSubCategoryWiseproducts',[$parentCat->slug,$subCategory->slug])?>"><?php echo $subCategory->title; ?></a>
                 <?php } ?>
             </span>
         <?php

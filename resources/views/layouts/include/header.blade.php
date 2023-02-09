@@ -23,9 +23,9 @@
                         <ul>
                             <li><a href="#">Account <span><i class="sp-gear"></i></span></a>
                                 <ul class="submenu">
-                                    <li><a href="my-account.html">My Account</a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
-                                    <li><a href="cart.html">Checkout</a></li>
+                                    <li><a href="#">My Account</a></li>
+                                    <li><a href="#">Wishlist</a></li>
+                                    <li><a href="#">Checkout</a></li>
                                     <!-- Authentication Links -->
                                     @guest
                                         @if (Route::has('login'))
@@ -58,7 +58,7 @@
             <div class="row">
                 <div class="col-lg-2 col-6">
                     <div class="logo">
-                        <a href="index.html"><img src="{{asset('assets/img/logo.png')}}" alt="" /></a>
+                        <a href="{{route('home')}}"><img src="{{asset('assets/img/logo.png')}}" alt="" /></a>
                     </div>
                 </div>
                 <div class="col-lg-8 d-none d-lg-block">
@@ -66,18 +66,18 @@
                         <nav>
                             <ul>
                                 <li><a href="{{route('home')}}">home</a></li>
-                                <li><a href="#">Products</a></li>
-                                <li><a href="#">shop</a>
-                                <div class="mega-menu">
+                                <li><a href="{{route('getAllproducts')}}">Products</a></li>
+                                <li><a href="javascript:void(0);">shop</a>
+                                    <div class="mega-menu">
                                         {{Helper::getHeaderCategory()}}
                                         <!-- <span class="mega-menu-photo">
                                             <a href="#"><img src="{{asset('assets/img/megamenu/1.jpg')}}" alt="" /></a>
                                         </span> -->
                                     </div>
                                 </li>
-                                <li><a href="blog.html">blog</a></li>
-                                <li><a href="about.html">about</a></li>
-                                <li><a href="contact.html">contact</a></li>
+                                <li><a href="{{route('blog')}}">blog</a></li>
+                                <li><a href="{{route('about')}}">about</a></li>
+                                <li><a href="{{route('contact')}}">contact</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -140,12 +140,12 @@
                     <div class="mobile-menu">
                         <nav id="dropdown">
                             <ul>
-                                <li><a href="index.html">home</a></li>
-                                <li><a href="shop.html">mens</a></li>
-                                <li><a href="shop.html">shop</a></li>
-                                <li><a href="blog.html">blog</a></li>
-                                <li><a href="about.html">About</a></li>
-                                <li><a href="contact.html">contact</a></li>
+                                <li><a href="#">home</a></li>
+                                <li><a href="#">mens</a></li>
+                                <li><a href="#">shop</a></li>
+                                <li><a href="#">blog</a></li>
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">contact</a></li>
                             </ul>
                         </nav>
                     </div>

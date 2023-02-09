@@ -107,7 +107,7 @@
             @foreach($products as $product)
             <div class="single-product">
                 <div class="product-photo">
-                    <a href="#">
+                    <a href="{{route('getProductDetail',$product->slug)}}">
                         <img class="primary-photo" src="{{imageUrl($product->productOneImage->name, 'product','product.jpg','false')}}" alt="" />
                         <!-- <img class="primary-photo" src="{{asset('assets/img/product/1.jpg')}}" alt="" /> -->
                         <!-- <img class="secondary-photo" src="{{asset('assets/img/product/5.jpg')}}" alt="" /> -->
@@ -125,7 +125,7 @@
                         <a href="#"><i class="sp-star rating-1"></i></a>
                         <a href="#"><i class="sp-star rating-2"></i></a>
                     </div>
-                    <h2><a href="#">{{$product->title}}</a></h2>
+                    <h2><a href="{{route('getProductDetail',$product->slug)}}">{{$product->title}}</a></h2>
                     <h3>
                         @php
                             $after_discount=($product->price-($product->price*$product->discount)/100);
@@ -153,7 +153,7 @@
                                 <h2>sale !</h2>
                                 <h3>up to <span>30%</span> off</h3>
                                 <h4>mens best products</h4>
-                                <a class="shop-now active-shop-now" href="cart.html">shop now</a>
+                                <a class="shop-now active-shop-now" href="#">shop now</a>
                             </div>
                         </div>
                     </div>
@@ -176,7 +176,7 @@
                                         <li>best manufacturing</li>
                                         <li>high quality materials</li>
                                     </ul>
-                                    <a class="shop-now" href="cart.html">pre order</a>
+                                    <a class="shop-now" href="#">pre order</a>
                                 </div>
                             </div>
                         </div>
@@ -337,7 +337,7 @@
                                 <a href="#"><i class="sp-like"></i>120 like</a>
                                 <a href="#"><i class="sp-comment"></i>60 comment</a>
                             </div>
-                            <a class="shop-now" href="single-blog.html">Read more</a>
+                            <a class="shop-now" href="#">Read more</a>
                         </div>
                     </div>
                 </div>
@@ -356,7 +356,7 @@
                                 <a href="#"><i class="sp-like"></i>120 like</a>
                                 <a href="#"><i class="sp-comment"></i>60 comment</a>
                             </div>
-                            <a class="shop-now" href="single-blog.html">Read more</a>
+                            <a class="shop-now" href="#">Read more</a>
                         </div>
                     </div>
                 </div>
@@ -375,7 +375,7 @@
                                 <a href="#"><i class="sp-like"></i>120 like</a>
                                 <a href="#"><i class="sp-comment"></i>60 comment</a>
                             </div>
-                            <a class="shop-now" href="single-blog.html">Read more</a>
+                            <a class="shop-now" href="#">Read more</a>
                         </div>
                     </div>
                 </div>

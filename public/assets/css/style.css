@@ -3044,7 +3044,16 @@ h3.widget-title-modal {
   margin-top: 42px;
 }
 .about-banner-area {
-  background: rgba(0, 0, 0, 0) url("img/banner/about-banner.jpg") repeat scroll center center;
+  /* background: rgba(0, 0, 0, 0) url("img/banner/about-banner.jpg") repeat scroll center center; */
+  background-position-x: center;
+  background-position-y: center;
+  background-size: initial;
+  background-repeat-x: repeat;
+  background-repeat-y: repeat;
+  background-attachment: scroll;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: rgba(0, 0, 0, 0);
   background-size: cover ;
   -webkit-background-size: cover ;
 }

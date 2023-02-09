@@ -22,4 +22,17 @@ class HomeController extends Controller
        
         return view('home',compact('banners','categories','products'));
     }
+    
+    public function blog(){
+        return view('blog');  
+    }
+
+    public function about(){
+        return view('about');
+    }
+
+    public function contact(){
+        return view('contact');
+    }
+
 }

@@ -17,16 +17,17 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/blog', [App\Http\Controllers\HomeController::class, 'blog'])->name('blog');
+Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
+Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
 
 // -------- Product -------- //
 Route::group(['prefix' => 'product'], function () {
+    Route::get('/products', [App\Http\Controllers\ProductController::class,'products'])->name('getAllproducts');
     Route::get('/category-wise-products/{slug}', [App\Http\Controllers\ProductController::class,'categoryWiseproducts'])->name('getCategoryWiseproducts');
-    // Route::get('/add', [App\Http\Controllers\UsersController::class,'form'])->name('addUser');
-    // Route::post('/store', [App\Http\Controllers\UsersController::class,'store'])->name('storeUser');
-    // Route::get('/edit/{id}', [App\Http\Controllers\UsersController::class,'form'])->name('editUser');
-    // Route::post('/update/{id}', [App\Http\Controllers\UsersController::class,'update'])->name('updateUser');
-    // Route::get('/delete/{id}', [App\Http\Controllers\UsersController::class,'destroy'])->name('deleteUser');
-    // Route::post('/check_user_email', [App\Http\Controllers\UsersController::class,'checkuserEmailRepeat'])->name('checkUserEmailRepeat');
+    Route::get('/sub-category-wise-products/{slug}/{sub_slug}', [App\Http\Controllers\ProductController::class,'subCategoryWiseproducts'])->name('getSubCategoryWiseproducts');
+    Route::match(['get', 'post'], '/filter',[App\Http\Controllers\ProductController::class,'filterParams'])->name('setFilterParams');
+    Route::get('/product-info/{slug}', [App\Http\Controllers\ProductController::class,'productDetail'])->name('getProductDetail');
 });
 
 // Route::group(['middleware' => ['auth:web']], function () {});

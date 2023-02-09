@@ -1,10 +1,9 @@
 @extends('layouts.app')
-@section('title','E-SHOP || HOME PAGE')
+@section('title','E-SHOP || PRODUCT PAGE')
 @section('content')
 <section class="page-content">
     <!-- PAGE-BANNER START -->
-    <div class="page-banner-area margin-bottom-80"
-        style="background-image: url('{{asset('assets/img/banner/page-banner/1.jpg')}}')">
+    <div class="page-banner-area margin-bottom-80" style="background-image: url('{{asset('assets/img/banner/page-banner/1.jpg')}}')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -23,7 +22,7 @@
     <!-- SHOP-AREA START -->
     <div class="shop-area margin-bottom-80">
         <div class="container">
-            <form action="#" method="POST">
+            <form action="{{route('setFilterParams')}}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-lg-12">
@@ -36,12 +35,11 @@
                             <ul>
                                 @foreach($categories as $parentCat)
                                 <li>
-                                    <a
-                                        href="{{route('getCategoryWiseproducts',$parentCat->slug)}}">{{$parentCat->title}}</a>
+                                    <a href="{{route('getCategoryWiseproducts',$parentCat->slug)}}">{{$parentCat->title}}</a>
                                     @if(isset($parentCat->getChildCategory))
                                     <ul>
                                         @foreach($parentCat->getChildCategory as $subCategory)
-                                        <li><a href="#">{{$subCategory->title}}</a></li>
+                                        <li><a href="{{route('getSubCategoryWiseproducts',[$parentCat->slug,$subCategory->slug])}}">{{$subCategory->title}}</a></li>
                                         @endforeach
                                     </ul>
                                     @endif
@@ -49,19 +47,23 @@
                                 @endforeach
                             </ul>
                         </aside>
+                        <input type="hidden" name="slug" value="{{isset($slug)? $slug : ''}}">
+                        @if(isset($subSlug))
+                        <input type="hidden" name="subSlug" value="{{isset($subSlug)? $subSlug : ''}}">
+                        @endif
                         <!-- widget-categories end -->
                         <!-- shop-filter start -->
                         <aside class="widget shop-filter">
                             <h3 class="sidebar-title">price</h3>
                             <div class="info_widget">
-                                <div id="slider-range"></div>
+                                <div id="slider-range" data-min="0" data-max="{{$maxPrice}}"></div>
                                 <div id="amount">
-                                    <input type="text" class="first_price" />
-                                    <input type="text" class="last_price" value="{{$maxPrice}}" />
+                                    <input type="text" class="first_price" readonly />
+                                    <input type="text" class="last_price" value="{{$maxPrice}}" readonly/>
                                     <input type="hidden" name="price_range" id="price_range"
-                                        value="@if(!empty($_GET['price'])){{$_GET['price']}}@endif" />
+                                        value="@if(!empty($_GET['price_range'])){{$_GET['price_range']}}@endif" />
                                 </div>
-                                <button class="shop-now">Filter</button>
+                                <button type="submit" class="shop-now">Filter</button>
                             </div>
                         </aside>
                         <!-- shop-filter end -->
@@ -161,20 +163,15 @@
                                 </ul>
                                 <div class="short-by d-none d-lg-block">
                                     <span>short by</span>
-                                    <select class="shop-select" onchange="this.form.submit();">
+                                    <select class="shop-select" name="sortBy" onchange="this.form.submit();">
                                         <option value="">Default</option>
-                                        <option value="title" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='title' )
-                                            selected @endif>Name</option>
-                                        <option value="price" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='price' )
-                                            selected @endif>Price</option>
-                                        <option value="category" @if(!empty($_GET['sortBy']) &&
-                                            $_GET['sortBy']=='category' ) selected @endif>Category</option>
+                                        <option value="title" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='title' ) selected @endif>Name</option>
+                                        <option value="price" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='price' ) selected @endif>Price</option>
                                     </select>
                                 </div>
                                 <div class="short-by showing d-none d-lg-block">
                                     <span>showing</span>
-                                    <select class="shop-select" onchange="this.form.submit();">
-                                        <option value="">Default</option>
+                                    <select class="shop-select" name='show' onchange="this.form.submit();">
                                         <option value="9" @if(!empty($_GET['show']) && $_GET['show']=='9' ) selected
                                             @endif>09</option>
                                         <option value="15" @if(!empty($_GET['show']) && $_GET['show']=='15' ) selected
@@ -207,29 +204,23 @@
                                         <div class="col-xl-4 col-md-6">
                                             <div class="single-product">
                                                 <div class="product-photo">
-                                                    <a href="#">
-                                                        <img class="primary-photo"
-                                                            src="{{imageUrl($product->productOneImage->name, 'product','product.jpg','false')}}"
-                                                            alt="" />
-                                                        <!-- <img class="secondary-photo" src="{{asset('assets/img/shop/9.jpg')}}" alt="" /> -->
+                                                    <a href="{{route('getProductDetail',$product->slug)}}">
+                                                        <img class="primary-photo" src="{{imageUrl($product->productOneImage->name, 'product','product.jpg','false')}}" alt="" />
+                                                        <img class="secondary-photo" src="{{imageUrl($product->productOneImage->name, 'product','product.jpg','false')}}" alt="" />
                                                     </a>
                                                     <div class="pro-action">
-                                                        <a href="#" class="action-btn"><i
-                                                                class="sp-heart"></i><span>Wishlist</span></a>
-                                                        <a href="#" class="action-btn"><i
-                                                                class="sp-shopping-cart"></i><span>Add to
-                                                                cart</span></a>
+                                                        <a href="#" class="action-btn"><i class="sp-heart"></i><span>Wishlist</span></a>
+                                                        <a href="#" class="action-btn"><i class="sp-shopping-cart"></i><span>Add to cart</span></a>
                                                     </div>
                                                 </div>
                                                 <div class="product-brief">
-                                                    <h2><a href="#">{{$product->title}}</a></h2>
+                                                    <h2><a href="{{route('getProductDetail',$product->slug)}}">{{$product->title}}</a></h2>
                                                     <h3>
                                                         @php
                                                         $after_discount=($product->price-($product->price*$product->discount)/100);
                                                         @endphp
                                                         ${{number_format($after_discount,2)}}
-                                                        <del
-                                                            style="padding-left:4%;">${{number_format($product->price,2)}}</del>
+                                                        <del style="padding-left:4%;">${{number_format($product->price,2)}}</del>
                                                     </h3>
                                                 </div>
                                             </div>
@@ -249,7 +240,7 @@
                                         <div class="col-lg-12">
                                             <div class="single-product">
                                                 <div class="product-photo">
-                                                    <a href="#">
+                                                    <a href="{{route('getProductDetail',$product->slug)}}">
                                                         <img class="primary-photo"
                                                             src="{{imageUrl($product->productOneImage->name, 'product','product.jpg','false')}}"
                                                             alt="" />
@@ -264,23 +255,24 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-brief">
-                                                    <h2><a href="#">{{$product->title}}</a></h2>
+                                                    <h2><a href="{{route('getProductDetail',$product->slug)}}">{{$product->title}}</a></h2>
                                                     <h3>
                                                         @php
                                                         $after_discount=($product->price-($product->price*$product->discount)/100);
                                                         @endphp
                                                         ${{number_format($after_discount,2)}}
-                                                        <del
-                                                            style="padding-left:4%;">${{number_format($product->price,2)}}</del>
+                                                        <del style="padding-left:4%;">${{number_format($product->price,2)}}</del>
                                                     </h3>
                                                     <div class="porduct-desc">
                                                         <p>{{$product->summary}}</p>
                                                     </div>
                                                     <div class="pro-quick-view">
                                                         <div class="quick-view">
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#productModal" title="Quick View">Quick
-                                                                View</a>
+                                                            @php 
+                                                            $data = ['id'=>$product->id,'title'=>$product->title,'slug'=>$product->slug,
+                                                            "summary"=>$product->summary,"size"=>$product->size,"condition"=>$product->condition,"price"=>$product->price,"discount"=>$product->discount, "image"=>imageUrl($product->productOneImage->name, 'product','product.jpg','false')];
+                                                            @endphp
+                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#productModal" title="Quick View" onclick="productInfo({{json_encode($data)}})">Quick View</a>
                                                         </div>
                                                         <div class="pro-rating">
                                                             <a href="#"><i class="sp-star rating-1"></i></a>
@@ -400,52 +392,8 @@
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <div class="modal-product">
-                    <div class="product-images">
-                        <div class="main-image images">
-                            <img alt="#" src="img/quickview-photo.jpg" />
-                        </div>
-                    </div><!-- .product-images -->
-
-                    <div class="product-info">
-                        <h1>Aenean eu tristique</h1>
-                        <div class="price-box-3">
-                            <hr />
-                            <div class="s-price-box">
-                                <span class="new-price">$160.00</span>
-                                <span class="old-price">$190.00</span>
-                            </div>
-                            <hr />
-                        </div>
-                        <a href="shop.html" class="see-all">See all features</a>
-                        <div class="quick-add-to-cart">
-                            <form method="post" class="cart">
-                                <div class="numbers-row">
-                                    <input type="number" id="french-hens" value="3">
-                                </div>
-                                <button class="single_add_to_cart_button" type="submit">Add to cart</button>
-                            </form>
-                        </div>
-                        <div class="quick-desc">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est
-                            tristique auctor. Donec non est at libero.
-                        </div>
-                        <div class="social-sharing">
-                            <div class="widget widget_socialsharing_widget">
-                                <h3 class="widget-title-modal">Share this product</h3>
-                                <ul class="social-icons">
-                                    <li><a target="_blank" title="Facebook" href="#" class="facebook social-icon"><i
-                                                class="sp-facebook"></i></a></li>
-                                    <li><a target="_blank" title="Twitter" href="#" class="twitter social-icon"><i
-                                                class="sp-twitter"></i></a></li>
-                                    <li><a target="_blank" title="Google +" href="#" class="gplus social-icon"><i
-                                                class="sp-google"></i></a></li>
-                                    <li><a target="_blank" title="LinkedIn" href="#" class="linkedin social-icon"><i
-                                                class="sp-linkedin"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div><!-- .product-info -->
+                <div class="modal-product" id="product-info">
+                    
                 </div><!-- .modal-product -->
             </div><!-- .modal-body -->
         </div><!-- .modal-content -->
@@ -456,27 +404,49 @@
 /*----------------------------
 	 price-slider active
 	------------------------------ */
+
+const max_value = parseInt( $("#slider-range").data('max'))+100;
+const min_value = parseInt($("#slider-range").data('min'));
+
+let price_range = min_value+'-'+max_value;
+if($("#price_range").length > 0 && $("#price_range").val()){
+    price_range = $("#price_range").val().trim();
+}
+
+let price = price_range.split('-');
+    
 $("#slider-range").slider({
     range: true,
-    min: 15,
-    max: <?php print($maxPrice)+100; ?>,
-    values: [15, <?php print($maxPrice)+100; ?>],
+    min: min_value,
+    max: max_value,
+    values: price,
     slide: function(event, ui) {
+
         $("#amount").val("$" + ui.values[0] + " - " + "$" + ui.values[1]);
         $('.first_price').val('$' + ui.values[0]);
         $('.last_price').val('$' + ui.values[1]);
         $('input[name="price_range"]').val(ui.values[0] + "-" + ui.values[1]);
     },
 });
-$("#amount").val("$" + $("#slider-range").slider("values", 0) +
-    " - " + "$" + $("#slider-range").slider("values", 1));
+$("#amount").val("$" + $("#slider-range").slider("values", 0) + " - " + "$" + $("#slider-range").slider("values", 1));
 $('.first_price').val('$' + $("#slider-range").slider("values", 0));
 $('.last_price').val('$' + $("#slider-range").slider("values", 1));
 
-$('#productModal').modal({
-    keyboard: false,
-    backdrop: 'static'
-}); 
+let productModal = document.getElementById('productModal');
+var myModal = new bootstrap.Modal(productModal, {
+  keyboard: false,
+  backdrop: 'static'
+});
+
+function productInfo(data){
+    let after_discount = (data.price-(data.price*data.discount)/100);
+
+    let html =`<div class="product-images"><div class="main-image images"><img alt="#" src="${data.image}" /></div></div>
+    <div class="product-info"><h1>${data.title}</h1><div class="price-box-3"><hr /><div class="s-price-box"><span class="new-price">$${parseFloat(after_discount).toFixed(2)}</span><span class="old-price">$${parseFloat(data.price).toFixed(2)}</span></div><hr /></div>
+    <a href="<?php echo route('getProductDetail','')?>/${data.slug}" class="see-all">See all features</a><div class="quick-add-to-cart"><form method="post" class="cart"><div class="numbers-row"><input type="number" min=0 max="100" id="french-hens" value="1"></div><button class="single_add_to_cart_button" type="submit">Add to cart</button></form></div><div class="quick-desc">${data.summary}</div></div>`;
+
+    $('#product-info').html(html);
+}
 
 </script>
 @endpush

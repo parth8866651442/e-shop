@@ -39,7 +39,11 @@ class Product extends Model
     public function productOneImage(){
         return $this->hasOne('App\Models\ProductImage','product_id','id')->orderBy('id','ASC');
     }
-    
+
+    public function parentCategory(){
+        return $this->hasOne('App\Models\Category','id','category_id');
+    }
+
     public function childCategory(){
         return $this->hasOne('App\Models\Category','id','child_category_id');
     }
