@@ -23,7 +23,7 @@ Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])-
 
 // -------- Product -------- //
 Route::group(['prefix' => 'product'], function () {
-    Route::get('/products', [App\Http\Controllers\ProductController::class,'products'])->name('getAllproducts');
+    Route::get('/all', [App\Http\Controllers\ProductController::class,'products'])->name('getAllproducts');
     Route::get('/category-wise-products/{slug}', [App\Http\Controllers\ProductController::class,'categoryWiseproducts'])->name('getCategoryWiseproducts');
     Route::get('/sub-category-wise-products/{slug}/{sub_slug}', [App\Http\Controllers\ProductController::class,'subCategoryWiseproducts'])->name('getSubCategoryWiseproducts');
     Route::match(['get', 'post'], '/filter',[App\Http\Controllers\ProductController::class,'filterParams'])->name('setFilterParams');

@@ -151,7 +151,7 @@ $(document).ready(function() {
                 success: function(res) {
                     if (res.status) {
                         toastr.success(res.msg);
-                        setInterval(() => {
+                        setTimeout(() => {
                             window.location.replace(res.url);
                         }, 300);
                     } else {

@@ -173,14 +173,14 @@ $(document).ready(function() {
                 success: function(res) {
                     if (res.status) {
                         toastr.success(res.msg);
-                        setInterval(() => {
+                        setTimeout(() => {
                             window.location.replace(res.base_url+res.url);
                         }, 300);
                     } else {
                         toastr.error(res.msg);
                         $('#password').val('');
                         $('#password-confirm').val('');
-                        setInterval(() => {
+                        setTimeout(() => {
                             window.location.replace(res.url);
                         }, 300);
                     }
