@@ -23,7 +23,7 @@
                                     <span><img src="{{asset('assets/img/slider/slider-1/slider-border.png')}}" alt="" /></span>
                                 </div>
                                 <div class="wow fadeInUpBig" data-wow-duration="1.8s" data-wow-delay="0.9s">
-                                    <p class="slider-brief">{!! html_entity_decode($banner->description) !!}</p>
+                                    <p class="slider-brief">{!! ($banner->description) !!}</p>
                                 </div>
                                 <!-- <div class="wow fadeInUpBig" data-wow-duration="2s" data-wow-delay="1.1s">
                                     <a href="#" class="shop-now">shop now</a>

@@ -134,7 +134,7 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="description">
                                 <div class="single-pro-product-description">
-                                    {{$product->description}}
+                                    {!! ($product->description) !!}
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="reviews">
