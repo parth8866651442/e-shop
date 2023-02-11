@@ -1,9 +1,9 @@
 <!-- Meta Tag -->
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-@yield('meta')
-<!-- <meta name="description" content="Shopick – Fashion Store HTML Template is a clean and elegant design – suitable for selling clothing, fashion, high fashion, men fashion, women fashion, accessories, digital, kids, watches, jewelries, shoes, kids, furniture, sports, tools….. It has a fully responsive width adjusts automatically to any screen size or resolution."> -->
+<meta name="description" content="Shopick – Fashion Store HTML Template is a clean and elegant design – suitable for selling clothing, fashion, high fashion, men fashion, women fashion, accessories, digital, kids, watches, jewelries, shoes, kids, furniture, sports, tools….. It has a fully responsive width adjusts automatically to any screen size or resolution.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+@yield('meta')
 <title>@yield('title')</title>
 
 <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/img/favicon.ico')}}">

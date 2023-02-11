@@ -75,7 +75,7 @@
                                         </span> -->
                                     </div>
                                 </li>
-                                <li><a href="{{route('blog')}}">blog</a></li>
+                                <li><a href="{{route('getAllblogs')}}">blog</a></li>
                                 <li><a href="{{route('about')}}">about</a></li>
                                 <li><a href="{{route('contact')}}">contact</a></li>
                             </ul>

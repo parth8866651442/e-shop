@@ -322,63 +322,32 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-blog">
-                        <div class="blog-photo">
-                            <a href="#"><img src="{{asset('assets/img/blog/1.jpg')}}" alt="" /></a>
-                            <div class="blog-post-date">
-                                <span>15th</span>
-                                <span>Jan</span>
+                @if(count($latestPosts)>0)
+                    @foreach($latestPosts as $post)
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-blog">
+                                <div class="blog-photo">
+                                    <a href="{{route('getBlogDetail',[$post->getCategory->slug,$post->slug])}}"><img src="{{imageUrl($post->image, 'post','post.jpg','false')}}" alt="" /></a>
+                                    <div class="blog-post-date">
+                                        <span>{{$post->created_at->format('D d')}}th</span>
+                                        <span>{{$post->created_at->format('M')}}</span>
+                                    </div>
+                                </div>
+                                <div class="blog-brief">
+                                    <a href="{{route('getBlogDetail',[$post->getCategory->slug,$post->slug])}}"><h6>{{$post->title}}</h6></a>
+                                    <p>{{$post->summary}}</p>
+                                    <div class="like-comment">
+                                        <a href="#"><i class="sp-like"></i>120 like</a>
+                                        <a href="#"><i class="sp-comment"></i>60 comment</a>
+                                    </div>
+                                    <a class="shop-now" href="{{route('getBlogDetail',[$post->getCategory->slug,$post->slug])}}">Read more</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="blog-brief">
-                            <p>Lorem ipsum dolr sit amet, It is not simply random text. It has roots...</p>
-                            <div class="like-comment">
-                                <a href="#"><i class="sp-like"></i>120 like</a>
-                                <a href="#"><i class="sp-comment"></i>60 comment</a>
-                            </div>
-                            <a class="shop-now" href="#">Read more</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-blog">
-                        <div class="blog-photo">
-                            <a href="#"><img src="{{asset('assets/img/blog/2.jpg')}}" alt="" /></a>
-                            <div class="blog-post-date">
-                                <span>13th</span>
-                                <span>Feb</span>
-                            </div>
-                        </div>
-                        <div class="blog-brief">
-                            <p>Lorem ipsum dolr sit amet, It is not simply random text. It has roots...</p>
-                            <div class="like-comment">
-                                <a href="#"><i class="sp-like"></i>120 like</a>
-                                <a href="#"><i class="sp-comment"></i>60 comment</a>
-                            </div>
-                            <a class="shop-now" href="#">Read more</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-blog">
-                        <div class="blog-photo">
-                            <a href="#"><img src="{{asset('assets/img/blog/3.jpg')}}" alt="" /></a>
-                            <div class="blog-post-date">
-                                <span>25th</span>
-                                <span>Feb</span>
-                            </div>
-                        </div>
-                        <div class="blog-brief">
-                            <p>Lorem ipsum dolr sit amet, It is not simply random text. It has roots...</p>
-                            <div class="like-comment">
-                                <a href="#"><i class="sp-like"></i>120 like</a>
-                                <a href="#"><i class="sp-comment"></i>60 comment</a>
-                            </div>
-                            <a class="shop-now" href="#">Read more</a>
-                        </div>
-                    </div>
-                </div>
+                    @endforeach
+                @else
+                    <h4 class="text-warning" style="margin:100px auto;">There are no latest posts.</h4>
+                @endif
             </div>
         </div>
     </div>

@@ -17,7 +17,7 @@ class ProductController extends Controller
             $sortBy = $request->sortBy;
         }
 
-        $show = 10;
+        $show = PAGINATE;
         if(isset($request->show)){
             $show = $request->show;
         }
@@ -54,7 +54,7 @@ class ProductController extends Controller
                 $sortBy = $request->sortBy;
             }
 
-            $show = 10;
+            $show = PAGINATE;
             if(isset($request->show)){
                 $show = $request->show;
             }
@@ -94,7 +94,7 @@ class ProductController extends Controller
                 $sortBy = $request->sortBy;
             }
 
-            $show = 10;
+            $show = PAGINATE;
             if(isset($request->show)){
                 $show = $request->show;
             }
@@ -151,7 +151,7 @@ class ProductController extends Controller
                 return redirect()->route('home')->with('error', 'Product not available');
             }
 
-            $relatedProduct=Product::with('productOneImage')->where('id','!=',$product->id)->where(['category_id'=>$product->category_id,'is_active'=>1,'is_deleted'=>0])->orderBy('created_at','DESC')->limit(10)->get();
+            $relatedProduct=Product::with('productOneImage')->where('id','!=',$product->id)->where(['category_id'=>$product->category_id,'is_active'=>1,'is_deleted'=>0])->orderBy('created_at','DESC')->limit(PAGINATE)->get();
             
             return view('product-detail',compact('product','slug','relatedProduct'));
         }

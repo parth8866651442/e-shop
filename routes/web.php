@@ -17,7 +17,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/blog', [App\Http\Controllers\HomeController::class, 'blog'])->name('blog');
+// Route::get('/blog', [App\Http\Controllers\HomeController::class, 'blog'])->name('blog');
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
 Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
 
@@ -30,5 +30,9 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('/product-info/{slug}', [App\Http\Controllers\ProductController::class,'productDetail'])->name('getProductDetail');
 });
 
-// Route::group(['middleware' => ['auth:web']], function () {});
-
+// -------- blog -------- //
+Route::group(['prefix' => 'blogs'], function () {
+    Route::get('/', [App\Http\Controllers\BlogsController::class,'index'])->name('getAllblogs');
+    Route::get('/{slug}', [App\Http\Controllers\BlogsController::class,'categoryWiseBlogs'])->name('getCategoryWiseBlogs');
+    Route::get('/{slug}/{sub_slug}', [App\Http\Controllers\BlogsController::class,'blogDetail'])->name('getBlogDetail');
+});
