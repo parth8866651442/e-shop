@@ -100,3 +100,10 @@ if (!function_exists('numberToWord')) {
         return '';
     }
 }
+
+if (! function_exists('short_string')) {
+    function short_string($str,$end = 10) {
+            $rest = substr($str, 0, $end);
+            return $rest;
+    }
+}

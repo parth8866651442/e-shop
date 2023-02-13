@@ -3,6 +3,7 @@
 namespace App\Helpers;
 use Illuminate\Support\Arr;
 use App\Models\Category;
+use App\Models\Cart;
 
 class Helper
 {
@@ -25,6 +26,38 @@ class Helper
             </span>
         <?php
             }
+        }
+    }
+
+    public static function cartCount(){
+       
+        if(auth()->check()){
+            $user_id=auth()->user()->id;
+            return Cart::where('user_id',$user_id)->where('order_id',null)->count('id');
+        }
+        else{
+            return 0;
+        }
+    }
+
+    public static function getAllProductFromCart(){
+        if(auth()->check()){
+            $user_id=auth()->user()->id;
+            return Cart::with('productLimit','productLimit.productOneImage')->where('user_id',$user_id)->where('order_id',null)->orderBy('created_at','ASC')->limit(3)->get();
+        }
+        else{
+            return 0;
+        }
+    }
+
+    // Total amount cart
+    public static function totalCartPrice(){
+        if(auth()->check()){
+            $user_id=auth()->user()->id;
+            return Cart::where('user_id',$user_id)->where('order_id',null)->sum('amount');
+        }
+        else{
+            return 0;
         }
     }
 }

@@ -31,6 +31,7 @@
                         <div class="new-customers">
                             <h2 class="login-title">LOGIN CUSTOMERS</h2>
                             <div class="row">
+                                <input type="hidden" name="to" value="{{!empty($_GET['to']) ? $_GET['to'] : ''}}">
                                 <div class="col-lg-12">
                                     <input type="email" class="custom-form" name="email" id="email" placeholder="Email Address" value="{{ old('email') }}" required />
                                 </div>
@@ -152,7 +153,11 @@ $(document).ready(function() {
                     if (res.status) {
                         toastr.success(res.msg);
                         setTimeout(() => {
-                            window.location.replace(res.url);
+                            if(res.to != null){
+                                window.location.replace(res.to);
+                            }else{
+                                window.location.replace(res.url);
+                            }
                         }, 300);
                     } else {
                         toastr.error(res.msg);

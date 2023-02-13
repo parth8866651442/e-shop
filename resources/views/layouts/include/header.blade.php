@@ -86,41 +86,31 @@
                     <div class="total-cart">
                         <ul>
                             <li>
-                                <a href="#">
-                                    <span class="total-cart-number">2 Item</span>
+                                <a href="{{route('getCarts')}}">
+                                    <span class="total-cart-number">{{Helper::cartCount()}} Item</span>
                                     <span><i class="sp-shopping-bag"></i></span>
                                 </a>
                                 <!-- Mini-cart-content Start -->
                                 <div class="total-cart-brief">
-                                    <div class="cart-photo-details">
-                                        <div class="cart-photo">
-                                            <a href="#"><img src="{{asset('assets/img/total-cart/1.jpg')}}" alt="" /></a>
+                                    @foreach(Helper::getAllProductFromCart() as $data)
+                                        <div class="cart-photo-details">
+                                            <div class="cart-photo">
+                                                <a href="{{route('getProductDetail',$data->productLimit['slug'])}}"><img src="{{imageUrl($data->productLimit->productOneImage->name, 'product','product.jpg','false')}}" alt="" /></a>
+                                            </div>
+                                            <div class="cart-photo-brief">
+                                                <a href="{{route('getProductDetail',$data->productLimit['slug'])}}" target="_blank">{{short_string($data->productLimit['title'])}}...</a>
+                                                <span class="quantity">{{$data->quantity}} x - ${{number_format($data->price,2)}}</span>
+                                            </div>
+                                            <div class="pro-delete">
+                                                <a href="{{route('deleteToCart',$data->id)}}"><i class="sp-circle-close"></i></a>
+                                            </div>
                                         </div>
-                                        <div class="cart-photo-brief">
-                                            <a href="#">Men's Shirt Shirt</a>
-                                            <span>$25.00</span>
-                                        </div>
-                                        <div class="pro-delete">
-                                            <a href="#"><i class="sp-circle-close"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="cart-photo-details">
-                                        <div class="cart-photo">
-                                            <a href="#"><img src="{{asset('assets/img/total-cart/1.jpg')}}" alt="" /></a>
-                                        </div>
-                                        <div class="cart-photo-brief">
-                                            <a href="#">Men's Shirt Shirt</a>
-                                            <span>$25.00</span>
-                                        </div>
-                                        <div class="pro-delete">
-                                            <a href="#"><i class="sp-circle-close"></i></a>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                     <div class="cart-subtotal">
-                                        <p>Total = $50.00</p>
+                                        <p>Total = ${{number_format(Helper::totalCartPrice(),2)}}</p>
                                     </div>
                                     <div class="cart-inner-btm">
-                                        <a href="#">Checkout</a>
+                                        <a href="{{route('getCheckOut')}}">Checkout</a>
                                     </div>
                                 </div>
                                 <!-- Mini-cart-content End -->

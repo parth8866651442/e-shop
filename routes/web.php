@@ -36,3 +36,18 @@ Route::group(['prefix' => 'blogs'], function () {
     Route::get('/{slug}', [App\Http\Controllers\BlogsController::class,'categoryWiseBlogs'])->name('getCategoryWiseBlogs');
     Route::get('/{slug}/{sub_slug}', [App\Http\Controllers\BlogsController::class,'blogDetail'])->name('getBlogDetail');
 });
+
+
+Route::group(['middleware' => ['auth:web']], function () {
+
+    // -------- cart -------- //
+    Route::group(['prefix' => 'carts'], function () {
+        Route::get('/', [App\Http\Controllers\CartsController::class,'index'])->name('getCarts');
+        Route::get('/add-cart/{slug}', [App\Http\Controllers\CartsController::class,'addToCart'])->name('addToCart');
+        Route::post('/update-cart-item', [App\Http\Controllers\CartsController::class,'updateToCart'])->name('updateToCart');
+        Route::get('/delete-cart-item/{id}', [App\Http\Controllers\CartsController::class,'deleteToCart'])->name('deleteToCart');
+        Route::get('/check-out', [App\Http\Controllers\CartsController::class,'checkOut'])->name('getCheckOut');
+    });
+
+
+});

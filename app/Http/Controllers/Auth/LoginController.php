@@ -42,6 +42,17 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showLoginForm(Request $request)
+    {   
+        return view('auth.login');
+    }
+
     public function login(Request $request)
     {
         $this->validateLogin($request);
@@ -65,8 +76,8 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         $this->clearLoginAttempts($request);
-
-        return response()->json(['status' => true, 'msg' => 'Login Successfully',"url"=>route('home')], 200);
+        
+        return response()->json(['status' => true, 'msg' => 'Login Successfully',"url"=>route('home'),'to'=> $request->to], 200);
         // return redirect()->route('home')->with('success', 'Login Successfully');
     }
     public function attemptLogin(Request $request)
