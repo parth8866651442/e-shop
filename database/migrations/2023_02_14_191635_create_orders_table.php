@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->float('sub_total');
             $table->float('coupon')->nullable();
+            $table->float('shipping_amount');
             $table->float('total_amount');
             $table->integer('quantity');
             $table->enum('payment_method',['cod','online'])->default('cod');
