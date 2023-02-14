@@ -27,122 +27,26 @@
                     <h3 class="title-6 margin-bottom-50">Checkout</h3>
                 </div>
             </div>
-            <div class="coupon-area">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="coupon-accordion">
-                            <!-- ACCORDION START -->
-                            <h3>Returning customer? <span id="showlogin">Click here to login</span></h3>
-                            <div id="checkout-login" class="coupon-content">
-                                <div class="coupon-info">
-                                    <p class="coupon-text">Quisque gravida turpis sit amet nulla posuere lacinia. Cras
-                                        sed est sit amet ipsum luctus.</p>
-                                    <form action="#">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <p class="form-row-first">
-                                                    <label>Username or email <span class="required">*</span></label>
-                                                    <input type="text" />
-                                                </p>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <p class="form-row-last">
-                                                    <label>Password <span class="required">*</span></label>
-                                                    <input type="password" />
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <p class="form-row">
-                                            <input type="submit" value="Login" />
-                                            <label>
-                                                <input type="radio" />
-                                                Remember me
-                                            </label>
-                                        </p>
-                                        <p class="lost-password">
-                                            <a href="#">Lost your password?</a>
-                                        </p>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- ACCORDION END -->
-                            <!-- Genaral Login start -->
-                            <div class="coupon-info margin-bottom-50">
-                                <p class="coupon-text margin-bottom-50">If you have shopped with us before, please enter
-                                    your details in the boxes below. If you are a new customer please proceed to the
-                                    Billing & Shipping section.</p>
-                                <form action="#">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <p class="form-row-first">
-                                                <label>Username or email <span class="required">*</span></label>
-                                                <input type="text" />
-                                            </p>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <p class="form-row-last">
-                                                <label>Password <span class="required">*</span></label>
-                                                <input type="password" />
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <p class="form-row">
-                                        <input type="submit" value="Login" />
-                                        <label>
-                                            <input type="radio" />
-                                            Remember me
-                                        </label>
-                                    </p>
-                                    <p class="lost-password">
-                                        <a href="#">Lost your password?</a>
-                                    </p>
-                                </form>
-                            </div>
-                            <!-- Genaral Login end -->
-                            <!-- ACCORDION START -->
-                            <h3>Have a coupon? <span id="showcoupon">Click here to enter your code</span></h3>
-                            <div id="checkout_coupon" class="coupon-checkout-content">
-                                <div class="coupon-info">
-                                    <form action="#">
-                                        <p class="checkout-coupon">
-                                            <input type="text" placeholder="Coupon code" />
-                                            <input type="submit" value="Apply Coupon" />
-                                        </p>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- ACCORDION END -->
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- Checkout-Billing-details and order start -->
             <div class="checkout-bill-order">
-                <form action="#">
+                <form method="POST" action="{{route('addToOrders')}}" id="checkOutForm">
+                    @csrf
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="checkout-bill">
+                        <div class="col-lg-6 coupon-area">
+                            <div class="checkout-bill coupon-accordion">
                                 <h3 class="title-7 margin-bottom-50">Billing Details</h3>
                             </div>
                             <div class="row coupon-info">
                                 <div class="col-lg-6">
                                     <p class="form-row-first">
-                                        <label>Username or email <span class="required">*</span></label>
-                                        <input type="text" />
+                                        <label>First Name <span class="required">*</span></label>
+                                        <input type="text" name="first_name" value="{{old('first_name')}}" required/>
                                     </p>
                                 </div>
                                 <div class="col-lg-6">
                                     <p class="form-row-last">
-                                        <label>Password <span class="required">*</span></label>
-                                        <input type="password" />
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row coupon-info">
-                                <div class="col-lg-12">
-                                    <p class="form-row-first">
-                                        <label>Company Name </label>
-                                        <input type="text" />
+                                        <label>Last Name <span class="required">*</span></label>
+                                        <input type="text" name="last_name" value="{{old('lat_name')}}" required/>
                                     </p>
                                 </div>
                             </div>
@@ -150,38 +54,30 @@
                                 <div class="col-lg-6">
                                     <p class="form-row-first">
                                         <label>Email Address <span class="required">*</span></label>
-                                        <input type="text" />
+                                        <input type="text" name="email" value="{{old('email')}}" required/>
                                     </p>
                                 </div>
                                 <div class="col-lg-6">
                                     <p class="form-row-last">
                                         <label>Phone <span class="required">*</span></label>
-                                        <input type="text" />
+                                        <input type="text" name="phone" value="{{old('phone')}}" required/>
                                     </p>
                                 </div>
                             </div>
                             <div class="row coupon-info">
                                 <div class="col-lg-12">
                                     <p class="form-row-first">
-                                        <label>Country </label>
-                                        <input type="text" placeholder="United states (US)" />
+                                        <label>Address <span class="required">*</span></label>
+                                        <input type="text" placeholder="Street address" name="address1" value="{{old('address1')}}" required/>
+                                        <input type="text" placeholder="Site, India etc (optional)"  name="address2" value="{{old('address2')}}" />
                                     </p>
                                 </div>
                             </div>
                             <div class="row coupon-info">
                                 <div class="col-lg-12">
                                     <p class="form-row-first">
-                                        <label>Address </label>
-                                        <input type="text" placeholder="Street address" />
-                                        <input type="text" placeholder="Site, Unite etc (optional)" />
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row coupon-info">
-                                <div class="col-lg-12">
-                                    <p class="form-row-first">
-                                        <label>Town / City </label>
-                                        <input type="text" placeholder="United states (US)" />
+                                        <label>Town / City <span class="required">*</span></label>
+                                        <input type="text" name="city" placeholder="India states (IN)" required />
                                     </p>
                                 </div>
                             </div>
@@ -189,179 +85,50 @@
                                 <div class="col-lg-6">
                                     <p class="form-row-first">
                                         <label>State <span class="required">*</span></label>
-                                        <input type="text" />
+                                        <input type="text" name="state" placeholder="" value="{{old('state')}}" required/>
                                     </p>
                                 </div>
                                 <div class="col-lg-6">
                                     <p class="form-row-last">
                                         <label>Zip <span class="required">*</span></label>
-                                        <input type="text" />
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="new-account-create">
-                                <h4 class="title-8">Create Account</h4>
-                                <label>
-                                    <input type="checkbox" checked="checked" />
-                                    <span>Create an account by entering the information below. </span>
-                                </label>
-                                <label>
-                                    <span>If you are a returning customer please login at the top of the page.</span>
-                                </label>
-                            </div>
-                            <div class="row coupon-info">
-                                <div class="col-lg-12">
-                                    <p class="form-row-first">
-                                        <label>Account Password </label>
-                                        <input type="password" />
-                                    </p>
-                                </div>
-                            </div>
-                            <h4 class="title-8">Ship to a different address <input type="checkbox" checked="checked" />
-                            </h4>
-                            <div class="row coupon-info">
-                                <div class="col-lg-6">
-                                    <p class="form-row-first">
-                                        <label>Username or email <span class="required">*</span></label>
-                                        <input type="text" />
-                                    </p>
-                                </div>
-                                <div class="col-lg-6">
-                                    <p class="form-row-last">
-                                        <label>Password <span class="required">*</span></label>
-                                        <input type="password" />
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row coupon-info">
-                                <div class="col-lg-12">
-                                    <p class="form-row-first">
-                                        <label>Company Name </label>
-                                        <input type="text" />
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row coupon-info">
-                                <div class="col-lg-6">
-                                    <p class="form-row-first">
-                                        <label>Email Address <span class="required">*</span></label>
-                                        <input type="text" />
-                                    </p>
-                                </div>
-                                <div class="col-lg-6">
-                                    <p class="form-row-last">
-                                        <label>Phone <span class="required">*</span></label>
-                                        <input type="text" />
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row coupon-info">
-                                <div class="col-lg-12">
-                                    <p class="form-row-first">
-                                        <label>Country </label>
-                                        <input type="text" placeholder="United states (US)" />
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row coupon-info">
-                                <div class="col-lg-12">
-                                    <p class="form-row-first">
-                                        <label>Address </label>
-                                        <input type="text" placeholder="Street address" />
-                                        <input type="text" placeholder="Site, Unite etc (optional)" />
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row coupon-info">
-                                <div class="col-lg-12">
-                                    <p class="form-row-first">
-                                        <label>Town / City </label>
-                                        <input type="text" placeholder="United states (US)" />
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row coupon-info">
-                                <div class="col-lg-6">
-                                    <p class="form-row-first">
-                                        <label>State <span class="required">*</span></label>
-                                        <input type="text" />
-                                    </p>
-                                </div>
-                                <div class="col-lg-6">
-                                    <p class="form-row-last">
-                                        <label>Zip <span class="required">*</span></label>
-                                        <input type="text" />
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row coupon-info">
-                                <div class="col-lg-12">
-                                    <p class="form-row-first">
-                                        <label>Additoional Information</label>
-                                        <textarea></textarea>
+                                        <input type="text" name="zip_code" placeholder="" value="{{old('zip_code')}}" required/>
                                     </p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="your-order">
-                                <h3 class="title-7 margin-bottom-50">Your Order</h3>
+                            <div class="your-order coupon-area">
+                                <div class="coupon-accordion">
+                                    <h3 class="title-7 margin-bottom-50">Your Order</h3>
+                                </div>
                                 <div class="your-order-table table-responsive">
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th class="product-name">Product</th>
+                                                <th class="product-name">Items</th>
                                                 <th class="product-total">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="product-name">Lorem Ipsum comes (1)</td>
-                                                <td class="product-total">$499.00</td>
+                                                <td class="product-name">Price ({{Helper::cartCount()}} item)</td>
+                                                <td class="product-total">${{number_format(Helper::totalCartPrice(),2)}}</td>
                                             </tr>
                                             <tr>
-                                                <td class="product-name">Extremes of Good (3) </td>
-                                                <td class="product-total">$559.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="product-name">Lorem Ipsum comes (1)</td>
-                                                <td class="product-total">$320.00</td>
-                                            </tr>
-                                            <tr class="shipping">
-                                                <th>Shipping</th>
-                                                <td>
-                                                    <ul>
-                                                        <li>
-                                                            <input type="checkbox" id="1">
-                                                            <label for="1">
-                                                                Free Shipping
-                                                            </label>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" id="2">
-                                                            <label for="2">
-                                                                Flat Rate <span class="amount">$120.00</span>
-                                                            </label>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" id="3">
-                                                            <label for="3">
-                                                                International Delivery
-                                                            </label>
-                                                        </li>
-                                                    </ul>
-                                                </td>
+                                                <td class="product-name">Delivery Charges</td>
+                                                <td class="product-total" data-charges="80">$80.00</td>
                                             </tr>
                                             <tr>
                                                 <td class="product-name order-total">Order Total</td>
-                                                <td class="product-total order-total">$1378.00</td>
+                                                <td class="product-total order-total">{{number_format(Helper::totalCartPrice()+80,2)}}</td>
+                                                <input type="hidden" name="delivery_charges" value="80">
                                             </tr>
                                         </tbody>
                                     </table>
                                     <div class="payment-method">
                                         <div class="payment-accordion">
                                             <!-- ACCORDION START -->
-                                            <h3 class="payment-accordion-toggle active">Direct Bank Transfer</h3>
+                                            <h3 class="payment-accordion-toggle active"><input name="payment_method"  type="radio" value="cod">Cash On Delivery</h3>
                                             <div class="payment-content default">
                                                 <p>Make your payment directly into our bank account. Please use your
                                                     Order ID as the payment reference. Your order won’t be shipped until
@@ -369,14 +136,7 @@
                                             </div>
                                             <!-- ACCORDION END -->
                                             <!-- ACCORDION START -->
-                                            <h3 class="payment-accordion-toggle">Cheque Payment</h3>
-                                            <div class="payment-content">
-                                                <p>Please send your cheque to Store Name, Store Street, Store Town,
-                                                    Store State / County, Store Postcode.</p>
-                                            </div>
-                                            <!-- ACCORDION END -->
-                                            <!-- ACCORDION START -->
-                                            <h3 class="payment-accordion-toggle">PayPal</h3>
+                                            <h3 class="payment-accordion-toggle"><input name="payment_method"  type="radio" value="online">Online</h3>
                                             <div class="payment-content">
                                                 <p>Pay via PayPal; you can pay with your credit card if you don’t have a
                                                     PayPal account.</p>
@@ -437,3 +197,73 @@
     <!-- BRAND-LOGO-AREA END -->
 </section>
 @endsection
+
+@push('scripts')
+<script>
+$(document).ready(function() {
+    $("#checkOutForm").validate({
+        highlight: function(element, errorClass, validClass) {
+            $(element).parents('.form-control').removeClass('has-success').addClass(
+                'has-error');
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).parents('.form-control').removeClass('has-error').addClass(
+                'has-success');
+        },
+        errorPlacement: function(error, element) {
+            if (element.hasClass('select2') && element.next('.select2-container').length) {
+                error.insertAfter(element.next('.select2-container'));
+            } else if (element.parent('.pass-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        rules: {
+            first_name: {
+                required: true
+            },
+            last_name: {
+                required: true
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            phone: {
+                required: true,
+                maxlength:10
+            },
+            address1: {
+                required: true
+            },
+            city: {
+                required: true,
+            }
+        },
+        messages: {
+            first_name: {
+                required: "This field is required"
+            },
+            last_name: {
+                required: "This field is required"
+            },
+            email: {
+                required: "This field is required",
+                email: "Please enter valid email address"
+            },
+            phone: {
+                required: "This field is required",
+                maxlength: "Please enter max 10 digit Password"
+            },
+            address1: {
+                required: "This field is required",
+            },
+            city: {
+                required: "This field is required",
+            }
+        }
+    });
+});
+</script>
+@endpush

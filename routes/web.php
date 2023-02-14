@@ -43,11 +43,15 @@ Route::group(['middleware' => ['auth:web']], function () {
     // -------- cart -------- //
     Route::group(['prefix' => 'carts'], function () {
         Route::get('/', [App\Http\Controllers\CartsController::class,'index'])->name('getCarts');
-        Route::get('/add-cart/{slug}', [App\Http\Controllers\CartsController::class,'addToCart'])->name('addToCart');
+        Route::match(['get', 'post'],'/add-cart/{slug}', [App\Http\Controllers\CartsController::class,'addToCart'])->name('addToCart');
         Route::post('/update-cart-item', [App\Http\Controllers\CartsController::class,'updateToCart'])->name('updateToCart');
         Route::get('/delete-cart-item/{id}', [App\Http\Controllers\CartsController::class,'deleteToCart'])->name('deleteToCart');
         Route::get('/check-out', [App\Http\Controllers\CartsController::class,'checkOut'])->name('getCheckOut');
     });
 
+    // -------- order -------- //
+    Route::group(['prefix' => 'orders'], function () {
+        Route::post('/store', [App\Http\Controllers\OrdersController::class,'store'])->name('addToOrders');
+    });
 
 });

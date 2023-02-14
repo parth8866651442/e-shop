@@ -21,6 +21,7 @@ return new class extends Migration
             $table->float('price');
             $table->enum('status',['new','progress','delivered','cancel'])->default('new');
             $table->integer('quantity');
+            $table->string('size');
             $table->float('amount');
             $table->timestamps();
         });

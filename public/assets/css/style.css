@@ -2634,6 +2634,7 @@ label{
 }
 .cart-plus-minus div.inc {top: 1px;}
 .cart-plus-minus div.dec {bottom: 1px;}
+.single-pro-add-cart input,
 .single-pro-add-cart a {
   font-size: 20px;
   font-weight: 500;

@@ -25,7 +25,7 @@
                                 <ul class="submenu">
                                     <li><a href="#">My Account</a></li>
                                     <li><a href="#">Wishlist</a></li>
-                                    <li><a href="#">Checkout</a></li>
+                                    <li><a href="{{route('getCheckOut')}}">Checkout</a></li>
                                     <!-- Authentication Links -->
                                     @guest
                                         @if (Route::has('login'))
@@ -91,6 +91,7 @@
                                     <span><i class="sp-shopping-bag"></i></span>
                                 </a>
                                 <!-- Mini-cart-content Start -->
+                                @if(!empty(Helper::totalCartPrice()))
                                 <div class="total-cart-brief">
                                     @foreach(Helper::getAllProductFromCart() as $data)
                                         <div class="cart-photo-details">
@@ -113,6 +114,7 @@
                                         <a href="{{route('getCheckOut')}}">Checkout</a>
                                     </div>
                                 </div>
+                                @endif
                                 <!-- Mini-cart-content End -->
                             </li>
                         </ul>
@@ -130,12 +132,11 @@
                     <div class="mobile-menu">
                         <nav id="dropdown">
                             <ul>
-                                <li><a href="#">home</a></li>
-                                <li><a href="#">mens</a></li>
-                                <li><a href="#">shop</a></li>
-                                <li><a href="#">blog</a></li>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">contact</a></li>
+                                <li><a href="{{route('home')}}">home</a></li>
+                                <li><a href="{{route('getAllproducts')}}">Products</a></li>
+                                <li><a href="{{route('getAllblogs')}}">blog</a></li>
+                                <li><a href="{{route('about')}}">about</a></li>
+                                <li><a href="{{route('contact')}}">contact</a></li>
                             </ul>
                         </nav>
                     </div>

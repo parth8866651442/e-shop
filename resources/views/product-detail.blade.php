@@ -59,60 +59,55 @@
                     </div>
                 </div>
                 <div class="col-md-7">
-                    <div class="single-product-description">
-                        <h3 class="title-3">Easy-iron Shirt</h3>
-                        <h4>
-                        @php
-                        $after_discount=($product->price-($product->price*$product->discount)/100);
-                        @endphp
-                            ${{number_format($after_discount,2)}}
-                        <del style="padding-left:4%;">${{number_format($product->price,2)}}</del>
-                        </h4>
-                        @if($product->size)
-                            <div class="pro-size">
-                                <span>Size</span>
-                                @php 
-                                    $sizes=explode(',',$product->size);
-                                    // dd($sizes);
-                                @endphp
-                                <select class="form-select form-select-sm" name="size">
-                                    @foreach($sizes as $size)
-                                        <option value="{{$size}}">{{ucfirst($size)}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        @endif
-                        <div class="product-counts fix margin-top-80">
-                            <form action="#">
+                    <form action="{{route('addToCart',$product->slug)}}" method="POST">
+					@csrf 
+                        <div class="single-product-description">
+                            <h3 class="title-3">{{$product->title}}</h3>
+                            <h4>
+                            @php
+                            $after_discount=($product->price-($product->price*$product->discount)/100);
+                            @endphp
+                                ${{number_format($after_discount,2)}}
+                            <del style="padding-left:4%;">${{number_format($product->price,2)}}</del>
+                            </h4>
+                            @if($product->size)
+                                <div class="pro-size">
+                                    <span>Size</span>
+                                    @php 
+                                        $sizes=explode(',',$product->size);
+                                    @endphp
+                                    <select class="form-select form-select-sm" name="size">
+                                        @foreach($sizes as $size)
+                                            <option value="{{$size}}">{{ucfirst($size)}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+                            <div class="product-counts fix margin-top-80">
                                 <div class="cart-plus-minus"><input type="text" name="qty" min="1" value="1"/></div>
-                            </form>
-                            <div class="single-pro-add-cart">
-                                <a class="shop-now" href="#">Add to cart</a>
+                                <div class="single-pro-add-cart">
+                                    <input type="submit" class="shop-now" value="Add to cart">
+                                </div>
+                            </div>
+                            <div class="single-pro-share">
+                                <ul>
+                                    <!-- <li><a href="#"><i class="sp-share"></i><span>Share</span></a></li> -->
+                                    <li><a href="#"><i class="sp-heart"></i><span>Add to Wishlist</span></a></li>
+                                </ul>
+                            </div>
+                            <div class="categories-tags">
+                                <div class="categories">
+                                    <span>Categories:</span>
+                                    <a href="{{route('getCategoryWiseproducts',$product->parentCategory->slug)}}">{{$product->parentCategory->title}},</a>
+                                    <a href="{{route('getSubCategoryWiseproducts',[$product->parentCategory->slug,$product->childCategory->slug])}}">{{$product->childCategory->title}}</a>
+                                </div>
+                                <div class="categories summary">
+                                    <span>Summary:</span>
+                                    <p>{{$product->summary}}</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="single-pro-share">
-                            <ul>
-                                <!-- <li><a href="#"><i class="sp-share"></i><span>Share</span></a></li> -->
-                                <li><a href="#"><i class="sp-heart"></i><span>Add to Wishlist</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="categories-tags">
-                            <div class="categories">
-                                <span>CATEGORIES:</span>
-                                <a href="{{route('getCategoryWiseproducts',$product->parentCategory->slug)}}">{{$product->parentCategory->title}},</a>
-                                <a href="{{route('getSubCategoryWiseproducts',[$product->parentCategory->slug,$product->childCategory->slug])}}">{{$product->childCategory->title}}</a>
-                            </div>
-                            <!-- <div class="categories tags">
-                                <span>Tags:</span>
-                                <a href="#">Lighting,</a>
-                                <a href="#">Outdoor,</a>
-                            </div> -->
-                            <div class="categories summary">
-                                <span>Summary:</span>
-                                <p>{{$product->summary}}</p>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -34,25 +34,45 @@
                                         <th class="product-name">Name</th>
                                         <th class="product-price">price</th>
                                         <th class="product-quantity">Quantity</th>
+                                        <th class="product-name">Size</th>
                                         <th class="product-subtotal">Subtotal</th>
                                         <th class="product-remove">Remove</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($carts as $cart)
+                                    @if(count($carts)>0)
+                                        @foreach($carts as $cart)
+                                        <tr>
+                                            <td class="product-thumbnail"><a href="{{route('getProductDetail',$cart->product->slug)}}"><img src="{{imageUrl($cart->product->productOneImage->name, 'product','product.jpg','false')}}" alt="" /></a></td>
+                                            <td class="product-name"><a href="{{route('getProductDetail',$cart->product->slug)}}">{{$cart->product->title}}</a></td>
+                                            <td class="product-price"><span class="amount" data-min="1" data-max="100">{{$cart->price}}</span></td>
+                                            <td class="product-quantity"><input type="text" name="quantity[]" value="{{$cart->quantity}}" /></td>
+                                            <td>
+                                            @if($cart->product->size)
+                                                @php 
+                                                    $sizes=explode(',',$cart->product->size);
+                                                @endphp
+                                                <select class="form-select form-select-sm" name="size">
+                                                    @foreach($sizes as $size)
+                                                        <option value="{{$size}}" {{$cart->size == $size ? 'selected' : '' }}>{{ucfirst($size)}}</option>
+                                                    @endforeach
+                                                </select>
+                                            @endif
+                                            </td>
+                                            <td class="product-subtotal">{{$cart->amount}}</td>
+                                            <input type="hidden" name="id[]" value="{{$cart->id}}">
+                                            <td class="product-remove"><a href="{{route('deleteToCart',$cart->id)}}"><i class="pe-7s-close"></i></a></td>
+                                        </tr>
+                                        @endforeach
+                                    @else
                                     <tr>
-                                        <td class="product-thumbnail"><a href="{{route('getProductDetail',$cart->product->slug)}}"><img src="{{imageUrl($cart->product->productOneImage->name, 'product','product.jpg','false')}}" alt="" /></a></td>
-                                        <td class="product-name"><a href="{{route('getProductDetail',$cart->product->slug)}}">{{$cart->product->title}}</a></td>
-                                        <td class="product-price"><span class="amount" data-min="1" data-max="100">{{$cart->price}}</span></td>
-                                        <td class="product-quantity"><input type="text" name="quantity[]" value="{{$cart->quantity}}" /></td>
-                                        <td class="product-subtotal">{{$cart->amount}}</td>
-                                        <input type="hidden" name="id[]" value="{{$cart->id}}">
-                                        <td class="product-remove"><a href="{{route('deleteToCart',$cart->id)}}"><i class="pe-7s-close"></i></a></td>
+                                        <td colspan="7"><h4 class="text-warning" style="margin:100px auto;">Your cart is empty.</h4></td>
                                     </tr>
-                                    @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
+                        @if(count($carts)>0)
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="coupon">
@@ -62,6 +82,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         <div class="row">
                             <div class="col-lg-5 offset-lg-7">
                                 <div class="cart-totals">
