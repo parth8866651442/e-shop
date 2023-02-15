@@ -126,23 +126,12 @@
                                         </tbody>
                                     </table>
                                     <div class="payment-method">
-                                        <div class="payment-accordion">
-                                            <!-- ACCORDION START -->
-                                            <h3 class="payment-accordion-toggle active"><input name="payment_method"  type="radio" value="cod">Cash On Delivery</h3>
-                                            <div class="payment-content default">
-                                                <p>Make your payment directly into our bank account. Please use your
-                                                    Order ID as the payment reference. Your order won’t be shipped until
-                                                    the funds have cleared in our account.</p>
+                                        <h3 class="title-7 margin-bottom-10">Payments</h3>
+                                        <div class="content">
+                                            <div class="checkbox">
+                                                <input name="payment_method" type="radio" value="cod" checked> <label> Cash On Delivery</label><br>
+                                                <input name="payment_method" type="radio" value="online"> <label> Online</label>
                                             </div>
-                                            <!-- ACCORDION END -->
-                                            <!-- ACCORDION START -->
-                                            <h3 class="payment-accordion-toggle"><input name="payment_method"  type="radio" value="online">Online</h3>
-                                            <div class="payment-content">
-                                                <p>Pay via PayPal; you can pay with your credit card if you don’t have a
-                                                    PayPal account.</p>
-                                                <a href="#"><img src="{{asset('assets/img/bg/payment.png')}}" alt="" /></a>
-                                            </div>
-                                            <!-- ACCORDION END -->
                                         </div>
                                         <div class="order-button-payment">
                                             <input type="submit" value="Place order" />
