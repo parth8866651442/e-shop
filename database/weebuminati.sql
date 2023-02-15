@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2023 at 03:07 PM
+-- Generation Time: Feb 15, 2023 at 02:54 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -63,6 +63,7 @@ CREATE TABLE `carts` (
   `price` double(8,2) NOT NULL,
   `status` enum('new','progress','delivered','cancel') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new',
   `quantity` int(11) NOT NULL,
+  `size` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `amount` double(8,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -72,10 +73,8 @@ CREATE TABLE `carts` (
 -- Dumping data for table `carts`
 --
 
-INSERT INTO `carts` (`id`, `product_id`, `order_id`, `user_id`, `price`, `status`, `quantity`, `amount`, `created_at`, `updated_at`) VALUES
-(2, 6, NULL, 2, 475.00, 'new', 2, 950.00, '2023-02-13 12:20:01', '2023-02-13 13:54:45'),
-(3, 5, NULL, 2, 475.00, 'new', 1, 475.00, '2023-02-13 12:23:32', '2023-02-13 12:23:32'),
-(4, 2, NULL, 2, 360.00, 'new', 2, 720.00, '2023-02-13 12:23:44', '2023-02-13 13:58:50');
+INSERT INTO `carts` (`id`, `product_id`, `order_id`, `user_id`, `price`, `status`, `quantity`, `size`, `amount`, `created_at`, `updated_at`) VALUES
+(2, 4, NULL, 2, 475.00, 'new', 3, 'a5', 1425.00, '2023-02-14 09:33:58', '2023-02-14 09:35:49');
 
 -- --------------------------------------------------------
 
@@ -158,7 +157,38 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2023_02_11_102928_create_post_categories_table', 6),
 (10, '2023_02_11_123228_create_posts_table', 7),
 (11, '2023_02_11_150948_create_settings_table', 8),
-(12, '2023_02_13_110425_create_carts_table', 9);
+(12, '2023_02_13_110425_create_carts_table', 9),
+(13, '2023_02_14_191635_create_orders_table', 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `order_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `sub_total` double(8,2) NOT NULL,
+  `coupon` double(8,2) DEFAULT NULL,
+  `shipping_amount` double(8,2) NOT NULL,
+  `total_amount` double(8,2) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `payment_method` enum('cod','online') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'cod',
+  `payment_status` enum('paid','unpaid') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'unpaid',
+  `status` enum('new','process','delivered','cancel') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new',
+  `first_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `post_code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address1` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address2` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -406,7 +436,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `role`, `name`, `email`, `email_verified_at`, `mobile_no`, `image`, `password`, `remember_token`, `is_deleted`, `is_active`, `created_at`, `updated_at`) VALUES
 (1, 'superadmin', 'admin', 'admin@admin.com', NULL, '9638527410', '1675081067_u8---Copy.jpg', '$2y$10$b4Wvxk1W/1l4/fkfesuqoePb6fbOmdXfO6Wsohi8TLsgI5tRU1si6', '46OA43dnNKwbT2J1YBnEyigqaavjIsbqXzlrFGwbbvkIBBudXS4Mv1MJSXNe', 0, '1', '2023-01-28 01:57:30', '2023-02-03 03:14:11'),
-(2, 'user', 'parth', 'parth@test.tk', NULL, NULL, NULL, '$2y$10$NBChfHIFBDmfF7I2hZ14s.h795F6Qr9IcbFVe0Z7/DTdIBrp2QUSa', 'xcT220Cxmc3WHxOBjXRFUIEe6Ktjr4JZQdSjCQ94MJ3vtdamCdCx77OwNEWt', 0, '1', '2023-01-28 01:57:30', '2023-01-30 00:58:05');
+(2, 'user', 'parth', 'parth@test.tk', NULL, NULL, NULL, '$2y$10$NBChfHIFBDmfF7I2hZ14s.h795F6Qr9IcbFVe0Z7/DTdIBrp2QUSa', 'mEvS5B85Zxpawz2JBzYH3T5YTqtjwpDfwGC6f7gXfuu8T3VqPkCl4RTZMoxn', 0, '1', '2023-01-28 01:57:30', '2023-01-30 00:58:05');
 
 --
 -- Indexes for dumped tables
@@ -444,6 +474,13 @@ ALTER TABLE `failed_jobs`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `orders_order_number_unique` (`order_number`);
 
 --
 -- Indexes for table `password_resets`
@@ -514,7 +551,7 @@ ALTER TABLE `banners`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -532,7 +569,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
