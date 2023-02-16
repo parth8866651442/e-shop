@@ -9,11 +9,11 @@
                         <ul>
                             <li>
                                 <i class="sp-phone"></i>
-                                <span>+019 (111) 25184203</span>
+                                <span>+91 {{Helper::settings('phone_1')}}</span>
                             </li>
                             <li>
                                 <i class="sp-email"></i>
-                                <span>Company@domain.com</span>
+                                <span>{{Helper::settings('email_1')}}</span>
                             </li>
                         </ul>
                     </div>

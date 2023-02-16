@@ -18,17 +18,16 @@
                             <ul>
                                 <li>
                                     <i class="sp-phone"></i>
-                                    <span>+019 (111) 25184203</span>
+                                    <span>+91 {{Helper::settings('phone_1')}}</span>
                                 </li>
                                 <li>
                                     <i class="sp-email"></i>
-                                    <span>company@domain.com</span>
-                                    <span>company@email.info</span>
+                                    <span>{{Helper::settings('email_1')}}</span>
+                                    <span>{{Helper::settings('email_2')}}</span>
                                 </li>
                                 <li>
                                     <i class="sp-map-marker"></i>
-                                    <span>777/ab Rampura Bonosri</span>
-                                    <span>North DC-3050 USA.</span>
+                                    <span>{!! Helper::settings('address') !!}</span>
                                 </li>
                             </ul>
                         </div>

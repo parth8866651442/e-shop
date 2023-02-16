@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('order_number')->unique();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_shipping_id')->nullable();
             $table->float('sub_total');
             $table->float('coupon')->nullable();
             $table->float('shipping_amount');
@@ -25,13 +26,6 @@ return new class extends Migration
             $table->enum('payment_method',['cod','online'])->default('cod');
             $table->enum('payment_status',['paid','unpaid'])->default('unpaid');
             $table->enum('status',['new','process','delivered','cancel'])->default('new');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email');
-            $table->string('phone');
-            $table->string('post_code')->nullable();
-            $table->text('address1');
-            $table->text('address2')->nullable();
             $table->timestamps();
         });
     }
