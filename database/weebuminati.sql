@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2023 at 02:54 PM
+-- Generation Time: Feb 16, 2023 at 03:03 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -74,7 +74,7 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `product_id`, `order_id`, `user_id`, `price`, `status`, `quantity`, `size`, `amount`, `created_at`, `updated_at`) VALUES
-(2, 4, NULL, 2, 475.00, 'new', 3, 'a5', 1425.00, '2023-02-14 09:33:58', '2023-02-14 09:35:49');
+(3, 3, NULL, 2, 475.00, 'new', 1, 'a4', 475.00, '2023-02-16 13:49:58', '2023-02-16 13:49:58');
 
 -- --------------------------------------------------------
 
@@ -182,13 +182,19 @@ CREATE TABLE `orders` (
   `last_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `country` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `post_code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address1` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `address2` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `order_number`, `user_id`, `sub_total`, `coupon`, `shipping_amount`, `total_amount`, `quantity`, `payment_method`, `payment_status`, `status`, `first_name`, `last_name`, `email`, `phone`, `post_code`, `address1`, `address2`, `created_at`, `updated_at`) VALUES
+(1, 'ORD-DAWQQSFU3M', 2, 1425.00, NULL, 50.00, 1475.00, 1, 'cod', 'unpaid', 'new', 'raj', 'patel', 'rajpatel@test.tk', '9632587410', NULL, 'test', NULL, '2023-02-16 13:36:55', '2023-02-16 13:36:55');
 
 -- --------------------------------------------------------
 
@@ -397,6 +403,7 @@ CREATE TABLE `settings` (
   `phone_2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `delivery_charges` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -405,8 +412,8 @@ CREATE TABLE `settings` (
 -- Dumping data for table `settings`
 --
 
-INSERT INTO `settings` (`id`, `summary`, `description`, `logo`, `address`, `phone_1`, `phone_2`, `email_1`, `email_2`, `created_at`, `updated_at`) VALUES
-(1, 'Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.', '<p><span style=\"font-family: Nunito, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; letter-spacing: normal;\">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspiciatis unde sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspiciatis unde omnis iste natus error sit voluptatem Excepteu sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspiciatis Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspi deserunt mollit anim id est laborum. sed ut perspi.</span></p>', '1676112255_logo.png', 'NO. 342 - London Oxford Street, 0 United Kingdom', '9632587410', '9637410258', 'info@eshop.in', 'Company@domain.com', '2023-02-11 10:39:54', '2023-02-11 10:44:15');
+INSERT INTO `settings` (`id`, `summary`, `description`, `logo`, `address`, `phone_1`, `phone_2`, `email_1`, `email_2`, `delivery_charges`, `created_at`, `updated_at`) VALUES
+(1, 'Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.', '<p><span style=\"font-family: Nunito, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; letter-spacing: normal;\">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspiciatis unde sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspiciatis unde omnis iste natus error sit voluptatem Excepteu sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspiciatis Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspi deserunt mollit anim id est laborum. sed ut perspi.</span></p>', '1676112255_logo.png', 'NO. 342 - London Oxford Street, 0 United Kingdom', '9632587410', '9637410258', 'info@eshop.in', 'Company@domain.com', '50', '2023-02-11 10:39:54', '2023-02-11 10:44:15');
 
 -- --------------------------------------------------------
 
@@ -436,7 +443,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `role`, `name`, `email`, `email_verified_at`, `mobile_no`, `image`, `password`, `remember_token`, `is_deleted`, `is_active`, `created_at`, `updated_at`) VALUES
 (1, 'superadmin', 'admin', 'admin@admin.com', NULL, '9638527410', '1675081067_u8---Copy.jpg', '$2y$10$b4Wvxk1W/1l4/fkfesuqoePb6fbOmdXfO6Wsohi8TLsgI5tRU1si6', '46OA43dnNKwbT2J1YBnEyigqaavjIsbqXzlrFGwbbvkIBBudXS4Mv1MJSXNe', 0, '1', '2023-01-28 01:57:30', '2023-02-03 03:14:11'),
-(2, 'user', 'parth', 'parth@test.tk', NULL, NULL, NULL, '$2y$10$NBChfHIFBDmfF7I2hZ14s.h795F6Qr9IcbFVe0Z7/DTdIBrp2QUSa', 'mEvS5B85Zxpawz2JBzYH3T5YTqtjwpDfwGC6f7gXfuu8T3VqPkCl4RTZMoxn', 0, '1', '2023-01-28 01:57:30', '2023-01-30 00:58:05');
+(2, 'user', 'parth', 'parth@test.tk', NULL, NULL, NULL, '$2y$10$NBChfHIFBDmfF7I2hZ14s.h795F6Qr9IcbFVe0Z7/DTdIBrp2QUSa', 'ZHiNMNePEaFZFPRZcr3asCItN0GDJdiBSTMPo5zeQpoJQDDwCvpUeMqjHNRh', 0, '1', '2023-01-28 01:57:30', '2023-01-30 00:58:05');
 
 --
 -- Indexes for dumped tables
@@ -551,7 +558,7 @@ ALTER TABLE `banners`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -575,7 +582,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`

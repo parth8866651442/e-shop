@@ -82,7 +82,6 @@
                                 </div>
                             </div>
                         </div>
-                        @endif
                         <div class="row">
                             <div class="col-lg-5 offset-lg-7">
                                 <div class="cart-totals">
@@ -94,19 +93,19 @@
                                                     <th>Subtotal</th>
                                                     <td>${{number_format(Helper::totalCartPrice(),2)}}</td>
                                                 </tr>
-                                                <tr>
+                                                <!-- <tr>
                                                     <th>Discount</th>
                                                     <td><span>no discount or coupon code</span></td>
-                                                </tr>
+                                                </tr> -->
                                                 <tr>
                                                     <th>Shipping</th>
                                                     <td>
-                                                        <p>free shipping</p>
+                                                        <p>${{number_format(Helper::settings('delivery_charges'),2)}}</p>
                                                     </td>
                                                 </tr>
                                                 <tr class="cart-total">
                                                     <th>Total</th>
-                                                    <td>${{number_format(Helper::totalCartPrice(),2)}}</td>
+                                                    <td>${{number_format((Helper::totalCartPrice() + Helper::settings('delivery_charges')),2)}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -117,6 +116,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </form>
                 </div>
             </div>

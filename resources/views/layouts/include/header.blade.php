@@ -23,9 +23,11 @@
                         <ul>
                             <li><a href="#">Account <span><i class="sp-gear"></i></span></a>
                                 <ul class="submenu">
-                                    <li><a href="#">My Account</a></li>
+                                    <li><a href="{{route('myAccounts')}}">My Account</a></li>
                                     <li><a href="#">Wishlist</a></li>
+                                    @if(Helper::cartCount() != 0)
                                     <li><a href="{{route('getCheckOut')}}">Checkout</a></li>
+                                    @endif
                                     <!-- Authentication Links -->
                                     @guest
                                         @if (Route::has('login'))

@@ -116,12 +116,11 @@
                                             </tr>
                                             <tr>
                                                 <td class="product-name">Delivery Charges</td>
-                                                <td class="product-total" data-charges="80">$80.00</td>
+                                                <td class="product-total">${{Helper::settings('delivery_charges')}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="product-name order-total">Order Total</td>
-                                                <td class="product-total order-total">{{number_format(Helper::totalCartPrice()+80,2)}}</td>
-                                                <input type="hidden" name="delivery_charges" value="80">
+                                                <td class="product-total order-total">${{number_format((Helper::totalCartPrice() + Helper::settings('delivery_charges')),2)}}</td>
                                             </tr>
                                         </tbody>
                                     </table>

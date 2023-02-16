@@ -39,6 +39,11 @@ Route::group(['prefix' => 'blogs'], function () {
 
 Route::group(['middleware' => ['auth:web']], function () {
 
+    // -------- My Account -------- //
+    Route::group(['prefix' => 'My-Account'], function () {
+        Route::get('/', [App\Http\Controllers\HomeController::class,'MyAccount'])->name('myAccounts');
+    });
+
     // -------- cart -------- //
     Route::group(['prefix' => 'carts'], function () {
         Route::get('/', [App\Http\Controllers\CartsController::class,'index'])->name('getCarts');

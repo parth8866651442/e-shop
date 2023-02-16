@@ -22,6 +22,7 @@ class Setting extends Model
         'phone_1',
         'phone_2',
         'email_1',
-        'email_2'
+        'email_2',
+        'delivery_charges'
     ];
 }

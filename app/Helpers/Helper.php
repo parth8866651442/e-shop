@@ -4,6 +4,7 @@ namespace App\Helpers;
 use Illuminate\Support\Arr;
 use App\Models\Category;
 use App\Models\Cart;
+use App\Models\Setting;
 
 class Helper
 {
@@ -59,5 +60,14 @@ class Helper
         else{
             return 0;
         }
+    }
+
+    // settings
+    public static function settings($select = '*'){
+        $item = Setting::select($select)->first();
+        if($select != '*'){
+            return $item[$select];
+        }
+        return $item;
     }
 }

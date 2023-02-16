@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','E-SHOP || ABOUT PAGE')
+@section('title','E-SHOP || CONTACT PAGE')
 @section('content')
 <section class="page-content">
     <!-- PAGE-BANNER START -->
