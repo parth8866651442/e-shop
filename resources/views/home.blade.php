@@ -114,7 +114,7 @@
                         <!-- <img class="secondary-photo" src="{{asset('assets/img/product/5.jpg')}}" alt="" /> -->
                     </a>
                     <div class="pro-action">
-                        <a href="#" class="action-btn"><i class="sp-heart"></i><span>Wishlist</span></a>
+                        <!-- <a href="#" class="action-btn"><i class="sp-heart"></i><span>Wishlist</span></a> -->
                         <a href="{{route('addToCart',$product->slug)}}" class="action-btn"><i class="sp-shopping-cart"></i><span>Add to cart</span></a>
                     </div>
                 </div>

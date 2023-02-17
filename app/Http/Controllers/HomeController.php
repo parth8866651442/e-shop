@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Post;
+use App\Models\ShippingAddress;
 
 class HomeController extends Controller
 {
@@ -34,7 +36,61 @@ class HomeController extends Controller
     }
     
     public function MyAccount(){
-        return view('my-account');
+        $user = auth()->user();
+        $shippingAddress = ShippingAddress::where(['user_id'=>$user->id])->first();
+        return view('my-account',compact('shippingAddress'));
+    }
+
+    public function updatePersonalInfo(Request $request){
+        $user = auth()->user();
+        
+        $validator = [
+            'name'    => 'required',
+            'email'    => 'required|unique:users,email,' . $user->id . ',id',
+            'mobile_no'    => 'required|unique:users,mobile_no,' . $user->id . ',id',
+            // 'image' => 'nullable|mimes:jpeg,jpg,png|mimetypes:image/*'
+        ];
+
+        $validator = Validator::make($request->all(), $validator);
+        
+        if ($validator->fails()) {
+            return redirect()->route('myAccounts')->with('error', join(", ",$validator->errors()->all()));
+        } else {
+
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->mobile_no = $request->mobile_no;
+            
+            if ($user->save()) {
+                return redirect()->route('myAccounts')->with('success', 'Personal Info updated successfully');
+            }
+            return redirect()->route('myAccounts')->with('error', 'Personal Info updated unsuccessfully');
+        }
+    }
+
+    public function shippingAddress(Request $request){
+        $user = auth()->user();
+
+        $data = array(
+           'user_id' => $user->id, 
+           'name' => $request->name, 
+           'phone' =>$request->phone, 
+           'email' =>$request->email, 
+           'pincode' =>$request->pincode, 
+           'addressLine2' =>$request->addressLine2, 
+           'addressLine1' =>$request->addressLine1, 
+           'city' =>$request->city, 
+           'state' =>$request->state, 
+           'landmark' =>$request->landmark,
+           'alternatePhone' =>$request->alternatePhone
+        );
+        
+        $item = ShippingAddress::updateOrCreate(['id' => $request->id],$data);
+
+        if (!is_null($item)) {
+            return redirect()->route('myAccounts')->with('success', 'Addresses updated successfully');
+        }
+        return redirect()->route('myAccounts')->with('error', 'Addresses Info updated unsuccessfully');
     }
 
 }

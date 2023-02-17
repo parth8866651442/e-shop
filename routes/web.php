@@ -42,6 +42,8 @@ Route::group(['middleware' => ['auth:web']], function () {
     // -------- My Account -------- //
     Route::group(['prefix' => 'My-Account'], function () {
         Route::get('/', [App\Http\Controllers\HomeController::class,'MyAccount'])->name('myAccounts');
+        Route::post('/update-personal-info', [App\Http\Controllers\HomeController::class,'updatePersonalInfo'])->name('updatePersonalInfo');
+        Route::post('/update-shipping-address', [App\Http\Controllers\HomeController::class,'shippingAddress'])->name('updateShippingAddress');
     });
 
     // -------- cart -------- //
@@ -50,11 +52,13 @@ Route::group(['middleware' => ['auth:web']], function () {
         Route::match(['get', 'post'],'/add-cart/{slug}', [App\Http\Controllers\CartsController::class,'addToCart'])->name('addToCart');
         Route::post('/update-cart-item', [App\Http\Controllers\CartsController::class,'updateToCart'])->name('updateToCart');
         Route::get('/delete-cart-item/{id}', [App\Http\Controllers\CartsController::class,'deleteToCart'])->name('deleteToCart');
-        Route::get('/check-out', [App\Http\Controllers\CartsController::class,'checkOut'])->name('getCheckOut');
+        
     });
 
     // -------- order -------- //
     Route::group(['prefix' => 'orders'], function () {
+        Route::get('/', [App\Http\Controllers\OrdersController::class,'index'])->name('getAllOrder');
+        Route::get('/check-out', [App\Http\Controllers\OrdersController::class,'checkOut'])->name('getCheckOut');
         Route::post('/store', [App\Http\Controllers\OrdersController::class,'store'])->name('addToOrders');
     });
 

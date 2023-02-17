@@ -31,68 +31,106 @@
             <div class="checkout-bill-order">
                 <form method="POST" action="{{route('addToOrders')}}" id="checkOutForm">
                     @csrf
+                    <input type="hidden" name="shipping_id" value="{{isset($shippingAddress->id)? $shippingAddress->id : ''}}">
                     <div class="row">
                         <div class="col-lg-6 coupon-area">
                             <div class="checkout-bill coupon-accordion">
                                 <h3 class="title-7 margin-bottom-50">Billing Details</h3>
                             </div>
-                            <div class="row coupon-info">
-                                <div class="col-lg-6">
-                                    <p class="form-row-first">
-                                        <label>First Name <span class="required">*</span></label>
-                                        <input type="text" name="first_name" value="{{old('first_name')}}" required/>
+                            @if(isset($shippingAddress->id))
+                            <div class="ship-add-box">
+                                <div class="ship-main">
+                                    <h6>Manage Addresses </h6>
+                                    <div class="ship-edit">
+                                        <a  href="{{route('myAccounts')}}" target="_blank">Edit</a>
+                                    </div>
+                                    <p>
+                                        <span>{{$shippingAddress->name}}</span>
+                                        <span>{{$shippingAddress->phone}}</span>
                                     </p>
-                                </div>
-                                <div class="col-lg-6">
-                                    <p class="form-row-last">
-                                        <label>Last Name <span class="required">*</span></label>
-                                        <input type="text" name="last_name" value="{{old('lat_name')}}" required/>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row coupon-info">
-                                <div class="col-lg-6">
-                                    <p class="form-row-first">
-                                        <label>Email Address <span class="required">*</span></label>
-                                        <input type="text" name="email" value="{{old('email')}}" required/>
-                                    </p>
-                                </div>
-                                <div class="col-lg-6">
-                                    <p class="form-row-last">
-                                        <label>Phone <span class="required">*</span></label>
-                                        <input type="text" name="phone" value="{{old('phone')}}" required/>
-                                    </p>
+                                    <span>{!! $shippingAddress->addressLine1 .', '. $shippingAddress->addressLine2 .', '. $shippingAddress->city .', '. $shippingAddress->getIDByStateDetail->name .' - <b>'. $shippingAddress->pincode .'</b>' !!}
+                                    </span>
                                 </div>
                             </div>
-                            <div class="row coupon-info">
-                                <div class="col-lg-12">
-                                    <p class="form-row-first">
-                                        <label>Address <span class="required">*</span></label>
-                                        <input type="text" placeholder="Street address" name="address1" value="{{old('address1')}}" required/>
-                                        <input type="text" placeholder="Site, India etc (optional)"  name="address2" value="{{old('address2')}}" />
-                                    </p>
+                            @endif
+                            <div class="{{isset($shippingAddress->id) ? 'd-none' : ''}}">
+                                <div class="row coupon-info">
+                                    <div class="col-lg-12">
+                                        <p class="form-row-first">
+                                            <label>Name <span class="required">*</span></label>
+                                            <input type="text" placeholder="Name" name="name" required autocomplete="name" tabindex="1" value="{{isset($shippingAddress->name)? $shippingAddress->name : old('name')}}">
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row coupon-info">
-                                <div class="col-lg-12">
-                                    <p class="form-row-first">
-                                        <label>Town / City <span class="required">*</span></label>
-                                        <input type="text" name="city" placeholder="India states (IN)" required />
-                                    </p>
+                                <div class="row coupon-info">
+                                    <div class="col-lg-6">
+                                        <p class="form-row-first">
+                                            <label>Email Address <span class="required">*</span></label>
+                                            <input type="email" placeholder="Email Address" name="email" required tabindex="3" value="{{isset($shippingAddress->email)? $shippingAddress->email : old('email')}}">
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <p class="form-row-last">
+                                            <label>Phone Number<span class="required">*</span></label>
+                                            <input type="text" placeholder="10-digit mobile number" name="phone" required maxlength="10" autocomplete="tel" tabindex="2" value="{{isset($shippingAddress->phone)? $shippingAddress->phone : old('phone')}}">
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row coupon-info">
-                                <div class="col-lg-6">
-                                    <p class="form-row-first">
-                                        <label>State <span class="required">*</span></label>
-                                        <input type="text" name="state" placeholder="" value="{{old('state')}}" required/>
-                                    </p>
+                                <div class="row coupon-info">
+                                    <div class="col-lg-6">
+                                        <p class="form-row-first">
+                                            <label>Pincode <span class="required">*</span></label>
+                                            <input type="text" placeholder="Pincode" name="pincode" required maxlength="6" autocomplete="postal-code" tabindex="4" value="{{isset($shippingAddress->pincode)? $shippingAddress->pincode : ''}}">
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <p class="form-row-first">
+                                            <label>Locality <span class="required">*</span></label>
+                                            <input type="text" placeholder="Locality" name="addressLine2" required placeholder="Locality" autocomplete="addressLine2" tabindex="5" value="{{isset($shippingAddress->addressLine2)? $shippingAddress->addressLine2 : ''}}">
+                                        </p>
+                                    </div>
+                                   
                                 </div>
-                                <div class="col-lg-6">
-                                    <p class="form-row-last">
-                                        <label>Zip <span class="required">*</span></label>
-                                        <input type="text" name="zip_code" placeholder="" value="{{old('zip_code')}}" required/>
-                                    </p>
+                                <div class="row coupon-info">
+                                    <div class="col-lg-12">
+                                        <p class="form-row-first">
+                                            <label>Address (Area and Street) <span class="required">*</span></label>
+                                            <textarea placeholder="Address (Area and Street)" rows="6" name="addressLine1"  tabindex="5" required autocomplete="street-address">{{isset($shippingAddress->addressLine1)? $shippingAddress->addressLine1 : ''}}</textarea>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row coupon-info">
+                                    <div class="col-lg-6">
+                                        <p class="form-row-first">
+                                            <label>City <span class="required">*</span></label>
+                                            <input type="text" placeholder="City/District/Town" name="city" required autocomplete="city" tabindex="7" value="{{isset($shippingAddress->city)? $shippingAddress->city : old('city')}}">
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <p class="form-row-first">
+                                            <label>State <span class="required">*</span></label>
+                                            <select name="state" tabindex="8" required>
+                                                <option value="">--Select State any one--</option>
+                                                @foreach(Helper::getStates() as $state)
+                                                    <option value="{{$state->id}}" {{isset($shippingAddress->state) && ($shippingAddress->state == $state->id) ? 'selected' : ''}}>{{$state->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row coupon-info">
+                                    <div class="col-lg-6">
+                                        <p class="form-row-first">
+                                            <label>Landmark (Optional)</label>
+                                            <input type="text" placeholder="Landmark (Optional)" name="city" required autocomplete="city" tabindex="7" value="{{isset($shippingAddress->city)? $shippingAddress->city : old('city')}}">
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <p class="form-row-first">
+                                            <label>Alternate Phone (Optional)</label>
+                                            <input type="text" placeholder="Alternate Phone (Optional)" name="alternatePhone" autocomplete="off" tabindex="10" maxlength="10" value="{{isset($shippingAddress->alternatePhone)? $shippingAddress->alternatePhone : ''}}">
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -186,6 +224,30 @@
 </section>
 @endsection
 
+@push('styles')
+<style>
+.ship-add-box{
+    border: 1px solid #e0e0e0;
+    position: relative;
+}
+
+.ship-add-box:first-child{
+    border-top: 1px solid #e0e0e0;
+    margin-top: 20px;
+    border-radius: 2px 0;
+}
+.ship-main{
+    max-width: 848px;
+    overflow: hidden;
+    padding: 20px;
+}
+.ship-edit{
+    max-width: 35px;
+    float: right;
+}
+</style>
+@endpush
+
 @push('scripts')
 <script>
 $(document).ready(function() {
@@ -208,47 +270,60 @@ $(document).ready(function() {
             }
         },
         rules: {
-            first_name: {
+            name: {
                 required: true
-            },
-            last_name: {
-                required: true
-            },
-            email: {
-                required: true,
-                email: true
             },
             phone: {
                 required: true,
-                maxlength:10
+                phoneUS: true,
+                number: true,
+                minlength: 10
             },
-            address1: {
+            email: {
+                required: true
+            },
+            pincode: {
+                required: true
+            },
+            addressLine1: {
+                required: true
+            },
+            addressLine2: {
                 required: true
             },
             city: {
-                required: true,
+                required: true
+            },
+            state: {
+                required: true
             }
         },
         messages: {
-            first_name: {
+            name: {
                 required: "This field is required"
-            },
-            last_name: {
-                required: "This field is required"
-            },
-            email: {
-                required: "This field is required",
-                email: "Please enter valid email address"
             },
             phone: {
                 required: "This field is required",
-                maxlength: "Please enter max 10 digit Password"
+                number: "Please enter numbers only",
+                minlength: "Please enter min 10 digit number"
             },
-            address1: {
-                required: "This field is required",
+            email: {
+                required: "This field is required"
+            },
+            pincode: {
+                required: "This field is required"
+            },
+            addressLine1: {
+                required: "This field is required"
+            },
+            addressLine2: {
+                required: "This field is required"
             },
             city: {
-                required: "This field is required",
+                required: "This field is required"
+            },
+            state: {
+                required: "This field is required"
             }
         }
     });

@@ -3332,7 +3332,7 @@ h3.widget-title-modal {
     color: red;
     font-weight: 700;
 }
-.coupon-info p.form-row-first input, .coupon-info p.form-row-last input {
+.coupon-info p.form-row-first input, .coupon-info p.form-row-last input,select {
   background: #f0f0f0 none repeat scroll 0 0;
   border: 1px solid #e5e5e5;
   height: 40px;
@@ -3772,6 +3772,9 @@ span.email-notes {
   margin-bottom: 20px;
   padding: 0 10px 0 15px;
   width: 100%;
+}
+textarea.custom-form{
+  height: auto;
 }
 .lognin-area label {
   display: inline-block;

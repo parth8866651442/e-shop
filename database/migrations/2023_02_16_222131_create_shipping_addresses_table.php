@@ -13,16 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users_shipping_address', function (Blueprint $table) {
+        Schema::create('shipping_addresses', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email');
+            $table->string('name');
             $table->string('phone');
-            $table->string('post_code')->nullable();
-            $table->text('address1');
-            $table->text('address2')->nullable();
+            $table->string('email');
+            $table->string('pincode');
+            $table->text('addressLine1');
+            $table->text('addressLine2')->nullable();
+            $table->string('city');
+            $table->string('state');
+            $table->string('landmark')->nullable();
+            $table->string('alternatePhone')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_shipping_address');
+        Schema::dropIfExists('shipping_addresses');
     }
 };

@@ -36,107 +36,32 @@
                                     </a>
                                 </h4>
                             </div>
-                            <div id="personal-info" class="panel-collapse collapse show" data-bs-parent="#accordion"
+                            <div id="personal-info" class="panel-collapse collapse" data-bs-parent="#accordion"
                                 role="tabpanel">
                                 <div class="panel-body">
-                                    <form action="#">
+                                    <form action="{{route('updatePersonalInfo')}}" method="POST" id="personalInfo">
+                                        @csrf
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="billing-address">
                                                     <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <input type="text" class="custom-form"
-                                                                placeholder="First Name" />
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <input type="text" class="custom-form"
-                                                                placeholder="Last Name" />
+                                                        <div class="col-lg-12">
+                                                            <input type="text" class="custom-form" placeholder="Full Name" name="name" value="{{auth()->user()->name}}"/>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-12">
-                                                            <input type="text" class="custom-form"
-                                                                placeholder="Office Address" />
+                                                            <input type="text" class="custom-form" placeholder="Email" name="email"  value="{{auth()->user()->email}}"/>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-12">
-                                                            <input type="text" class="custom-form"
-                                                                placeholder="Home Address" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <select class="custom-select custom-form">
-                                                                <option>City</option>
-                                                                <option>Dhaka</option>
-                                                                <option>New York</option>
-                                                                <option>London</option>
-                                                                <option>Melbourne</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <select class="custom-select custom-form">
-                                                                <option>Country</option>
-                                                                <option>Bangladesh</option>
-                                                                <option>United States</option>
-                                                                <option>United Kingdom</option>
-                                                                <option>Australia</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <select class="custom-select custom-form">
-                                                                <option>Post Code</option>
-                                                                <option>012345</option>
-                                                                <option>0123456</option>
-                                                                <option>01234567</option>
-                                                                <option>012345678</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <input class="custom-form" type="password"
-                                                                placeholder="Password" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <input type="text" class="custom-form"
-                                                                placeholder="Cell Number" />
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <input type="text" class="custom-form"
-                                                                placeholder="Phone Number" />
+                                                            <input type="text" class="custom-form" placeholder="Mobile Number" name="mobile_no"  value="{{auth()->user()->mobile_no}}"/>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-12">
-                                                            <input type="text" class="custom-form" placeholder="Email"
-                                                                name="email" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <textarea class="custom-form pt-2"
-                                                                placeholder="Additional information"></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="subscribe" checked="checked" />
-                                                            I wish to subscribe to the 69 Fashion newsletter.
-                                                        </label>
-                                                        <label>
-                                                            <input type="checkbox" name="subscribe" />
-                                                            I have read and agree to the
-                                                            <a href="#"><b>Privacy Policy</b></a>
-                                                        </label>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <input type="submit" class="custom-submit-2 save"
-                                                                value="Save" />
+                                                            <input type="submit" class="custom-submit-2 save" value="Save"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -161,81 +86,64 @@
                                 <div class="panel-body">
                                     <!-- CHECKOUT-AREA START -->
                                     <div class="checkout-area">
-                                        <form action="#">
+                                        <form action="{{route('updateShippingAddress')}}" method="POST" id="shippingAddress">
+                                            @csrf
                                             <div class="row">
+                                                <input type="hidden" name="id" value="{{isset($shippingAddress->id)? $shippingAddress->id : ''}}">
                                                 <!-- Shipping-Address Start -->
                                                 <div class="col-lg-12">
                                                     <div class="shipping-address">
                                                         <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <select class="custom-select custom-form">
-                                                                    <option>Select Delivery Method</option>
-                                                                    <option>Select Delivery Method</option>
-                                                                    <option>Select Delivery Method</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
                                                             <div class="col-lg-6">
-                                                                <input class="custom-form" type="text"
-                                                                    placeholder="Subash" name="firstname" />
+                                                                <input type="text" class="custom-form" placeholder="Full Name" name="name" required autocomplete="name" tabindex="1" value="{{isset($shippingAddress->name)? $shippingAddress->name : ''}}">
                                                             </div>
                                                             <div class="col-lg-6">
-                                                                <input class="custom-form" type="text"
-                                                                    placeholder="Chandra" name="lastname" />
+                                                                <input type="text" class="custom-form" placeholder="10-digit mobile number" name="phone" required maxlength="10" autocomplete="tel" tabindex="2" value="{{isset($shippingAddress->phone)? $shippingAddress->phone : ''}}">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-12">
-                                                                <input type="text" class="custom-form"
-                                                                    placeholder="Address" />
+                                                                <input type="email" class="custom-form" placeholder="Email Address" name="email" required tabindex="3" value="{{isset($shippingAddress->email)? $shippingAddress->email : ''}}">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-6">
-                                                                <select class="custom-select custom-form">
-                                                                    <option>City</option>
-                                                                    <option>Dhaka</option>
-                                                                    <option>New York</option>
-                                                                    <option>London</option>
-                                                                    <option>Melbourne</option>
-                                                                </select>
+                                                                <input type="text" class="custom-form" placeholder="Pincode" name="pincode" required maxlength="6" autocomplete="postal-code" tabindex="4" value="{{isset($shippingAddress->pincode)? $shippingAddress->pincode : ''}}">
                                                             </div>
                                                             <div class="col-lg-6">
-                                                                <select class="custom-select custom-form">
-                                                                    <option>Country</option>
-                                                                    <option>Bangladesh</option>
-                                                                    <option>United States</option>
-                                                                    <option>United Kingdom</option>
-                                                                    <option>Australia</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <input class="custom-form" type="text"
-                                                                    placeholder="Phone Number" />
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <select class="custom-select custom-form">
-                                                                    <option>Post Code</option>
-                                                                    <option>012345</option>
-                                                                    <option>0123456</option>
-                                                                    <option>01234567</option>
-                                                                    <option>012345678</option>
-                                                                </select>
+                                                                <input type="text" class="custom-form" placeholder="Locality" name="addressLine2" required placeholder="Locality" autocomplete="addressLine2" tabindex="5" value="{{isset($shippingAddress->addressLine2)? $shippingAddress->addressLine2 : ''}}">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-12">
-                                                                <input type="text" class="custom-form"
-                                                                    placeholder="Email" name="email" />
+                                                                <textarea class="custom-form" placeholder="Address (Area and Street)" rows="6" name="addressLine1"  tabindex="6" required autocomplete="street-address">{{isset($shippingAddress->addressLine1)? $shippingAddress->addressLine1 : ''}}</textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <input type="text" class="custom-form" placeholder="City/District/Town" name="city" required autocomplete="city" tabindex="7" value="{{isset($shippingAddress->city)? $shippingAddress->city : ''}}">
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <select class="custom-select custom-form" name="state" tabindex="8" required>
+                                                                    <option value="">--Select State any one--</option>
+                                                                    @foreach(Helper::getStates() as $state)
+                                                                        <option value="{{$state->id}}" {{isset($shippingAddress->state) && ($shippingAddress->state == $state->id) ? 'selected' : ''}}>{{$state->name}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <input type="text" class="custom-form" placeholder="Landmark (Optional)" name="landmark" autocomplete="off" tabindex="9" maxlength="200" value="{{isset($shippingAddress->landmark)? $shippingAddress->landmark : ''}}">
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <input type="text" class="custom-form" placeholder="Alternate Phone (Optional)" name="alternatePhone" autocomplete="off" tabindex="10" maxlength="10" value="{{isset($shippingAddress->alternatePhone)? $shippingAddress->alternatePhone : ''}}">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-12">
-                                                                <textarea class="custom-form"
-                                                                    placeholder="Order Note"></textarea>
+                                                                <input type="submit" class="custom-submit-2 save" value="Save" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -317,3 +225,99 @@
     <!-- BRAND-LOGO-AREA END -->
 </section>
 @endsection
+
+@push('scripts')
+<script>
+$(document).ready(function() {
+    $("#personalInfo").validate({
+        rules: {
+            name: {
+                required: true
+            },
+            email: {
+                required: true
+            },
+            mobile_no: {
+                required: true,
+                phoneUS: true,
+                number: true,
+                minlength: 10
+            },
+        },
+        messages: {
+            name: {
+                required: "This field is required"
+            },
+            email: {
+                required: "This field is required"
+            },
+            mobile_no: {
+                required: "This field is required",
+                number: "Please enter numbers only",
+                minlength: "Please enter min 10 digit number"
+            },
+        }
+    });
+
+    $("#shippingAddress").validate({
+        rules: {
+            name: {
+                required: true
+            },
+            phone: {
+                required: true,
+                phoneUS: true,
+                number: true,
+                minlength: 10
+            },
+            email: {
+                required: true
+            },
+            pincode: {
+                required: true
+            },
+            addressLine1: {
+                required: true
+            },
+            addressLine2: {
+                required: true
+            },
+            city: {
+                required: true
+            },
+            state: {
+                required: true
+            },
+        },
+        messages: {
+            name: {
+                required: "This field is required"
+            },
+            phone: {
+                required: "This field is required",
+                number: "Please enter numbers only",
+                minlength: "Please enter min 10 digit number"
+            },
+            email: {
+                required: "This field is required"
+            },
+            pincode: {
+                required: "This field is required"
+            },
+            addressLine1: {
+                required: "This field is required"
+            },
+            addressLine2: {
+                required: "This field is required"
+            },
+            city: {
+                required: "This field is required"
+            },
+            state: {
+                required: "This field is required"
+            },
+        }
+    });
+});
+</script>
+@endpush

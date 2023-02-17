@@ -15,14 +15,15 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('order_number')->unique();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('user_shipping_id')->nullable();
+            $table->float('coupon_id')->nullable();
+            $table->string('order_number')->unique();
+            $table->integer('items_count');
             $table->float('sub_total');
-            $table->float('coupon')->nullable();
+            $table->float('coupon_amount')->nullable();
             $table->float('shipping_amount');
             $table->float('total_amount');
-            $table->integer('quantity');
             $table->enum('payment_method',['cod','online'])->default('cod');
             $table->enum('payment_status',['paid','unpaid'])->default('unpaid');
             $table->enum('status',['new','process','delivered','cancel'])->default('new');

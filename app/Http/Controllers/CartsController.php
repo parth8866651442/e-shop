@@ -24,7 +24,7 @@ class CartsController extends Controller
             return redirect()->route('home')->with('error', 'Invalid Products');
         }
 
-        $already_cart = Cart::where('user_id', auth()->user()->id)->where('order_id',null)->where('product_id', $product->id)->first();
+        $already_cart = Cart::where('user_id', auth()->user()->id)->where('product_id', $product->id)->first();
         if($already_cart) {
             if(isset($request->qty)){
                 $already_cart->quantity = $already_cart->quantity + $request->qty;
@@ -114,9 +114,5 @@ class CartsController extends Controller
             return redirect()->route('getCarts')->with('success','Cart successfully removed');
         }
         return redirect()->route('getCarts')->with('error','Error please try again'); 
-    }
-
-    public function checkOut(Request $request){
-        return view('checkout');
     }
 }

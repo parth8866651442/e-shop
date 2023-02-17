@@ -9,7 +9,7 @@ class Cart extends Model
 {
     use HasFactory;
 
-    protected $fillable=['user_id','product_id','order_id','quantity','amount','price','status'];
+    protected $fillable=['user_id','product_id','quantity','amount','price','status'];
 
     public function productLimit()
     {
@@ -20,7 +20,7 @@ class Cart extends Model
     {
         return $this->belongsTo('App\Models\Product','product_id', 'id');
     }
-    public function order(){
+    /* public function order(){
         return $this->belongsTo('App\Models\Order','order_id','id');
-    }
+    } */
 }

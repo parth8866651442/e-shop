@@ -15,22 +15,17 @@ class Order extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'order_number',
         'user_id',
+        'user_shipping_id',
+        'coupon_id',
+        'order_number',
+        'items_count',
         'sub_total',
-        'coupon',
+        'coupon_amount',
         'shipping_amount',
         'total_amount',
-        'quantity',
         'payment_method',
         'payment_status',
         'status',
-        'first_name',
-        'last_name',
-        'email',
-        'phone',
-        'post_code',
-        'address1',
-        'address2',
     ];
 }

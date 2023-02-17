@@ -5,6 +5,7 @@ use Illuminate\Support\Arr;
 use App\Models\Category;
 use App\Models\Cart;
 use App\Models\Setting;
+use App\Models\State;
 
 class Helper
 {
@@ -34,7 +35,7 @@ class Helper
        
         if(auth()->check()){
             $user_id=auth()->user()->id;
-            return Cart::where('user_id',$user_id)->where('order_id',null)->count('id');
+            return Cart::where('user_id',$user_id)->count('id');
         }
         else{
             return 0;
@@ -44,7 +45,7 @@ class Helper
     public static function getAllProductFromCart(){
         if(auth()->check()){
             $user_id=auth()->user()->id;
-            return Cart::with('productLimit','productLimit.productOneImage')->where('user_id',$user_id)->where('order_id',null)->orderBy('created_at','ASC')->limit(3)->get();
+            return Cart::with('productLimit','productLimit.productOneImage')->where('user_id',$user_id)->orderBy('created_at','ASC')->limit(3)->get();
         }
         else{
             return 0;
@@ -55,7 +56,7 @@ class Helper
     public static function totalCartPrice(){
         if(auth()->check()){
             $user_id=auth()->user()->id;
-            return Cart::where('user_id',$user_id)->where('order_id',null)->sum('amount');
+            return Cart::where('user_id',$user_id)->sum('amount');
         }
         else{
             return 0;
@@ -69,5 +70,9 @@ class Helper
             return $item[$select];
         }
         return $item;
+    }
+
+    public static function getStates(){
+        return State::where('country_id',101)->get();
     }
 }
