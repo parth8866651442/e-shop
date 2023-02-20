@@ -58,6 +58,9 @@ Route::group(['middleware' => ['auth:web']], function () {
     // -------- order -------- //
     Route::group(['prefix' => 'orders'], function () {
         Route::get('/', [App\Http\Controllers\OrdersController::class,'index'])->name('getAllOrder');
+        Route::get('/invoice/download', [App\Http\Controllers\OrdersController::class,'invoice'])->name('invoiceDowbload');
+        Route::get('/', [App\Http\Controllers\OrdersController::class,'index'])->name('getAllOrder');
+        Route::get('/details', [App\Http\Controllers\OrdersController::class,'orderDetails'])->name('getOrderDetails');
         Route::get('/check-out', [App\Http\Controllers\OrdersController::class,'checkOut'])->name('getCheckOut');
         Route::post('/store', [App\Http\Controllers\OrdersController::class,'store'])->name('addToOrders');
     });

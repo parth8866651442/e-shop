@@ -3,19 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItems;
 use App\Models\ShippingAddress;
 use Illuminate\Support\Str;
-use Helper;
+use Helper,PDF;
 
 class OrdersController extends Controller
 {
     public function index(){
-        $orders = Order::where('user_id',auth()->user()->id)->get();
+        $orders = Order::with('orderItems','orderItems.product','orderItems.product.productOneImage')->where('user_id',auth()->user()->id)->get();
+
         return view('orders',compact('orders'));
+    }
+
+    public function orderDetails(Request $request){
+        // print_r($request->all());
+        $item_id = $request->item_id;
+        $orders = Order::with('shippingAddress','shippingAddress.getIDByStateDetail','orderItems','orderItems.product','orderItems.product.productOneImage')->whereHas('orderItems', function ($q) use ($item_id) {
+            $q->where('product_id', $item_id);
+        })->where('id',$request->order_id)->where('user_id',auth()->user()->id)->first();
+        return view('orders-detail',compact('orders'));
     }
 
     public function checkOut(Request $request){
@@ -92,5 +103,19 @@ class OrdersController extends Controller
         }else{
             return redirect()->route('home')->with('success', 'Your product unsuccessfully');
         }
+    }
+
+    public function invoice(Request $request){
+        // print_r($request->all());
+        $item_id = $request->item_id;
+        $orders = Order::with('shippingAddress','shippingAddress.getIDByStateDetail','orderItems','orderItems.product')->whereHas('orderItems', function ($q) use ($item_id) {
+            $q->where('product_id', $item_id);
+        })->where('id',$request->order_id)->where('user_id',auth()->user()->id)->first();
+        // return view('pdf',compact('orders'));
+        $name = $orders->order_number.'.pdf';
+
+        $pdf = PDF::loadView('pdf',compact('orders'));
+     
+        return $pdf->download($name);
     }
 }

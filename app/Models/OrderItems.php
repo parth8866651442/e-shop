@@ -21,4 +21,8 @@ class OrderItems extends Model
         'price',
         'quantity',
     ];
+
+    public function product(){
+        return $this->hasOne('App\Models\Product','id','product_id')->select('id','title','slug','condition','price','discount');
+    }
 }

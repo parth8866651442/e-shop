@@ -28,4 +28,12 @@ class Order extends Model
         'payment_status',
         'status',
     ];
+
+    public function orderItems(){
+        return $this->hasMany('App\Models\OrderItems','order_id','id');
+    }
+
+    public function shippingAddress(){
+        return $this->hasOne('App\Models\ShippingAddress','id','user_shipping_id');
+    }
 }
