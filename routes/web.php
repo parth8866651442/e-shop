@@ -21,8 +21,8 @@ Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->nam
 Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
 
 // -------- Product -------- //
-Route::group(['prefix' => 'product'], function () {
-    Route::get('/all', [App\Http\Controllers\ProductController::class,'products'])->name('getAllproducts');
+Route::group(['prefix' => 'products'], function () {
+    Route::get('/', [App\Http\Controllers\ProductController::class,'products'])->name('getAllproducts');
     Route::get('/category-wise-products/{slug}', [App\Http\Controllers\ProductController::class,'categoryWiseproducts'])->name('getCategoryWiseproducts');
     Route::get('/sub-category-wise-products/{slug}/{sub_slug}', [App\Http\Controllers\ProductController::class,'subCategoryWiseproducts'])->name('getSubCategoryWiseproducts');
     Route::match(['get', 'post'], '/filter',[App\Http\Controllers\ProductController::class,'filterParams'])->name('setFilterParams');
@@ -46,6 +46,12 @@ Route::group(['middleware' => ['auth:web']], function () {
         Route::post('/update-shipping-address', [App\Http\Controllers\HomeController::class,'shippingAddress'])->name('updateShippingAddress');
     });
 
+    // -------- blog -------- //
+    Route::post('blogs/{slug}/comment', [App\Http\Controllers\BlogsController::class,'commentAdd'])->name('commentwAdd');
+
+    // -------- Product -------- //
+    Route::post('product/{slug}/review', [App\Http\Controllers\ProductController::class,'reviewAdd'])->name('reviewAdd');
+
     // -------- cart -------- //
     Route::group(['prefix' => 'carts'], function () {
         Route::get('/', [App\Http\Controllers\CartsController::class,'index'])->name('getCarts');
@@ -58,8 +64,7 @@ Route::group(['middleware' => ['auth:web']], function () {
     // -------- order -------- //
     Route::group(['prefix' => 'orders'], function () {
         Route::get('/', [App\Http\Controllers\OrdersController::class,'index'])->name('getAllOrder');
-        Route::get('/invoice/download', [App\Http\Controllers\OrdersController::class,'invoice'])->name('invoiceDowbload');
-        Route::get('/', [App\Http\Controllers\OrdersController::class,'index'])->name('getAllOrder');
+        Route::get('/invoice/download', [App\Http\Controllers\OrdersController::class,'invoice'])->name('invoiceDownload');
         Route::get('/details', [App\Http\Controllers\OrdersController::class,'orderDetails'])->name('getOrderDetails');
         Route::get('/check-out', [App\Http\Controllers\OrdersController::class,'checkOut'])->name('getCheckOut');
         Route::post('/store', [App\Http\Controllers\OrdersController::class,'store'])->name('addToOrders');

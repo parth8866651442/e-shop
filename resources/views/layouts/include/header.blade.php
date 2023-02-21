@@ -24,16 +24,17 @@
                             <li><a href="#">Account <span><i class="sp-gear"></i></span></a>
                                 <ul class="submenu">
                                     <li><a href="{{route('myAccounts')}}">My Account</a></li>
-                                    <li><a href="#">Wishlist</a></li>
-                                    @if(Helper::cartCount() != 0)
-                                    <li><a href="{{route('getCheckOut')}}">Checkout</a></li>
-                                    @endif
+                                    <!-- <li><a href="#">Wishlist</a></li> -->
                                     <!-- Authentication Links -->
                                     @guest
-                                        @if (Route::has('login'))
-                                            <li><a href="{{ route('login') }}">Login</a></li>
-                                        @endif
+                                    @if (Route::has('login'))
+                                    <li><a href="{{ route('login') }}">Login</a></li>
+                                    @endif
                                     @else
+                                        <li><a href="{{ route('getAllOrder') }}">My Orders</a></li>
+                                        @if(Helper::cartCount() != 0)
+                                        <li><a href="{{route('getCheckOut')}}">Checkout</a></li>
+                                        @endif
                                         <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                             @csrf

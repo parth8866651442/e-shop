@@ -2566,6 +2566,9 @@ label{
   font-weight: 500;
   margin-bottom: 20px;
 }
+.single-product-description .rating span.pro-comments-rating .sp-star.rating-1 {
+  color: #F74F77;
+}
 .pro-color span, .pro-size span, .categories span {
   color: #333;
   float: left;
@@ -2757,6 +2760,15 @@ label{
 .product-comments .product-comments-content span.pro-comments-rating {
     float: right;
 }
+.product-comments .product-comments-content span.pro-comments-rating .sp-star.rating-1 {
+  color: #F74F77;
+}
+.comments-details .comments-content-wrap span.pro-comments-rating {
+  float: right;
+}
+.comments-details .comments-content-wrap span.pro-comments-rating .sp-star.rating-1 {
+  color: #F74F77;
+}
 .review-form-wrapper {
   width: 630px;
 }
@@ -2771,8 +2783,6 @@ label{
     margin-bottom: 20px;
     padding: 0 0 0 10px;
     width: 100%;
-}
-.review-form-wrapper input[type="email"] {
 }
 .review-form-wrapper input[type="submit"] {
     background: #252525 none repeat scroll 0 0;
@@ -3734,7 +3744,7 @@ span.email-notes {
 .author-avatar {
   float: left;
   margin-right: 10px;
-  width: 110px;
+  width: 80px;
 }
 .author-description h3 {
   font-size: 18px;

@@ -40,8 +40,8 @@
                                         <a href="{{route('getBlogDetail',[$post->getCategory->slug,$post->slug])}}"><h6>{{$post->title}}</h6></a>
                                         <p>{{$post->summary}}</p>
                                         <div class="like-comment">
-                                            <a href="#"><i class="sp-like"></i>120 like</a>
-                                            <a href="#"><i class="sp-comment"></i>60 comment</a>
+                                            <!-- <a href="{{route('getBlogDetail',[$post->getCategory->slug,$post->slug])}}"><i class="sp-like"></i>120 like</a> -->
+                                            <a href="{{route('getBlogDetail',[$post->getCategory->slug,$post->slug])}}"><i class="sp-comment"></i>{{count($post->getComment)}} comment</a>
                                         </div>
                                         <a class="shop-now" href="{{route('getBlogDetail',[$post->getCategory->slug,$post->slug])}}">Read more</a>
                                     </div>

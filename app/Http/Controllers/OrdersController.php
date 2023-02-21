@@ -106,15 +106,15 @@ class OrdersController extends Controller
     }
 
     public function invoice(Request $request){
-        // print_r($request->all());
         $item_id = $request->item_id;
         $orders = Order::with('shippingAddress','shippingAddress.getIDByStateDetail','orderItems','orderItems.product')->whereHas('orderItems', function ($q) use ($item_id) {
             $q->where('product_id', $item_id);
         })->where('id',$request->order_id)->where('user_id',auth()->user()->id)->first();
-        // return view('pdf',compact('orders'));
-        $name = $orders->order_number.'.pdf';
+        
 
         $pdf = PDF::loadView('pdf',compact('orders'));
+        
+        $name = $orders->order_number.'.pdf';
      
         return $pdf->download($name);
     }

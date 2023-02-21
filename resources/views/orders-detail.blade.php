@@ -70,7 +70,7 @@
                                                     <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/downloadInvoice_e0f744.png" class="img">
                                                     <span class="title">Download Invoice</span>
                                                 </div>
-                                                <a href="{{route('invoiceDowbload',['order_id'=>$orders->id , 'item_id'=>$orders->orderItems[0]->product_id])}}" class="btn"><span>Download</span></a>
+                                                <a href="{{route('invoiceDownload',['order_id'=>$orders->id , 'item_id'=>$orders->orderItems[0]->product_id])}}" class="btn"><span>Download</span></a>
                                             </div>
                                             @if($orders->status == 'new' || $orders->status == 'process')
                                             <div class="row invoice-box">
@@ -95,7 +95,7 @@
                                                     <span><a href="{{route('getProductDetail',$orders->orderItems[0]->product->slug)}}">{{$orders->orderItems[0]->product->title}}</a></span>
                                                     <div class="row">
                                                         <span>Size : {{$orders->orderItems[0]->size}}</span>
-                                                        <span>$ {{$orders->orderItems[0]->price}}</span>
+                                                        <span>Price : ${{$orders->orderItems[0]->price}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -103,10 +103,10 @@
                                         <div class="col-lg-4">
                                             <div class="order-status">
                                             @if($orders->status == 'process')
-                                                @php 
+                                                @php
                                                     $date = strtotime($orders->created_at);
                                                     $date = strtotime("+4 day", $date);
-                                                    $date = date('M d, Y', $date); 
+                                                    $date = date('M d, Y', $date);
                                                 @endphp
                                                 <span>Delivery by {{$date}}</span>       
                                             @elseif($orders->status == 'delivered')
@@ -114,10 +114,10 @@
                                             @elseif($orders->status == 'cancel')
                                             
                                             @else
-                                                @php 
+                                                @php
                                                     $date = strtotime($orders->created_at);
                                                     $date = strtotime("+7 day", $date);
-                                                    $date = date('M d, Y', $date); 
+                                                    $date = date('M d, Y', $date);
                                                 @endphp
                                                 <span>Delivery by {{$date}}</span>
                                             @endif

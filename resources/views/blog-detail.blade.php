@@ -54,8 +54,8 @@
                                     <hr>
                                     {!!$post->description!!}
                                     <div class="like-comment">
-                                        <a href="#"><i class="sp-like"></i>120 like</a>
-                                        <a href="#"><i class="sp-comment"></i>60 comment</a>
+                                        <!-- <a href="{{route('getBlogDetail',[$post->getCategory->slug,$post->slug])}}"><i class="sp-like"></i>120 like</a> -->
+                                        <a href="{{route('getBlogDetail',[$post->getCategory->slug,$post->slug])}}"><i class="sp-comment"></i>{{count($post->getComment)}} comment</a>
                                     </div>
                                 </div>
                             </div>
@@ -71,148 +71,56 @@
                             <div class="author-info">
                                 <div class="author-avatar"><img alt="" src="{{imageUrl($post->getUser->image, 'user','user.jpg','false')}}"></div>
                                 <div class="author-description">
-                                    <h3>About the Author: <a href="#">{{ucfirst($post->getUser->name)}}</a></h3>
+                                    <h3>About the Author: {{ucfirst($post->getUser->name)}}</h3>
                                     <p>{{$post->summary}}</p>
                                 </div>
                             </div>
                             <div class="single-post-comments">
                                 <div class="comments-area">
                                     <div class="comments-heading">
-                                        <h3>6 comments</h3>
+                                        <h3>{{count($post->getComment)}} comments</h3>
                                     </div>
                                     <div class="comments-list">
                                         <ul>
-                                            <li>
-                                                <div class="comments-details">
-                                                    <div class="comments-list-img">
-                                                        <img alt="" src="{{asset('assets/img/author.jpg')}}">
+                                            @if(count($post->getComment)>0)
+                                                @foreach($post->getComment as $key=>$postInfo)
+                                                <li>
+                                                    <div class="comments-details">
+                                                        <div class="comments-list-img">
+                                                            <img alt="" src="{{imageUrl($postInfo->user_info->image, 'user','no_image.jpg','false')}}">
+                                                        </div>
+                                                        <div class="comments-content-wrap">
+                                                            <span>
+                                                                <b>{{ucfirst($postInfo->user_info->name)}}</b> Post author
+                                                                <span class="post-time">{{$postInfo->created_at->format('M d, Y H:s a')}}</span>
+                                                            </span>
+                                                            <p>{!! $postInfo->comment !!}</p>
+                                                        </div>
                                                     </div>
-                                                    <div class="comments-content-wrap">
-                                                        <span>
-                                                            <b><a href="#">admin</a></b>
-                                                            Post author
-                                                            <span class="post-time">October 6, 2014 at 1:38 am</span>
-                                                            <a href="#">Reply</a>
-                                                        </span>
-                                                        <p>just a nice post</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="threaded-comments">
-                                                <div class="comments-details">
-                                                    <div class="comments-list-img">
-                                                        <img alt="" src="{{asset('assets/img/user.jpg')}}">
-                                                    </div>
-                                                    <div class="comments-content-wrap">
-                                                        <span>
-                                                            <b><a href="#">demo</a></b>
-                                                            Post author
-                                                            <span class="post-time">October 6, 2014 at 2:25 pm</span>
-                                                            <a href="#">Reply</a>
-                                                        </span>
-                                                        <p>Quisque semper nunc vitae erat pellentesque, ac placerat arcu
-                                                            consectetur</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="comments-details">
-                                                    <div class="comments-list-img">
-                                                        <img alt="" src="{{asset('assets/img/author.jpg')}}">
-                                                    </div>
-                                                    <div class="comments-content-wrap">
-                                                        <span>
-                                                            <b><a href="#">admin</a></b>
-                                                            Post author
-                                                            <span class="post-time">October 6, 2014 at 3:18 pm </span>
-                                                            <a href="#">Reply</a>
-                                                        </span>
-                                                        <p>Quisque orci nibh, porta vitae sagittis sit amet, vehicula
-                                                            vel mauris. Aenean at justo dolor. Fusce ac sapien bibendum,
-                                                            scelerisque libero nec</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="threaded-comments">
-                                                <div class="comments-details">
-                                                    <div class="comments-list-img">
-                                                        <img alt="" src="{{asset('assets/img/user.jpg')}}">
-                                                    </div>
-                                                    <div class="comments-content-wrap">
-                                                        <span>
-                                                            <b><a href="#">demo</a></b>
-                                                            Post author
-                                                            <span class="post-time">October 6, 2014 at 4:25 pm</span>
-                                                            <a href="#">Reply</a>
-                                                        </span>
-                                                        <p>Quisque semper nunc vitae erat pellentesque, ac placerat arcu
-                                                            consectetur</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="comments-details">
-                                                    <div class="comments-list-img">
-                                                        <img alt="" src="{{asset('assets/img/author.jpg')}}">
-                                                    </div>
-                                                    <div class="comments-content-wrap">
-                                                        <span>
-                                                            <b><a href="#">admin</a></b>
-                                                            Post author
-                                                            <span class="post-time">October 6, 2014 at 6:18 pm </span>
-                                                            <a href="#">Reply</a>
-                                                        </span>
-                                                        <p>Quisque orci nibh, porta vitae sagittis sit amet, vehicula
-                                                            vel mauris. Aenean at justo dolor. Fusce ac sapien bibendum,
-                                                            scelerisque libero nec</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="threaded-comments">
-                                                <div class="comments-details">
-                                                    <div class="comments-list-img">
-                                                        <img alt="" src="{{asset('assets/img/user.jpg')}}">
-                                                    </div>
-                                                    <div class="comments-content-wrap">
-                                                        <span>
-                                                            <b><a href="#">demo</a></b>
-                                                            Post author
-                                                            <span class="post-time">October 6, 2014 at 7:25 pm</span>
-                                                            <a href="#">Reply</a>
-                                                        </span>
-                                                        <p>Quisque semper nunc vitae erat pellentesque, ac placerat arcu
-                                                            consectetur</p>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                                </li>
+                                                @endforeach
+                                            @else
+                                                <li><h4 class="text-warning" style="margin:100px auto;">There are no reviews.</h4></li>
+                                            @endif
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="comment-respond">
-                                    <h3 class="comment-reply-title">Leave a Reply </h3>
-                                    <span class="email-notes">Your email address will not be published. Required fields
-                                        are marked *</span>
-                                    <form action="#">
+                                    <h3 class="comment-reply-title">Leave a Reply</h3>
+                                    @auth
+                                    <form method="post" action="{{route('commentwAdd',$post->slug)}}" id="commentwForm">
+                                        @csrf
                                         <div class="row">
-                                            <div class="col-lg-4">
-                                                <p>Name *</p>
-                                                <input type="text">
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <p>Email *</p>
-                                                <input type="email">
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <p>Website</p>
-                                                <input type="text">
-                                            </div>
                                             <div class="col-lg-12 comment-form-comment">
-                                                <p>Website</p>
-                                                <textarea rows="10" cols="30" id="message"></textarea>
+                                                <p>Your Comment *</p>
+                                                <textarea rows="10" cols="30" name="message" id="message"></textarea>
                                                 <input type="submit" value="Post Comment">
                                             </div>
                                         </div>
                                     </form>
+                                    @else 
+                                        <p class="text-center p-5"> You need to <a href="{{route('login')}}" style="color:rgb(54, 54, 204)">Login</a> OR <a style="color:blue" href="{{route('register')}}">Register</a> for comment. </p>
+                                    @endauth
                                 </div>
                             </div>
                         </div>
@@ -308,3 +216,39 @@
     <!-- BRAND-LOGO-AREA END -->
 </section>
 @endsection
+
+@push('scripts')
+<script>
+$(document).ready(function() {
+    $("#reviewForm").validate({
+        highlight: function(element, errorClass, validClass) {
+            $(element).parents('.form-control').removeClass('has-success').addClass(
+                'has-error');
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).parents('.form-control').removeClass('has-error').addClass(
+                'has-success');
+        },
+        errorPlacement: function(error, element) {
+            if (element.hasClass('select2') && element.next('.select2-container').length) {
+                error.insertAfter(element.next('.select2-container'));
+            } else if (element.parent('.pass-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        rules: {
+            message: {
+                required: true,
+            }
+        },
+        messages: {
+            message: {
+                required: "This field is required",
+            }
+        }
+    });
+});
+</script>
+@endpush

@@ -21,8 +21,8 @@ class HomeController extends Controller
     {
         $banners=Banner::where(['is_active'=>1,'is_deleted'=>0])->orderBy('created_at','ASC')->get();
         $categories=Category::where(['is_active'=>1,'is_parent'=>1,'is_deleted'=>0])->orderBy('created_at','ASC')->limit(3)->get();
-        $products=Product::with('productOneImage')->where(['is_active'=>1,'is_deleted'=>0])->orderBy('created_at','DESC')->limit(10)->get();
-        $latestPosts=Post::with('getCategory')->where(['is_active'=>1,'is_deleted'=>0])->orderBy('created_at','DESC')->limit(3)->get();  
+        $products=Product::with('productOneImage','getReview')->where(['is_active'=>1,'is_deleted'=>0])->orderBy('created_at','DESC')->limit(10)->get();
+        $latestPosts=Post::with('getCategory','getComment')->where(['is_active'=>1,'is_deleted'=>0])->orderBy('created_at','DESC')->limit(3)->get();  
        
         return view('home',compact('banners','categories','products','latestPosts'));
     }

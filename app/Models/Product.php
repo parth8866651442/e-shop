@@ -47,5 +47,8 @@ class Product extends Model
     public function childCategory(){
         return $this->hasOne('App\Models\Category','id','child_category_id');
     }
+    public function getReview(){
+        return $this->hasMany('App\Models\ProductReview','product_id','id')->with('user_info')->where('is_active','1')->orderBy('id','DESC')->limit(15);
+    }
 
 }

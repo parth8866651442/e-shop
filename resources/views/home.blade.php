@@ -120,11 +120,13 @@
                 </div>
                 <div class="product-brief">
                     <div class="pro-rating">
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-1"></i></a>
-                        <a href="#"><i class="sp-star rating-2"></i></a>
+                        @for($i=1; $i<=5; $i++)
+                            @if($product->getReview->avg('rate')>=$i)
+                                <i class="sp-star rating-1"></i>
+                            @else 
+                                <i class="sp-star"></i>
+                            @endif
+                        @endfor
                     </div>
                     <h2><a href="{{route('getProductDetail',$product->slug)}}">{{$product->title}}</a></h2>
                     <h3>
@@ -338,8 +340,8 @@
                                     <a href="{{route('getBlogDetail',[$post->getCategory->slug,$post->slug])}}"><h6>{{$post->title}}</h6></a>
                                     <p>{{$post->summary}}</p>
                                     <div class="like-comment">
-                                        <a href="#"><i class="sp-like"></i>120 like</a>
-                                        <a href="#"><i class="sp-comment"></i>60 comment</a>
+                                        <!-- <a href="{{route('getBlogDetail',[$post->getCategory->slug,$post->slug])}}"><i class="sp-like"></i>120 like</a> -->
+                                        <a href="{{route('getBlogDetail',[$post->getCategory->slug,$post->slug])}}"><i class="sp-comment"></i>{{count($post->getComment)}} comment</a>
                                     </div>
                                     <a class="shop-now" href="{{route('getBlogDetail',[$post->getCategory->slug,$post->slug])}}">Read more</a>
                                 </div>

@@ -209,8 +209,8 @@
                                                         <img class="secondary-photo" src="{{imageUrl($product->productOneImage->name, 'product','product.jpg','false')}}" alt="" />
                                                     </a>
                                                     <div class="pro-action">
-                                                        <a href="#" class="action-btn"><i class="sp-heart"></i><span>Wishlist</span></a>
-                                                        <a href="#" class="action-btn"><i class="sp-shopping-cart"></i><span>Add to cart</span></a>
+                                                        <!-- <a href="#" class="action-btn"><i class="sp-heart"></i><span>Wishlist</span></a> -->
+                                                        <a href="{{route('addToCart',$product->slug)}}" class="action-btn"><i class="sp-shopping-cart"></i><span>Add to cart</span></a>
                                                     </div>
                                                 </div>
                                                 <div class="product-brief">
@@ -247,11 +247,8 @@
                                                         <!-- <img class="secondary-photo" src="{{asset('assets/img/shop-list/5.jpg')}}" alt="" /> -->
                                                     </a>
                                                     <div class="pro-action">
-                                                        <a href="#" class="action-btn"><i
-                                                                class="sp-heart"></i><span>Wishlist</span></a>
-                                                        <a href="#" class="action-btn"><i
-                                                                class="sp-shopping-cart"></i><span>Add to
-                                                                cart</span></a>
+                                                        <!-- <a href="#" class="action-btn"><i class="sp-heart"></i><span>Wishlist</span></a> -->
+                                                        <a href="{{route('addToCart',$product->slug)}}" class="action-btn"><i class="sp-shopping-cart"></i><span>Add to cart</span></a>
                                                     </div>
                                                 </div>
                                                 <div class="product-brief">
@@ -275,11 +272,13 @@
                                                             <a href="#" data-bs-toggle="modal" data-bs-target="#productModal" title="Quick View" onclick="productInfo({{json_encode($data)}})">Quick View</a>
                                                         </div>
                                                         <div class="pro-rating">
-                                                            <a href="#"><i class="sp-star rating-1"></i></a>
-                                                            <a href="#"><i class="sp-star rating-1"></i></a>
-                                                            <a href="#"><i class="sp-star rating-1"></i></a>
-                                                            <a href="#"><i class="sp-star rating-1"></i></a>
-                                                            <a href="#"><i class="sp-star rating-2"></i></a>
+                                                            @for($i=1; $i<=5; $i++)
+                                                                @if($product->getReview->avg('rate')>=$i)
+                                                                    <i class="sp-star rating-1"></i>
+                                                                @else 
+                                                                    <i class="sp-star"></i>
+                                                                @endif
+                                                            @endfor
                                                         </div>
                                                     </div>
                                                 </div>
@@ -443,7 +442,7 @@ function productInfo(data){
 
     let html =`<div class="product-images"><div class="main-image images"><img alt="#" src="${data.image}" /></div></div>
     <div class="product-info"><h1>${data.title}</h1><div class="price-box-3"><hr /><div class="s-price-box"><span class="new-price">$${parseFloat(after_discount).toFixed(2)}</span><span class="old-price">$${parseFloat(data.price).toFixed(2)}</span></div><hr /></div>
-    <a href="<?php echo route('getProductDetail','')?>/${data.slug}" class="see-all">See all features</a><div class="quick-add-to-cart"><form method="post" class="cart"><div class="numbers-row"><input type="number" min=0 max="100" id="french-hens" value="1"></div><button class="single_add_to_cart_button" type="submit">Add to cart</button></form></div><div class="quick-desc">${data.summary}</div></div>`;
+    <a href="<?php echo route('getProductDetail','')?>/${data.slug}" class="see-all">See all features</a><div class="quick-add-to-cart"><form method="post" action="{{route('addToCart','')}}/${data.slug}" class="cart">@csrf<div class="numbers-row"><input type="number" name="qty" min=0 max="100" id="french-hens" value="1"></div><button class="single_add_to_cart_button" type="submit">Add to cart</button></form></div><div class="quick-desc">${data.summary}</div></div>`;
 
     $('#product-info').html(html);
 }

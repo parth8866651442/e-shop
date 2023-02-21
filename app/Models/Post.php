@@ -35,4 +35,8 @@ class Post extends Model
     public function getUser(){
         return $this->hasOne('App\Models\User','id','user_id');
     }
+
+    public function getComment(){
+        return $this->hasMany('App\Models\PostComment','post_id','id')->with('user_info')->where('is_active','1')->orderBy('id','DESC')->limit(15);
+    }
 }
