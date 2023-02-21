@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2023 at 03:17 PM
+-- Generation Time: Feb 21, 2023 at 03:07 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -73,7 +73,8 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `product_id`, `user_id`, `price`, `status`, `quantity`, `size`, `amount`, `created_at`, `updated_at`) VALUES
-(1, 5, 2, 475.00, 'new', 2, 'a5', 950.00, '2023-02-17 13:27:37', '2023-02-17 13:27:50');
+(5, 1, 2, 360.00, 'new', 2, 'a5', 720.00, '2023-02-21 09:12:33', '2023-02-21 09:12:41'),
+(6, 3, 2, 475.00, 'new', 3, 'a5', 1425.00, '2023-02-21 14:03:35', '2023-02-21 14:03:48');
 
 -- --------------------------------------------------------
 
@@ -48406,7 +48407,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (12, '2023_02_13_110425_create_carts_table', 9),
 (13, '2023_02_14_191635_create_orders_table', 10),
 (14, '2023_02_16_222648_create_order_items_table', 11),
-(15, '2023_02_16_222131_create_users_shipping_address_table', 12);
+(15, '2023_02_16_222131_create_users_shipping_address_table', 12),
+(16, '2023_02_21_121632_create_product_reviews_table', 13),
+(17, '2023_02_21_145908_create_post_comments_table', 14);
 
 -- --------------------------------------------------------
 
@@ -48575,6 +48578,31 @@ INSERT INTO `post_categories` (`id`, `title`, `slug`, `is_deleted`, `is_active`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `post_comments`
+--
+
+CREATE TABLE `post_comments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `post_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `comment` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `parent_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `is_active` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `post_comments`
+--
+
+INSERT INTO `post_comments` (`id`, `user_id`, `post_id`, `comment`, `parent_id`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 2, 13, 'Quisque semper nunc vitae erat pellentesque, ac placerat arcu consectetur', 0, '1', '2023-02-21 11:37:49', '2023-02-21 11:37:49'),
+(2, 3, 13, 'Quisque semper nunc vitae erat pellentesque, ac placerat arcu consectetur', 0, '1', '2023-02-21 11:37:49', '2023-02-21 11:37:49');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `products`
 --
 
@@ -48653,6 +48681,31 @@ INSERT INTO `product_images` (`id`, `product_id`, `name`, `type`, `created_at`, 
 (27, 3, '1676020910_03.png', 'png', '2023-02-10 09:21:50', '2023-02-10 09:21:50'),
 (28, 3, '1676020910_04.png', 'png', '2023-02-10 09:21:50', '2023-02-10 09:21:50'),
 (29, 3, '1676020910_05.png', 'png', '2023-02-10 09:21:50', '2023-02-10 09:21:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_reviews`
+--
+
+CREATE TABLE `product_reviews` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `product_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `rate` tinyint(4) NOT NULL DEFAULT 0,
+  `message` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_active` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_reviews`
+--
+
+INSERT INTO `product_reviews` (`id`, `user_id`, `product_id`, `rate`, `message`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 2, 3, 3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum.', '1', '2023-02-21 07:03:04', '2023-02-21 07:03:04'),
+(2, 2, 1, 4, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', '1', '2023-02-21 09:17:11', '2023-02-21 09:17:11');
 
 -- --------------------------------------------------------
 
@@ -52849,8 +52902,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `name`, `email`, `email_verified_at`, `mobile_no`, `image`, `password`, `remember_token`, `is_deleted`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 'superadmin', 'admin', 'admin@admin.com', NULL, '9638527410', '1675081067_u8---Copy.jpg', '$2y$10$b4Wvxk1W/1l4/fkfesuqoePb6fbOmdXfO6Wsohi8TLsgI5tRU1si6', '46OA43dnNKwbT2J1YBnEyigqaavjIsbqXzlrFGwbbvkIBBudXS4Mv1MJSXNe', 0, '1', '2023-01-28 01:57:30', '2023-02-03 03:14:11'),
-(2, 'user', 'parth', 'parth1@test.tk', NULL, '9632587440', NULL, '$2y$10$NBChfHIFBDmfF7I2hZ14s.h795F6Qr9IcbFVe0Z7/DTdIBrp2QUSa', 'ZHiNMNePEaFZFPRZcr3asCItN0GDJdiBSTMPo5zeQpoJQDDwCvpUeMqjHNRh', 0, '1', '2023-01-28 01:57:30', '2023-02-17 07:42:29');
+(1, 'superadmin', 'admin', 'admin@admin.com', NULL, '9638527410', '1675081067_u8.jpg', '$2y$10$b4Wvxk1W/1l4/fkfesuqoePb6fbOmdXfO6Wsohi8TLsgI5tRU1si6', '46OA43dnNKwbT2J1YBnEyigqaavjIsbqXzlrFGwbbvkIBBudXS4Mv1MJSXNe', 0, '1', '2023-01-28 01:57:30', '2023-02-03 03:14:11'),
+(2, 'user', 'parth', 'parth1@test.tk', NULL, '9632587440', 'user.jpg', '$2y$10$NBChfHIFBDmfF7I2hZ14s.h795F6Qr9IcbFVe0Z7/DTdIBrp2QUSa', 'wmXRO0ol5xVCP6o8z5RYiOMntwDvd8Zbh9jGyNwkIrZHJzzul1LkvU6l8MSJ', 0, '1', '2023-01-28 01:57:30', '2023-02-17 07:42:29'),
+(3, 'user', 'raj', 'raj@test.tk', NULL, '96325874747', NULL, '$2y$10$NBChfHIFBDmfF7I2hZ14s.h795F6Qr9IcbFVe0Z7/DTdIBrp2QUSa', '', 0, '1', '2023-01-28 01:57:30', '2023-02-17 07:42:29');
 
 --
 -- Indexes for dumped tables
@@ -52943,6 +52997,12 @@ ALTER TABLE `post_categories`
   ADD UNIQUE KEY `post_categories_slug_unique` (`slug`);
 
 --
+-- Indexes for table `post_comments`
+--
+ALTER TABLE `post_comments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -52953,6 +53013,12 @@ ALTER TABLE `products`
 -- Indexes for table `product_images`
 --
 ALTER TABLE `product_images`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_reviews`
+--
+ALTER TABLE `product_reviews`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -52995,7 +53061,7 @@ ALTER TABLE `banners`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -53025,7 +53091,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -53058,6 +53124,12 @@ ALTER TABLE `post_categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `post_comments`
+--
+ALTER TABLE `post_comments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
@@ -53068,6 +53140,12 @@ ALTER TABLE `products`
 --
 ALTER TABLE `product_images`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `product_reviews`
+--
+ALTER TABLE `product_reviews`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -53091,7 +53169,7 @@ ALTER TABLE `states`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
