@@ -89,7 +89,7 @@
                                         <form action="{{route('updateShippingAddress')}}" method="POST" id="shippingAddress">
                                             @csrf
                                             <div class="row">
-                                                <input type="hidden" name="id" value="{{isset($shippingAddress->id)? $shippingAddress->id : ''}}">
+                                                <input type="hidden" name="id" value="{{isset($shippingAddress->id)? Helper::encode($shippingAddress->id) : ''}}">
                                                 <!-- Shipping-Address Start -->
                                                 <div class="col-lg-12">
                                                     <div class="shipping-address">
@@ -127,7 +127,7 @@
                                                                 <select class="custom-select custom-form" name="state" tabindex="8" required>
                                                                     <option value="">--Select State any one--</option>
                                                                     @foreach(Helper::getStates() as $state)
-                                                                        <option value="{{$state->id}}" {{isset($shippingAddress->state) && ($shippingAddress->state == $state->id) ? 'selected' : ''}}>{{$state->name}}</option>
+                                                                        <option value="{{Helper::encode($state->id)}}" {{isset($shippingAddress->state) && ($shippingAddress->state == $state->id) ? 'selected' : ''}}>{{$state->name}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>

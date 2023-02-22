@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Helpers;
+
+use Hashids\Hashids;
 use Illuminate\Support\Arr;
 use App\Models\Category;
 use App\Models\Cart;
@@ -9,6 +11,22 @@ use App\Models\State;
 
 class Helper
 {
+
+    public static function encode($id){
+        $hashids = new Hashids();
+        return $hashids->encode($id);
+    }
+
+    public static function decode($id){
+        $hashids = new Hashids();
+
+        // $id = $hashids->encode(5555);
+        $decode = $hashids->decode($id);
+        if(is_array($decode) ){
+            return $decode[0];   
+        }
+    }
+
     public static function getHeaderCategory(){
         $category = new Category();
         

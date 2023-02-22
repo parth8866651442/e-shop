@@ -106,7 +106,7 @@
                                                 <span class="quantity">{{$data->quantity}} x - ${{number_format($data->price,2)}}</span>
                                             </div>
                                             <div class="pro-delete">
-                                                <a href="{{route('deleteToCart',$data->id)}}"><i class="sp-circle-close"></i></a>
+                                                <a href="{{route('deleteToCart',Helper::encode($data->id))}}"><i class="sp-circle-close"></i></a>
                                             </div>
                                         </div>
                                     @endforeach

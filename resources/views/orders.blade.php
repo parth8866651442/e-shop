@@ -47,7 +47,7 @@
                                 <div class="row shop-list">
                                     <!-- Single-product start -->
                                     @foreach($order->orderItems as $orderItem)
-                                    <a href="{{route('getOrderDetails',['order_id'=>$order->id , 'item_id'=>$orderItem->product_id])}}">
+                                    <a href="{{route('getOrderDetails',['order_id'=>Helper::encode($order->id) , 'item_id'=>Helper::encode($orderItem->product_id)])}}">
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="row">

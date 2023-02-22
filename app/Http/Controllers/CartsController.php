@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
+use Helper;
 
 class CartsController extends Controller
 {   
@@ -76,14 +77,13 @@ class CartsController extends Controller
         $success = '';
         // return $request->quant;
         foreach ($request->quantity as $k=>$quant) {
-            $id = $request->id[$k];
+            $id = Helper::decode($request->id[$k]);
             $cart = Cart::with('product')->find($id);
             if($quant > 0 && $cart) {
-
-                /* if($cart->product->stock < $quant){
-                    request()->session()->flash('error','Out of stock');
-                    return back();
-                } */
+                // if($cart->product->stock < $quant){
+                //     request()->session()->flash('error','Out of stock');
+                //     return back();
+                // }
                 // $cart->quantity = ($cart->product->stock > $quant) ? $quant  : $cart->product->stock;
                 $cart->quantity = $quant;
                 
@@ -108,11 +108,12 @@ class CartsController extends Controller
     }
 
     public function deleteToCart(Request $request){
-        $cart = Cart::find($request->id);
-        if ($cart) {
+        $cart = Cart::find(Helper::decode($request->id));
+        if (!is_null($cart)) {
             $cart->delete();
-            return redirect()->route('getCarts')->with('success','Cart successfully removed');
+            return response()->json(['status' => true, 'message' => 'Cart successfully removed','url' => route('getCarts')], 200);
+        } else {
+            return response()->json(['status' => false, 'message' => 'Error please try again','url' => route('getCarts')], 200);
         }
-        return redirect()->route('getCarts')->with('error','Error please try again'); 
     }
 }

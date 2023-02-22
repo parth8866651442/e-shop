@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Post;
 use App\Models\ShippingAddress;
+use Helper;
 
 class HomeController extends Controller
 {
@@ -80,12 +81,17 @@ class HomeController extends Controller
            'addressLine2' =>$request->addressLine2, 
            'addressLine1' =>$request->addressLine1, 
            'city' =>$request->city, 
-           'state' =>$request->state, 
+           'state' =>Helper::decode($request->state), 
            'landmark' =>$request->landmark,
            'alternatePhone' =>$request->alternatePhone
         );
+
+        $id = '';
+        if(!empty($request->id)){
+            $id = Helper::decode($request->id);
+        }
         
-        $item = ShippingAddress::updateOrCreate(['id' => $request->id],$data);
+        $item = ShippingAddress::updateOrCreate(['id' => $id],$data);
 
         if (!is_null($item)) {
             return redirect()->route('myAccounts')->with('success', 'Addresses updated successfully');

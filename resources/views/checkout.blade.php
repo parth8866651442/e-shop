@@ -31,7 +31,7 @@
             <div class="checkout-bill-order">
                 <form method="POST" action="{{route('addToOrders')}}" id="checkOutForm">
                     @csrf
-                    <input type="hidden" name="shipping_id" value="{{isset($shippingAddress->id)? $shippingAddress->id : ''}}">
+                    <input type="hidden" name="shipping_id" value="{{isset($shippingAddress->id)? Helper::encode($shippingAddress->id) : ''}}">
                     <div class="row">
                         <div class="col-lg-6 coupon-area">
                             <div class="checkout-bill coupon-accordion">
@@ -112,7 +112,7 @@
                                             <select name="state" tabindex="8" required>
                                                 <option value="">--Select State any one--</option>
                                                 @foreach(Helper::getStates() as $state)
-                                                    <option value="{{$state->id}}" {{isset($shippingAddress->state) && ($shippingAddress->state == $state->id) ? 'selected' : ''}}>{{$state->name}}</option>
+                                                    <option value="{{Helper::encode($state->id)}}" {{isset($shippingAddress->state) && ($shippingAddress->state == $state->id) ? 'selected' : ''}}>{{$state->name}}</option>
                                                 @endforeach
                                             </select>
                                         </p>

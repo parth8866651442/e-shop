@@ -266,7 +266,7 @@
                                                     <div class="pro-quick-view">
                                                         <div class="quick-view">
                                                             @php 
-                                                            $data = ['id'=>$product->id,'title'=>$product->title,'slug'=>$product->slug,
+                                                            $data = ['id'=>Helper::encode($product->id),'title'=>$product->title,'slug'=>$product->slug,
                                                             "summary"=>$product->summary,"size"=>$product->size,"condition"=>$product->condition,"price"=>$product->price,"discount"=>$product->discount, "image"=>imageUrl($product->productOneImage->name, 'product','product.jpg','false')];
                                                             @endphp
                                                             <a href="#" data-bs-toggle="modal" data-bs-target="#productModal" title="Quick View" onclick="productInfo({{json_encode($data)}})">Quick View</a>

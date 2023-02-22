@@ -60,8 +60,8 @@
                                             @endif
                                             </td>
                                             <td class="product-subtotal">{{$cart->amount}}</td>
-                                            <input type="hidden" name="id[]" value="{{$cart->id}}">
-                                            <td class="product-remove"><a href="{{route('deleteToCart',$cart->id)}}"><i class="pe-7s-close"></i></a></td>
+                                            <input type="hidden" name="id[]" value="{{Helper::encode($cart->id)}}">
+                                            <td class="product-remove"><a href="javascript:void(0);" onclick="removeItem(this)" data-id="{{ Helper::encode($cart->id) }}"><i class="pe-7s-close"></i></a></td> 
                                         </tr>
                                         @endforeach
                                     @else
@@ -77,8 +77,8 @@
                             <div class="col-lg-12">
                                 <div class="coupon">
                                     <input type="submit" value="update cart" />
-                                    <span>do you have coupon code</span>
-                                    <input type="text" />
+                                    <!-- <span>do you have coupon code</span>
+                                    <input type="text" /> -->
                                 </div>
                             </div>
                         </div>
@@ -162,3 +162,54 @@
     <!-- BRAND-LOGO-AREA END -->
 </section>
 @endsection
+@push('scripts')
+<!-- Modal -->
+<div class="modal fade" id="cartItemRemoveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Remove Item</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove this item?</p>
+            </div><!-- .modal-body -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="delete_sure">Remove</button>
+            </div>
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div>
+<!-- END Modal -->
+
+<script>
+// delete mate confirmtion modal open 
+function removeItem(th) {
+    $('#cartItemRemoveModal').modal('show');
+    $("#delete_sure").val($(th).data('id'));
+}
+
+// one record delete function
+$(document.body).on('click', '#delete_sure', function() {
+    $('#cartItemRemoveModal').modal('hide');
+    var id = $(this).val();
+    $.ajax({
+        url: "{{ route('deleteToCart','') }}/" + id,
+        type: 'GET',
+        dataType: 'Json',
+        success: function(res) {
+            console.log(res);
+            if (res.status) {
+                toastr.success(res.message);
+            } else {
+                toastr.error(res.message);
+            }
+            setTimeout(() => {
+                window.location.replace(res.url);
+            }, 1000);
+        }
+    });
+});
+</script>
+@endpush

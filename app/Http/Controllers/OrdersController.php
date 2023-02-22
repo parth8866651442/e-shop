@@ -22,10 +22,10 @@ class OrdersController extends Controller
 
     public function orderDetails(Request $request){
         // print_r($request->all());
-        $item_id = $request->item_id;
+        $item_id = Helper::decode($request->item_id);
         $orders = Order::with('shippingAddress','shippingAddress.getIDByStateDetail','orderItems','orderItems.product','orderItems.product.productOneImage')->whereHas('orderItems', function ($q) use ($item_id) {
             $q->where('product_id', $item_id);
-        })->where('id',$request->order_id)->where('user_id',auth()->user()->id)->first();
+        })->where('id',Helper::decode($request->order_id))->where('user_id',auth()->user()->id)->first();
         return view('orders-detail',compact('orders'));
     }
 
@@ -50,17 +50,17 @@ class OrdersController extends Controller
                 'addressLine2' =>$request->addressLine2, 
                 'addressLine1' =>$request->addressLine1, 
                 'city' =>$request->city, 
-                'state' =>$request->state, 
+                'state' =>Helper::decode($request->state), 
                 'landmark' =>$request->landmark,
                 'alternatePhone' =>$request->alternatePhone
             );
-            ShippingAddress::updateOrCreate(['id' => $request->shipping_id],$shippingData);
+            ShippingAddress::updateOrCreate(['id' => Helper::decode($request->shipping_id)],$shippingData);
         }
 
         $order=new Order();
         $order_data['order_number']='ORD-'.strtoupper(Str::random(10));
         $order_data['user_id']=auth()->user()->id;
-        $order_data['user_shipping_id']=$request->shipping_id;
+        $order_data['user_shipping_id']=Helper::decode($request->shipping_id);
         $order_data['shipping_amount']=Helper::settings('delivery_charges');
         $order_data['sub_total']=Helper::totalCartPrice();
         $order_data['items_count']=Helper::cartCount();
@@ -106,10 +106,10 @@ class OrdersController extends Controller
     }
 
     public function invoice(Request $request){
-        $item_id = $request->item_id;
+        $item_id = Helper::decode($request->item_id);
         $orders = Order::with('shippingAddress','shippingAddress.getIDByStateDetail','orderItems','orderItems.product')->whereHas('orderItems', function ($q) use ($item_id) {
             $q->where('product_id', $item_id);
-        })->where('id',$request->order_id)->where('user_id',auth()->user()->id)->first();
+        })->where('id',Helper::decode($request->order_id))->where('user_id',auth()->user()->id)->first();
         
 
         $pdf = PDF::loadView('pdf',compact('orders'));

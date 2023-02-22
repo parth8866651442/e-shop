@@ -70,7 +70,7 @@
                                                     <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/downloadInvoice_e0f744.png" class="img">
                                                     <span class="title">Download Invoice</span>
                                                 </div>
-                                                <a href="{{route('invoiceDownload',['order_id'=>$orders->id , 'item_id'=>$orders->orderItems[0]->product_id])}}" class="btn"><span>Download</span></a>
+                                                <a href="{{route('invoiceDownload',['order_id'=>Helper::encode($orders->id) , 'item_id'=>Helper::encode($orders->orderItems[0]->product_id)])}}" class="btn"><span>Download</span></a>
                                             </div>
                                             @if($orders->status == 'new' || $orders->status == 'process')
                                             <div class="row invoice-box">
