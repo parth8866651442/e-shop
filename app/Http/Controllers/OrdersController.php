@@ -21,12 +21,11 @@ class OrdersController extends Controller
     }
 
     public function orderDetails(Request $request){
-        // print_r($request->all());
         $item_id = Helper::decode($request->item_id);
-        $orders = Order::with('shippingAddress','shippingAddress.getIDByStateDetail','orderItems','orderItems.product','orderItems.product.productOneImage')->whereHas('orderItems', function ($q) use ($item_id) {
-            $q->where('product_id', $item_id);
-        })->where('id',Helper::decode($request->order_id))->where('user_id',auth()->user()->id)->first();
+        $orders = Order::with('shippingAddress','shippingAddress.getIDByStateDetail','orderItems','orderItems.product','orderItems.product.productOneImage','orderItems.product.getReview')->where('id',Helper::decode($request->order_id))->where('user_id',auth()->user()->id)->first();
         return view('orders-detail',compact('orders'));
+
+        // ->whereHas('orderItems', function ($q) use ($item_id) { $q->where('product_id', $item_id);})
     }
 
     public function checkOut(Request $request){
@@ -107,10 +106,8 @@ class OrdersController extends Controller
 
     public function invoice(Request $request){
         $item_id = Helper::decode($request->item_id);
-        $orders = Order::with('shippingAddress','shippingAddress.getIDByStateDetail','orderItems','orderItems.product')->whereHas('orderItems', function ($q) use ($item_id) {
-            $q->where('product_id', $item_id);
-        })->where('id',Helper::decode($request->order_id))->where('user_id',auth()->user()->id)->first();
-        
+        $orders = Order::with('shippingAddress','shippingAddress.getIDByStateDetail','orderItems','orderItems.product')->where('id',Helper::decode($request->order_id))->where('user_id',auth()->user()->id)->first();
+        // ->whereHas('orderItems', function ($q) use ($item_id) { $q->where('product_id', $item_id);})
 
         $pdf = PDF::loadView('pdf',compact('orders'));
         

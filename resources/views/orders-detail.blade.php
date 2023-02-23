@@ -70,7 +70,7 @@
                                                     <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/downloadInvoice_e0f744.png" class="img">
                                                     <span class="title">Download Invoice</span>
                                                 </div>
-                                                <a href="{{route('invoiceDownload',['order_id'=>Helper::encode($orders->id) , 'item_id'=>Helper::encode($orders->orderItems[0]->product_id)])}}" class="btn"><span>Download</span></a>
+                                                <a href="{{route('invoiceDownload',['order_id'=>Helper::encode($orders->id)])}}" class="btn"><span>Download</span></a>
                                             </div>
                                             @if($orders->status == 'new' || $orders->status == 'process')
                                             <div class="row invoice-box">
@@ -83,19 +83,20 @@
                                             @endif
                                         </div>
                                     </div>
+                                    @foreach($orders->orderItems as $items)
                                     <div class="row product-info">
                                         <div class="col-lg-6">
                                             <div class="row">
                                                 <div class="col-lg-3">
                                                     <div class="pro-img-size">
-                                                        <a href="{{route('getProductDetail',$orders->orderItems[0]->product->slug)}}"><img class="primary-photo" src="{{imageUrl($orders->orderItems[0]->product->productOneImage->name, 'product','product.jpg','false')}}" alt="" /></a>
+                                                        <a href="{{route('getProductDetail',$items->product->slug)}}"><img class="primary-photo" src="{{imageUrl($items->product->productOneImage->name, 'product','product.jpg','false')}}" alt="" /></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-8"> 
-                                                    <span><a href="{{route('getProductDetail',$orders->orderItems[0]->product->slug)}}">{{$orders->orderItems[0]->product->title}}</a></span>
+                                                    <span><a href="{{route('getProductDetail',$items->product->slug)}}">{{$items->product->title}}</a></span>
                                                     <div class="row">
-                                                        <span>Size : {{$orders->orderItems[0]->size}}</span>
-                                                        <span>Price : ${{$orders->orderItems[0]->price}}</span>
+                                                        <span>Size : {{$items->size}}</span>
+                                                        <span>Price : ${{$items->price}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -126,14 +127,17 @@
                                                 </div>
                                             </div>
                                             <div class="pro-rating">
-                                                <i class="sp-star rating-1"></i>
-                                                <i class="sp-star rating-1"></i>
-                                                <i class="sp-star rating-1"></i>
-                                                <i class="sp-star rating-1"></i>
-                                                <i class="sp-star rating-2"></i>
+                                            @for($i=1; $i<=5; $i++)
+                                                @if($items->product->getReview->avg('rate')>=$i)
+                                                    <i class="sp-star rating-1"></i>
+                                                @else 
+                                                    <i class="sp-star"></i>
+                                                @endif
+                                            @endfor
                                             </div>
                                         </div>
                                     </div>
+                                    @endforeach
                                     <!-- Single-product end -->
                                 </div>
                             </div>
