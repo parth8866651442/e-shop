@@ -4,7 +4,7 @@
     <div class="header-top d-none d-md-block">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="header-top-left text-start">
                         <ul>
                             <li>
@@ -18,7 +18,15 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
+                    <div class="header-search w-100">
+                        <form action="#">
+                            <input type="text" placeholder="Search..." />
+                            <button type="submit"><i class="sp-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-2">
                     <div class="header-top-right float-end">
                         <ul>
                             <li><a href="#">Account <span><i class="sp-gear"></i></span></a>
@@ -43,12 +51,6 @@
                                 </ul>
                             </li>
                         </ul>
-                        <div class="header-search">
-                            <form action="#">
-                                <input type="text" placeholder="Search..." />
-                                <button type="submit"><i class="sp-search"></i></button>
-                            </form>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -106,7 +108,7 @@
                                                 <span class="quantity">{{$data->quantity}} x - ${{number_format($data->price,2)}}</span>
                                             </div>
                                             <div class="pro-delete">
-                                                <a href="{{route('deleteToCart',Helper::encode($data->id))}}"><i class="sp-circle-close"></i></a>
+                                                <a href="javascript:void(0);" onclick="removeCartsItem(this)" data-id="{{ Helper::encode($data->id) }}"><i class="sp-circle-close"></i></a>
                                             </div>
                                         </div>
                                     @endforeach
@@ -137,6 +139,11 @@
                             <ul>
                                 <li><a href="{{route('home')}}">home</a></li>
                                 <li><a href="{{route('getAllproducts')}}">Products</a></li>
+                                <li><a href="javascript:void(0);">shop</a>
+                                    <div class="mega-menu">
+                                        {{Helper::getHeaderCategory()}}
+                                    </div>
+                                </li>
                                 <li><a href="{{route('getAllblogs')}}">blog</a></li>
                                 <li><a href="{{route('about')}}">about</a></li>
                                 <li><a href="{{route('contact')}}">contact</a></li>

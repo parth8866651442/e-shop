@@ -144,14 +144,14 @@
     </div>
     <!-- PRODUCT-AREA END -->
     <!-- PROMOTIONAL-BANNER START -->
-    <div class="promotional-banner-area clearfix margin-bottom-80">
+    <!-- <div class="promotional-banner-area clearfix margin-bottom-80">
         <div class="promotional-banner">
             <div class="container-fluid p-0 overflow-hidden">
                 <div class="row">
-                    <!-- Single-promo start -->
+                    Single-promo start
                     <div class="col-lg-6 padding-0">
                         <div class="single-promo-banner promo-banner-1" style="background: rgba(0, 0, 0, 0) url('{{asset('assets/img/banner/promo-banner/1.jpg')}}') no-repeat scroll center center;">
-                            <!-- <img src="img/banner/promo-banner/1.jpg" alt="" /> -->
+                            <img src="img/banner/promo-banner/1.jpg" alt="" />
                             <div class="promo-banner-brief">
                                 <h2>sale !</h2>
                                 <h3>up to <span>30%</span> off</h3>
@@ -160,11 +160,11 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Single-promo End -->
-                    <!-- Single-promo start -->
+                    Single-promo End
+                    Single-promo start
                     <div class="col-lg-6 padding-0">
                         <div class="single-promo-banner promo-banner-2" style="background: rgba(0, 0, 0, 0) url('{{asset('assets/img/banner/promo-banner/2.jpg')}}') no-repeat scroll center center;">
-                            <!-- <img src="img/banner/promo-banner/2.jpg" alt="" /> -->
+                            <img src="img/banner/promo-banner/2.jpg" alt="" />
                             <div class="promo-banner-brief">
                                 <div class="count-down">
                                     <div class="timer">
@@ -184,46 +184,12 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Single-promo End -->
+                    Single-promo End
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- PROMOTIONAL-BANNER END -->
-    <!-- FEATURED-AREA START -->
-    <div class="featured-area margin-bottom-80">
-        <div class="container">
-            <div class="row cus-row-1">
-                <div class="single-featured single-featured-1 featured-link">
-                    <a href="#"><img src="{{asset('assets/img/featured/1.jpg')}}" alt="" /></a>
-                    <div class="featured-brief">
-                        <a href="#"><i class="sp-arrow-long-right"></i></a>
-                    </div>
-                </div>
-                <div class="single-featured single-featured-2">
-                    <div class="single-featured-inner featured-link">
-                        <a href="#"><img src="{{asset('assets/img/featured/2.jpg')}}" alt="" /></a>
-                        <div class="featured-brief">
-                            <a href="#"><i class="sp-arrow-long-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="single-featured-inner featured-link">
-                        <a href="#"><img src="{{asset('assets/img/featured/3.jpg')}}" alt="" /></a>
-                        <div class="featured-brief">
-                            <a href="#"><i class="sp-arrow-long-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="single-featured single-featured-1 featured-link">
-                    <a href="#"><img src="{{asset('assets/img/featured/4.jpg')}}" alt="" /></a>
-                    <div class="featured-brief">
-                        <a href="#"><i class="sp-arrow-long-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- FEATURED-AREA END -->
     <!-- TESTIMONIAL-AREA START -->
     <div class="testimonial-area margin-bottom-80" style="background: rgba(0, 0, 0, 0) url('{{asset('assets/img/bg/testimonial-bg.jpg')}}') no-repeat scroll center center;">
         <div class="testimonial">
@@ -273,6 +239,40 @@
         </div>
     </div>
     <!-- TESTIMONIAL-AREA END -->
+    <!-- FEATURED-AREA START -->
+    <div class="featured-area margin-bottom-80">
+        <div class="container">
+            <div class="row cus-row-1">
+                <div class="single-featured single-featured-1 featured-link">
+                    <a href="#"><img src="{{asset('assets/img/featured/1.jpg')}}" alt="" /></a>
+                    <div class="featured-brief">
+                        <a href="#"><i class="sp-arrow-long-right"></i></a>
+                    </div>
+                </div>
+                <div class="single-featured single-featured-2">
+                    <div class="single-featured-inner featured-link">
+                        <a href="#"><img src="{{asset('assets/img/featured/2.jpg')}}" alt="" /></a>
+                        <div class="featured-brief">
+                            <a href="#"><i class="sp-arrow-long-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="single-featured-inner featured-link">
+                        <a href="#"><img src="{{asset('assets/img/featured/3.jpg')}}" alt="" /></a>
+                        <div class="featured-brief">
+                            <a href="#"><i class="sp-arrow-long-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="single-featured single-featured-1 featured-link">
+                    <a href="#"><img src="{{asset('assets/img/featured/4.jpg')}}" alt="" /></a>
+                    <div class="featured-brief">
+                        <a href="#"><i class="sp-arrow-long-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FEATURED-AREA END -->
     <!-- SERVICE-AREA START -->
     <div class="service-area margin-bottom-80">
         <div class="container">

@@ -57,7 +57,8 @@ class OrdersController extends Controller
         }
 
         $order=new Order();
-        $order_data['order_number']='ORD-'.strtoupper(Str::random(10));
+        $order_data['order_number']='ORD'.strtoupper(Str::random(10));
+        $order_data['invoice_number']=Helper::invoiceNumber();
         $order_data['user_id']=auth()->user()->id;
         $order_data['user_shipping_id']=Helper::decode($request->shipping_id);
         $order_data['shipping_amount']=Helper::settings('delivery_charges');
@@ -104,15 +105,29 @@ class OrdersController extends Controller
         }
     }
 
+    public function cancelOrder(Request $request){
+        $order = Order::find(Helper::decode($request->id));
+        if (!is_null($order)) {
+            $order->status = 'cancel';
+            $order->cancel_date = date('Y-m-d H:i:s');
+            $order->save();
+            return response()->json(['status' => true, 'message' => 'Order cancelled successfully','url' => route('getOrderDetails',['order_id'=>$request->id])], 200);
+        } else {
+            return response()->json(['status' => false, 'message' => 'Error please try again','url' => route('getOrderDetails',['order_id'=>$request->id])], 200);
+        }
+    }
+
     public function invoice(Request $request){
         $item_id = Helper::decode($request->item_id);
-        $orders = Order::with('shippingAddress','shippingAddress.getIDByStateDetail','orderItems','orderItems.product')->where('id',Helper::decode($request->order_id))->where('user_id',auth()->user()->id)->first();
+        $orders = Order::with('userInfo','shippingAddress','shippingAddress.getIDByStateDetail','orderItems','orderItems.product')->where('id',Helper::decode($request->order_id))->where('user_id',auth()->user()->id)->first();
         // ->whereHas('orderItems', function ($q) use ($item_id) { $q->where('product_id', $item_id);})
-
+        
+        // return view('pdf',compact('orders'));
         $pdf = PDF::loadView('pdf',compact('orders'));
         
         $name = $orders->order_number.'.pdf';
      
         return $pdf->download($name);
+        // return $pdf->stream($name, array('Attachment'=>0));
     }
 }

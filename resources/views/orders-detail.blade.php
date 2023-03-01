@@ -60,6 +60,11 @@
                                                     <div class="phone-box">
                                                         <span>Phone number : {{$orders->shippingAddress->phone}}</span>
                                                     </div>
+                                                    @if(isset($orders->cancel_date))
+                                                    <div class="phone-box">
+                                                        <span>Cancel Date : {{date('d-m-Y h:i A', strtotime($orders->cancel_date))}}</span>
+                                                    </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -67,7 +72,7 @@
                                             <span>More actions</span>
                                             <div class="row invoice-box">
                                                 <div class="invoice-logo">
-                                                    <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/downloadInvoice_e0f744.png" class="img">
+                                                    <i class="pe-7s-download icon"></i>
                                                     <span class="title">Download Invoice</span>
                                                 </div>
                                                 <a href="{{route('invoiceDownload',['order_id'=>Helper::encode($orders->id)])}}" class="btn"><span>Download</span></a>
@@ -75,10 +80,10 @@
                                             @if($orders->status == 'new' || $orders->status == 'process')
                                             <div class="row invoice-box">
                                                 <div class="invoice-logo">
-                                                    <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/downloadInvoice_e0f744.png" class="img">
+                                                    <i class="pe-7s-close-circle icon"></i>
                                                     <span class="title">Order Cancel</span>
                                                 </div>
-                                                <button class="btn"><span>Cancel</span></button>
+                                                <a href="javascript:void(0);" class="btn" onclick="cancelOrder(this)" data-id="{{ Helper::encode($orders->id) }}">Cancel</a>
                                             </div>
                                             @endif
                                         </div>
@@ -240,6 +245,15 @@
         height: 25px;
         margin-right: 8px;
     }
+    .invoice-box .invoice-logo .icon{
+        background-color: #ffb000;
+        padding: 6px;
+        border-radius: 3px;
+        color: white;
+        margin-right: 8px;
+        font-size: 15px;
+        font-weight: 600;
+    }
     .invoice-box .invoice-logo .title{
         font-size: 14px;
         white-space: nowrap;
@@ -262,4 +276,54 @@
         width: 140px;
     }
 </style>
+@endpush
+
+@push('scripts')
+<!-- Modal -->
+<div class="modal fade" id="orderCancelModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Cancel Order</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to cancel this order?</p>
+            </div><!-- .modal-body -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="delete_order_sure">Remove</button>
+            </div>
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div>
+<script>
+// delete mate confirmtion modal open 
+function cancelOrder(th) {
+    $('#orderCancelModal').modal('show');
+    $("#delete_order_sure").val($(th).data('id'));
+}
+
+// one record delete function
+$(document.body).on('click', '#delete_order_sure', function() {
+    $('#orderCancelModal').modal('hide');
+    var id = $(this).val();
+    $.ajax({
+        url: "{{ route('cancelOrder','') }}/" + id,
+        type: 'GET',
+        dataType: 'Json',
+        success: function(res) {
+            console.log(res);
+            if (res.status) {
+                toastr.success(res.message);
+            } else {
+                toastr.error(res.message);
+            }
+            setTimeout(() => {
+                window.location.replace(res.url);
+            }, 1000);
+        }
+    });
+});
+</script>
 @endpush

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_shipping_id')->nullable();
             $table->float('coupon_id')->nullable();
             $table->string('order_number')->unique();
+            $table->string('invoice_number')->unique();
             $table->integer('items_count');
             $table->float('sub_total');
             $table->float('coupon_amount')->nullable();
@@ -27,6 +28,8 @@ return new class extends Migration
             $table->enum('payment_method',['cod','online'])->default('cod');
             $table->enum('payment_status',['paid','unpaid'])->default('unpaid');
             $table->enum('status',['new','process','delivered','cancel'])->default('new');
+            $table->string('cancel_reason')->nullable();
+            $table->timestamps('cancel_date')->nullable();
             $table->timestamps();
         });
     }

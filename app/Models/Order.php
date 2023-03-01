@@ -19,6 +19,7 @@ class Order extends Model
         'user_shipping_id',
         'coupon_id',
         'order_number',
+        'invoice_number',
         'items_count',
         'sub_total',
         'coupon_amount',
@@ -27,6 +28,8 @@ class Order extends Model
         'payment_method',
         'payment_status',
         'status',
+        'cancel_reason',
+        'cancel_date',
     ];
 
     public function orderItems(){
@@ -35,5 +38,9 @@ class Order extends Model
 
     public function shippingAddress(){
         return $this->hasOne('App\Models\ShippingAddress','id','user_shipping_id');
+    }
+
+    public function userInfo(){
+        return $this->hasOne('App\Models\User','id','user_id');
     }
 }

@@ -23,6 +23,6 @@ class OrderItems extends Model
     ];
 
     public function product(){
-        return $this->hasOne('App\Models\Product','id','product_id')->select('id','title','slug','condition','price','discount');
+        return $this->hasOne('App\Models\Product','id','product_id')->select('id','title','slug','summary','condition','price','discount');
     }
 }

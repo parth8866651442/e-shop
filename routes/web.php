@@ -68,6 +68,7 @@ Route::group(['middleware' => ['auth:web']], function () {
         Route::get('/details', [App\Http\Controllers\OrdersController::class,'orderDetails'])->name('getOrderDetails');
         Route::get('/check-out', [App\Http\Controllers\OrdersController::class,'checkOut'])->name('getCheckOut');
         Route::post('/store', [App\Http\Controllers\OrdersController::class,'store'])->name('addToOrders');
+        Route::get('/cancel-order/{id}', [App\Http\Controllers\OrdersController::class,'cancelOrder'])->name('cancelOrder');
     });
 
 });

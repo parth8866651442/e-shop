@@ -22,13 +22,12 @@
                                 </li>
                                 <li>
                                     <i class="sp-email"></i>
-                                    <span>{{Helper::settings('email_1')}}</span>
                                     <span>{{Helper::settings('email_2')}}</span>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <i class="sp-map-marker"></i>
                                     <span>{!! Helper::settings('address') !!}</span>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </div>
@@ -42,18 +41,6 @@
                                 <li><a href="#">Shop</a></li>
                                 <li><a href="#">Chakeout</a></li>
                             </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4">
-                        <div class="single-footer footer-message">
-                            <form action="#">
-                                <h2>Quick contact</h2>
-                                <div class="footer-message-box">
-                                    <input type="text" placeholder="your email address" />
-                                    <textarea placeholder="your messege"></textarea>
-                                    <input type="submit" value="submit" />
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -83,6 +70,25 @@
     </div>
 </footer>
 <!-- FOOTER-AREA END -->
+
+<!-- Modal -->
+<div class="modal fade" id="cartItemRemoveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Remove Item</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove this item?</p>
+            </div><!-- .modal-body -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="delete_sure">Remove</button>
+            </div>
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div>
 
 
 <!-- all js here -->
@@ -120,6 +126,36 @@ new WOW().init();
 <script src="{{asset('assets/js/plugins.js')}}"></script>
 <!-- main js -->
 <script src="{{asset('assets/js/main.js')}}"></script>
+
+
+<script>
+// delete mate confirmtion modal open 
+function removeCartsItem(th) {
+    $('#cartItemRemoveModal').modal('show');
+    $("#delete_sure").val($(th).data('id'));
+}
+
+// one record delete function
+$(document.body).on('click', '#delete_sure', function() {
+    $('#cartItemRemoveModal').modal('hide');
+    var id = $(this).val();
+    $.ajax({
+        url: "{{ route('deleteToCart','') }}/" + id,
+        type: 'GET',
+        dataType: 'Json',
+        success: function(res) {
+            if (res.status) {
+                toastr.success(res.message);
+            } else {
+                toastr.error(res.message);
+            }
+            setTimeout(() => {
+                window.location.replace(res.url);
+            }, 1000);
+        }
+    });
+});
+</script>
 @stack('scripts')
 
 @if(Session::has('success'))

@@ -194,6 +194,7 @@
                                         </div>
                                         <div class="comment-respond">
                                             <h3 class="comment-reply-title">Add a review </h3>
+                                            @auth
                                             <span class="email-notes">Your email address will not be published. Required fields are marked *</span>
                                             <form method="post" action="{{route('reviewAdd',$product->slug)}}" id="reviewForm">
                                                 @csrf
@@ -217,11 +218,11 @@
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <p>Name *</p>
-                                                        <input type="text" placeholder="your name" name="name" value="{{auth()->user()->name}}" />
+                                                        <input type="text" placeholder="your name" name="name" value="{{isset(auth()->user()->name) ? auth()->user()->name : ''}}" />
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <p>Email *</p>
-                                                        <input type="email" placeholder="your email" name="email" value="{{auth()->user()->email}}" />
+                                                        <input type="email" placeholder="your email" name="email" value="{{isset(auth()->user()->name) ? auth()->user()->email : ''}}" />
                                                     </div>
                                                     <div class="col-lg-12 comment-form-comment">
                                                         <p>Message</p>
@@ -230,6 +231,9 @@
                                                     </div>
                                                 </div>
                                             </form>
+                                            @else 
+                                                <p class="text-center p-5"> You need to <a href="{{route('login')}}" style="color:rgb(54, 54, 204)">Login</a> OR <a style="color:blue" href="{{route('register')}}">Register</a> for comment. </p>
+                                            @endauth
                                         </div>
                                     </div>
                                 </div>

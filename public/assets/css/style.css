@@ -348,8 +348,8 @@ label{
   text-transform: capitalize;
 }
 .header-search {
-  border-left: 1px solid #666;
-  border-right: 1px solid #666;
+  /* border-left: 1px solid #666; */
+  /* border-right: 1px solid #666; */
   float: left;
   padding: 12px 20px;
 }
@@ -362,7 +362,7 @@ label{
   font-size: 12px;
   width: 150px;
 }
-.header-search button {}
+
 .header-search button i {
   color: #cacaca;
   font-size: 13px;

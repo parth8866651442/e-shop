@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Cart;
 use App\Models\Setting;
 use App\Models\State;
+use App\Models\Order;
 
 class Helper
 {
@@ -22,9 +23,36 @@ class Helper
 
         // $id = $hashids->encode(5555);
         $decode = $hashids->decode($id);
-        if(is_array($decode) ){
-            return $decode[0];   
+        if(is_array($decode) && isset($decode[0])){
+            return $decode[0];
         }
+        return '';
+    }
+
+    public static function invoiceNumber()
+    {
+        $latest = Order::latest()->first();
+
+        if (! $latest) {
+            return 'WBM0001';
+        }
+
+        $string = preg_replace("/[^0-9\.]/", '', $latest->invoice_number);
+
+        return 'WBM' . sprintf('%04d', $string+1);
+    }
+
+    function orderNumber($type)
+    {
+        $latest = App\Models\Order::where('type',$type)->latest()->first();
+
+        if (! $latest) {
+            return 'BD/H-0001';
+        }
+
+        $string = preg_replace("/[^0-9\.]/", '', $latest->invoice_no);
+
+        return 'BD/H-' . sprintf('%04d', $string+1);
     }
 
     public static function getHeaderCategory(){
@@ -84,7 +112,7 @@ class Helper
     // settings
     public static function settings($select = '*'){
         $item = Setting::select($select)->first();
-        if($select != '*'){
+        if($select != '*' && !is_null($item)){
             return $item[$select];
         }
         return $item;

@@ -19,21 +19,6 @@ if (!function_exists('imageUrl')) {
     }
 }
 
-if (!function_exists('invoiceNumber')) {
-    function invoiceNumber($type)
-    {
-        $latest = App\Models\Order::where('type',$type)->latest()->first();
-
-        if (! $latest) {
-            return 'BD/H-0001';
-        }
-
-        $string = preg_replace("/[^0-9\.]/", '', $latest->invoice_no);
-
-        return 'BD/H-' . sprintf('%04d', $string+1);
-    }
-}
-
 if (!function_exists('numberToWord')) {
     /**
      * Write code on Method
@@ -103,7 +88,17 @@ if (!function_exists('numberToWord')) {
 
 if (! function_exists('short_string')) {
     function short_string($str,$end = 10) {
-            $rest = substr($str, 0, $end);
-            return $rest;
+        $rest = substr($str, 0, $end);
+        return $rest;
+    }
+}
+
+if (! function_exists('phoneMask')) {
+    function phoneMask($phone) {
+        if(  preg_match( '/^\+\d(\d{3})(\d{3})(\d{4})$/', $phone,  $matches ) )
+        {
+            $result = $matches[1] . '-' .$matches[2] . '-' . $matches[3];
+            return $result;
+        }
     }
 }

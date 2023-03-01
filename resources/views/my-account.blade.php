@@ -36,7 +36,7 @@
                                     </a>
                                 </h4>
                             </div>
-                            <div id="personal-info" class="panel-collapse collapse" data-bs-parent="#accordion"
+                            <div id="personal-info" class="panel-collapse collapse show" data-bs-parent="#accordion"
                                 role="tabpanel">
                                 <div class="panel-body">
                                     <form action="{{route('updatePersonalInfo')}}" method="POST" id="personalInfo">
@@ -46,22 +46,28 @@
                                                 <div class="billing-address">
                                                     <div class="row">
                                                         <div class="col-lg-12">
-                                                            <input type="text" class="custom-form" placeholder="Full Name" name="name" value="{{auth()->user()->name}}"/>
+                                                            <input type="text" class="custom-form"
+                                                                placeholder="Full Name" name="name"
+                                                                value="{{auth()->user()->name}}" />
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-12">
-                                                            <input type="text" class="custom-form" placeholder="Email" name="email"  value="{{auth()->user()->email}}"/>
+                                                            <input type="text" class="custom-form" placeholder="Email"
+                                                                name="email" value="{{auth()->user()->email}}" />
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-12">
-                                                            <input type="text" class="custom-form" placeholder="Mobile Number" name="mobile_no"  value="{{auth()->user()->mobile_no}}"/>
+                                                            <input type="text" class="custom-form"
+                                                                placeholder="Mobile Number" name="mobile_no"
+                                                                value="{{auth()->user()->mobile_no}}" />
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-12">
-                                                            <input type="submit" class="custom-submit-2 save" value="Save"/>
+                                                            <input type="submit" class="custom-submit-2 save"
+                                                                value="Save" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -71,6 +77,10 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel-group  margin-btm-0" id="accordion2">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -81,69 +91,106 @@
                                     </a>
                                 </h4>
                             </div>
-                            <div id="shipping-info" class="panel-collapse collapse" data-bs-parent="#accordion"
+                            <div id="shipping-info" class="panel-collapse collapse show" data-bs-parent="#accordion2"
                                 role="tabpanel">
                                 <div class="panel-body">
                                     <!-- CHECKOUT-AREA START -->
                                     <div class="checkout-area">
-                                        <form action="{{route('updateShippingAddress')}}" method="POST" id="shippingAddress">
+                                        <form action="{{route('updateShippingAddress')}}" method="POST"
+                                            id="shippingAddress">
                                             @csrf
                                             <div class="row">
-                                                <input type="hidden" name="id" value="{{isset($shippingAddress->id)? Helper::encode($shippingAddress->id) : ''}}">
+                                                <input type="hidden" name="id"
+                                                    value="{{isset($shippingAddress->id)? Helper::encode($shippingAddress->id) : ''}}">
                                                 <!-- Shipping-Address Start -->
                                                 <div class="col-lg-12">
                                                     <div class="shipping-address">
                                                         <div class="row">
                                                             <div class="col-lg-6">
-                                                                <input type="text" class="custom-form" placeholder="Full Name" name="name" required autocomplete="name" tabindex="1" value="{{isset($shippingAddress->name)? $shippingAddress->name : ''}}">
+                                                                <input type="text" class="custom-form"
+                                                                    placeholder="Full Name" name="name" required
+                                                                    autocomplete="name" tabindex="1"
+                                                                    value="{{isset($shippingAddress->name)? $shippingAddress->name : ''}}">
                                                             </div>
                                                             <div class="col-lg-6">
-                                                                <input type="text" class="custom-form" placeholder="10-digit mobile number" name="phone" required maxlength="10" autocomplete="tel" tabindex="2" value="{{isset($shippingAddress->phone)? $shippingAddress->phone : ''}}">
+                                                                <input type="text" class="custom-form"
+                                                                    placeholder="10-digit mobile number" name="phone"
+                                                                    required maxlength="10" autocomplete="tel"
+                                                                    tabindex="2"
+                                                                    value="{{isset($shippingAddress->phone)? $shippingAddress->phone : ''}}">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-12">
-                                                                <input type="email" class="custom-form" placeholder="Email Address" name="email" required tabindex="3" value="{{isset($shippingAddress->email)? $shippingAddress->email : ''}}">
+                                                                <input type="email" class="custom-form"
+                                                                    placeholder="Email Address" name="email" required
+                                                                    tabindex="3"
+                                                                    value="{{isset($shippingAddress->email)? $shippingAddress->email : ''}}">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-6">
-                                                                <input type="text" class="custom-form" placeholder="Pincode" name="pincode" required maxlength="6" autocomplete="postal-code" tabindex="4" value="{{isset($shippingAddress->pincode)? $shippingAddress->pincode : ''}}">
+                                                                <input type="text" class="custom-form"
+                                                                    placeholder="Pincode" name="pincode" required
+                                                                    maxlength="6" autocomplete="postal-code"
+                                                                    tabindex="4"
+                                                                    value="{{isset($shippingAddress->pincode)? $shippingAddress->pincode : ''}}">
                                                             </div>
                                                             <div class="col-lg-6">
-                                                                <input type="text" class="custom-form" placeholder="Locality" name="addressLine2" required placeholder="Locality" autocomplete="addressLine2" tabindex="5" value="{{isset($shippingAddress->addressLine2)? $shippingAddress->addressLine2 : ''}}">
+                                                                <input type="text" class="custom-form"
+                                                                    placeholder="Locality" name="addressLine2" required
+                                                                    placeholder="Locality" autocomplete="addressLine2"
+                                                                    tabindex="5"
+                                                                    value="{{isset($shippingAddress->addressLine2)? $shippingAddress->addressLine2 : ''}}">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-12">
-                                                                <textarea class="custom-form" placeholder="Address (Area and Street)" rows="6" name="addressLine1"  tabindex="6" required autocomplete="street-address">{{isset($shippingAddress->addressLine1)? $shippingAddress->addressLine1 : ''}}</textarea>
+                                                                <textarea class="custom-form"
+                                                                    placeholder="Address (Area and Street)" rows="6"
+                                                                    name="addressLine1" tabindex="6" required
+                                                                    autocomplete="street-address">{{isset($shippingAddress->addressLine1)? $shippingAddress->addressLine1 : ''}}</textarea>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-6">
-                                                                <input type="text" class="custom-form" placeholder="City/District/Town" name="city" required autocomplete="city" tabindex="7" value="{{isset($shippingAddress->city)? $shippingAddress->city : ''}}">
+                                                                <input type="text" class="custom-form"
+                                                                    placeholder="City/District/Town" name="city"
+                                                                    required autocomplete="city" tabindex="7"
+                                                                    value="{{isset($shippingAddress->city)? $shippingAddress->city : ''}}">
                                                             </div>
                                                             <div class="col-lg-6">
-                                                                <select class="custom-select custom-form" name="state" tabindex="8" required>
+                                                                <select class="custom-select custom-form" name="state"
+                                                                    tabindex="8" required>
                                                                     <option value="">--Select State any one--</option>
                                                                     @foreach(Helper::getStates() as $state)
-                                                                        <option value="{{Helper::encode($state->id)}}" {{isset($shippingAddress->state) && ($shippingAddress->state == $state->id) ? 'selected' : ''}}>{{$state->name}}</option>
+                                                                    <option value="{{Helper::encode($state->id)}}"
+                                                                        {{isset($shippingAddress->state) && ($shippingAddress->state == $state->id) ? 'selected' : ''}}>
+                                                                        {{$state->name}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <div class="row">
                                                             <div class="col-lg-6">
-                                                                <input type="text" class="custom-form" placeholder="Landmark (Optional)" name="landmark" autocomplete="off" tabindex="9" maxlength="200" value="{{isset($shippingAddress->landmark)? $shippingAddress->landmark : ''}}">
+                                                                <input type="text" class="custom-form"
+                                                                    placeholder="Landmark (Optional)" name="landmark"
+                                                                    autocomplete="off" tabindex="9" maxlength="200"
+                                                                    value="{{isset($shippingAddress->landmark)? $shippingAddress->landmark : ''}}">
                                                             </div>
                                                             <div class="col-lg-6">
-                                                                <input type="text" class="custom-form" placeholder="Alternate Phone (Optional)" name="alternatePhone" autocomplete="off" tabindex="10" maxlength="10" value="{{isset($shippingAddress->alternatePhone)? $shippingAddress->alternatePhone : ''}}">
+                                                                <input type="text" class="custom-form"
+                                                                    placeholder="Alternate Phone (Optional)"
+                                                                    name="alternatePhone" autocomplete="off"
+                                                                    tabindex="10" maxlength="10"
+                                                                    value="{{isset($shippingAddress->alternatePhone)? $shippingAddress->alternatePhone : ''}}">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-12">
-                                                                <input type="submit" class="custom-submit-2 save" value="Save" />
+                                                                <input type="submit" class="custom-submit-2 save"
+                                                                    value="Save" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -154,30 +201,6 @@
                                     </div>
                                     <!-- CHECKOUT-AREA END -->
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="panel-group margin-btm-0">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a href="#">
-                                        <i class="pe-7s-like"></i>
-                                        <span>My Wishlist Information</span>
-                                    </a>
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a href="#">
-                                        <i class="pe-7s-news-paper"></i>
-                                        <span>Order history and details</span>
-                                    </a>
-                                </h4>
                             </div>
                         </div>
                     </div>
