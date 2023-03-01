@@ -68,11 +68,15 @@ class ResetPasswordController extends Controller
     public function showResetForm(Request $request)
     {
         $token = $request->route()->parameter('token');
+        
+        if(!isset($request->email) && empty($request->email)){
+            return redirect()->route('login')->with('error', 'Link is expired');
+        }
 
         $tokenCheck = DB::table('password_resets')
         ->where('email',$request->email)
         ->first();
-
+        
         if(Carbon::parse($tokenCheck->created_at)->addSeconds(60*60)->isPast()){
             return response()->json(['status' => false, 'msg' => 'Link is expired','url'=>URL::to('/')], 200);
             // return redirect()->route('login')->with('error', 'Link is expired');
