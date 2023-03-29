@@ -96,7 +96,7 @@ class RegisterController extends Controller
 
         $this->guard()->login($user);
 
-        return response()->json(['status' => true, 'msg' => 'Register successfully','url'=>$this->redirectPath(),'base_url' => URL::to('/')], 200);
+        return response()->json(['status' => true, 'msg' => 'Register successfully','url'=>'My-Account','base_url' => URL::to('/')], 200);
         // return $this->registered($request, $user) ?: redirect($this->redirectPath())->with('success', 'Register successfully');
     }
 

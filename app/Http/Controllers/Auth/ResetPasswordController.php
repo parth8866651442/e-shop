@@ -72,15 +72,21 @@ class ResetPasswordController extends Controller
         if(!isset($request->email) && empty($request->email)){
             return redirect()->route('login')->with('error', 'Link is expired');
         }
+        
+        $userCheck = DB::table('users')->where('email',$request->email)->first();
+        if(is_null($userCheck)){
+            return redirect()->route('login')->with('error', 'User not found');
+        }
 
         $tokenCheck = DB::table('password_resets')
         ->where('email',$request->email)
         ->first();
-        
-        if(Carbon::parse($tokenCheck->created_at)->addSeconds(60*60)->isPast()){
-            return response()->json(['status' => false, 'msg' => 'Link is expired','url'=>URL::to('/')], 200);
-            // return redirect()->route('login')->with('error', 'Link is expired');
+
+        if(!is_null($tokenCheck) && Carbon::parse($tokenCheck->created_at)->addSeconds(60*60)->isPast()){
+            // return response()->json(['status' => false, 'msg' => 'Link is expired','url'=>URL::to('/')], 200);
+            return redirect()->route('login')->with('error', 'Link is expired');
         }
+        
         return view('auth.passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]
         );

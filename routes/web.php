@@ -12,13 +12,17 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
 Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
+Route::get('/returns-policy', [App\Http\Controllers\HomeController::class, 'returnsPolicy'])->name('returnsPolicy');
+Route::get('/terms-of-service', [App\Http\Controllers\HomeController::class, 'termsOfService'])->name('termsOfService');
+Route::get('/support', [App\Http\Controllers\HomeController::class, 'support'])->name('support');
+Route::get('/privacy-policy', [App\Http\Controllers\HomeController::class, 'privacyPolicy'])->name('privacyPolicy');
 
 // -------- Product -------- //
 Route::group(['prefix' => 'products'], function () {
@@ -37,7 +41,7 @@ Route::group(['prefix' => 'blogs'], function () {
 });
 
 
-Route::group(['middleware' => ['auth:web']], function () {
+Route::group(['middleware' => ['auth:web','verified']], function () {
 
     // -------- My Account -------- //
     Route::group(['prefix' => 'My-Account'], function () {

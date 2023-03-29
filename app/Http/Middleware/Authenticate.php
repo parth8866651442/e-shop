@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 class Authenticate extends Middleware
 {
@@ -16,6 +17,9 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {   
         if (! $request->expectsJson()) {
+            if(isset($request->hash) && isset($request->expires) && isset($request->signature)){
+                return route('verification.verify',['id'=>$request->id,'hash' => $request->hash,'expires'=>$request->expires,'signature'=>$request->signature]);
+            }
             return route('login',['to'=>url()->current()]);
         }
     }

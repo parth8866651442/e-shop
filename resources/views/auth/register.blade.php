@@ -174,7 +174,7 @@ $(document).ready(function() {
                     if (res.status) {
                         toastr.success(res.msg);
                         setTimeout(() => {
-                            window.location.replace(res.base_url+res.url);
+                            window.location.replace(res.base_url+'/'+res.url);
                         }, 300);
                     } else {
                         toastr.error(res.msg);

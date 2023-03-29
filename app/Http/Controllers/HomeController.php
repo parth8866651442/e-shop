@@ -99,4 +99,20 @@ class HomeController extends Controller
         return redirect()->route('myAccounts')->with('error', 'Addresses Info updated unsuccessfully');
     }
 
+    public function support(Request $request){
+        return view('support');
+    }
+
+    public function termsOfService(Request $request){
+        return view('terms-of-service'); 
+    }
+    
+    public function privacyPolicy(Request $request){
+        return view('privacy-policy');
+    }
+
+    public function returnsPolicy(Request $request){
+        return view('returns-policy');
+    }
+
 }

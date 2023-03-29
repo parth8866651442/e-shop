@@ -31,15 +31,14 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="single-footer footer-menu">
-                            <h2>company</h2>
+                            <h2>consumer policy</h2>
                             <ul>
-                                <li><a href="#">Account</a></li>
-                                <li><a href="#">Log in</a></li>
-                                <li><a href="#">Regester</a></li>
-                                <li><a href="#">Shop</a></li>
-                                <li><a href="#">Chakeout</a></li>
+                                <li><a href="{{ route('returnsPolicy') }}">Return Policy</a></li>
+                                <li><a href="{{ route('termsOfService') }}">Terms Of Use</a></li>
+                                <li><a href="{{ route('support') }}">Security</a></li>
+                                <li><a href="{{ route('privacyPolicy') }}">Privacy</a></li>
                             </ul>
                         </div>
                     </div>
@@ -52,9 +51,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="copyright-brief">
-                        <p>Copyright &copy; <a
-                                href="https://themeforest.net/user/codecarnival/portfolio">Codecarnival</a> All right
-                            reserved</p>
+                        <p>Copyright &copy; <a href="https://themeforest.net/user/codecarnival/portfolio">Codecarnival</a> All right reserved</p>
                     </div>
                 </div>
                 <div class="col-md-6">
