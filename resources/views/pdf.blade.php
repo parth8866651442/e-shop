@@ -183,17 +183,17 @@
                     <small>{{short_string($item->product->summary,70)}}</small>
                 </div>
             </td>
-            <td>{{number_format($item->price,2)}}</td>
+            <td>{{numberFormat($item->price,2)}}</td>
             <td>{{$item->quantity}}</td>
-            <td>{{number_format(($item->price * $item->quantity),2)}}</td>
+            <td>{{numberFormat(($item->price * $item->quantity),2)}}</td>
             @php $price += $item->price; $quantity +=$item->quantity; $totle += ($item->price * $item->quantity);  @endphp
         </tr>
         @endforeach
         <tr align="center">
             <td class="text-bold">Total</td>
-            <td class="text-bold">{{number_format($price,2)}}</td>
+            <td class="text-bold">{{numberFormat($price,2)}}</td>
             <td class="text-bold">{{$quantity}}</td>
-            <td class="text-bold">{{number_format($totle,2)}}</td>
+            <td class="text-bold">{{numberFormat($totle,2)}}</td>
         </tr>
         <tr>
             <td>
@@ -202,9 +202,9 @@
             <td colspan="3">
                 <div class="total-part">
                     <div class="total-right w-100 float-left" align="right">
-                        <div style="display:flex; flex-direction: row; align-items: center; flex-wrap: nowrap; justify-content: flex-end; margin-bottom: 10px;">Sub Total<span class="text-bold" style="font-family: DejaVu Sans; sans-serif; margin-left: 15px;">&#8377; {{number_format($orders->sub_total,2)}}</span></div>
-                        <div style="display:flex; flex-direction: row; align-items: center; flex-wrap: nowrap; justify-content: flex-end; margin-bottom: 10px;">Shipping<span class="text-bold" style="font-family: DejaVu Sans; sans-serif; margin-left: 22px;">&#8377; {{number_format($orders->shipping_amount,2)}}</span></div>
-                        <div style="display:flex; flex-direction: row; align-items: center; flex-wrap: nowrap; justify-content: flex-end; margin-bottom: 10px;">Grand Total<span class="text-bold" style="font-family: DejaVu Sans; sans-serif; margin-left: 15px;">&#8377; {{number_format($orders->total_amount,2)}}</span></div>
+                        <div style="display:flex; flex-direction: row; align-items: center; flex-wrap: nowrap; justify-content: flex-end; margin-bottom: 10px;">Sub Total<span class="text-bold" style="font-family: DejaVu Sans; sans-serif; margin-left: 15px;">{{numberFormat($orders->sub_total,2)}}</span></div>
+                        <div style="display:flex; flex-direction: row; align-items: center; flex-wrap: nowrap; justify-content: flex-end; margin-bottom: 10px;">Shipping<span class="text-bold" style="font-family: DejaVu Sans; sans-serif; margin-left: 22px;">{{numberFormat($orders->shipping_amount,2)}}</span></div>
+                        <div style="display:flex; flex-direction: row; align-items: center; flex-wrap: nowrap; justify-content: flex-end; margin-bottom: 10px;">Grand Total<span class="text-bold" style="font-family: DejaVu Sans; sans-serif; margin-left: 15px;">{{numberFormat($orders->total_amount,2)}}</span></div>
                     </div>
                     <div style="clear: both;"></div>
                 </div> 

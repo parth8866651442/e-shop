@@ -4,7 +4,7 @@
     <div class="header-top d-none d-md-block">
         <div class="container">
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="header-top-left text-start">
                         <ul>
                             <li>
@@ -18,12 +18,23 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <div class="header-search w-100">
-                        <form action="#">
-                            <input type="text" placeholder="Search..." />
-                            <button type="submit"><i class="sp-search"></i></button>
-                        </form>
+                    <div class="search-bar">
+                            <form method="get" action="{{route('productSearch')}}">
+                            @csrf
+                                <select name="category_id">
+                                    <option value="">All Category</option>
+                                    @if(!empty(Helper::getAllCategory()))
+                                    @foreach(Helper::getAllCategory() as $cat)
+                                    <option {{isset($_GET['category_id']) && ($_GET['category_id'] == $cat->id)  ? 'selected' : ''}} value="{{$cat->id}}">{{$cat->title}}</option>
+                                    @endforeach
+                                    @endif
+                                </select>
+                                <input name="search" placeholder="Search Products Here....." value="{{isset($_GET['search']) ? $_GET['search'] : ''}}" type="search">
+                                <button type="submit"><i class="sp-search"></i></button>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -105,7 +116,7 @@
                                             </div>
                                             <div class="cart-photo-brief">
                                                 <a href="{{route('getProductDetail',$data->productLimit['slug'])}}" target="_blank">{{short_string($data->productLimit['title'])}}...</a>
-                                                <span class="quantity">{{$data->quantity}} x - ${{number_format($data->price,2)}}</span>
+                                                <span class="quantity">{{$data->quantity}} x - {{numberFormat($data->price,2)}}</span>
                                             </div>
                                             <div class="pro-delete">
                                                 <a href="javascript:void(0);" onclick="removeCartsItem(this)" data-id="{{ Helper::encode($data->id) }}"><i class="sp-circle-close"></i></a>
@@ -113,7 +124,7 @@
                                         </div>
                                     @endforeach
                                     <div class="cart-subtotal">
-                                        <p>Total = ${{number_format(Helper::totalCartPrice(),2)}}</p>
+                                        <p>Total = {{numberFormat(Helper::totalCartPrice(),2)}}</p>
                                     </div>
                                     <div class="cart-inner-btm">
                                         <a href="{{route('getCheckOut')}}">Checkout</a>

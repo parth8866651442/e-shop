@@ -65,7 +65,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
-                                            ${{number_format($orderItem->price,2)}}
+                                            {{numberFormat($orderItem->price,2)}}
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="order-status">

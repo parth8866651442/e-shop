@@ -42,7 +42,7 @@ class Helper
         return 'WBM' . sprintf('%04d', $string+1);
     }
 
-    function orderNumber($type)
+    public static function orderNumber($type)
     {
         $latest = App\Models\Order::where('type',$type)->latest()->first();
 
@@ -96,6 +96,10 @@ class Helper
         else{
             return 0;
         }
+    }
+
+    public static function getAllCategory(){
+        return Category::where('is_parent',1)->orderBy('created_at','ASC')->get();
     }
 
     // Total amount cart

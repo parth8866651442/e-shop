@@ -73,8 +73,8 @@
                                 @php
                                 $after_discount=($product->price-($product->price*$product->discount)/100);
                                 @endphp
-                                ${{number_format($after_discount,2)}}
-                                <del style="padding-left:4%;">${{number_format($product->price,2)}}</del>
+                                {{numberFormat($after_discount,2)}}
+                                <del style="padding-left:4%;">{{numberFormat($product->price,2)}}</del>
                             </h4>
                             <div class="rating">
                                 <span class="pro-comments-rating">
@@ -281,8 +281,8 @@
                         @php
                         $afterDiscount=($reProduct->price-($reProduct->price*$reProduct->discount)/100);
                         @endphp
-                        ${{number_format($afterDiscount,2)}}
-                        <del style="padding-left:4%;">${{number_format($reProduct->price,2)}}</del>
+                        {{numberFormat($afterDiscount,2)}}
+                        <del style="padding-left:4%;">{{numberFormat($reProduct->price,2)}}</del>
                     </h3>
                 </div>
             </div>

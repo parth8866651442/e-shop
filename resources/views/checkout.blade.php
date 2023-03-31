@@ -150,15 +150,15 @@
                                         <tbody>
                                             <tr>
                                                 <td class="product-name">Price ({{Helper::cartCount()}} item)</td>
-                                                <td class="product-total">${{number_format(Helper::totalCartPrice(),2)}}</td>
+                                                <td class="product-total">{{numberFormat(Helper::totalCartPrice(),2)}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="product-name">Delivery Charges</td>
-                                                <td class="product-total">${{Helper::settings('delivery_charges')}}</td>
+                                                <td class="product-total">{{numberFormat(Helper::settings('delivery_charges'))}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="product-name order-total">Order Total</td>
-                                                <td class="product-total order-total">${{number_format((Helper::totalCartPrice() + Helper::settings('delivery_charges')),2)}}</td>
+                                                <td class="product-total order-total">{{numberFormat((Helper::totalCartPrice() + Helper::settings('delivery_charges')),2)}}</td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -18,6 +18,12 @@ if (!function_exists('imageUrl')) {
         return Config::get('app.image_url').'/assets/img/'.$default;
     }
 }
+if (!function_exists('numberFormat')) {
+    function numberFormat($val = '')
+    {
+        return '₹'.number_format($val,2);
+    }
+}
 
 if (!function_exists('numberToWord')) {
     /**

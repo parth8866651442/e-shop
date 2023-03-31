@@ -71,9 +71,32 @@ class CartsController extends Controller
     }
 
     public function updateToCart(Request $request){
-        // print_r($request->all());
+        /* print_r($request->id);
+        echo '<br>';
+        print_r($request->quantity); */
 
-        $error = '';
+        $id = Helper::decode($request->id);
+        $cart = Cart::with('product')->find($id);
+
+        if($cart) {
+            if(isset($request->quantity) && !empty($request->quantity > 0)){
+                $cart->quantity = $request->quantity;
+                
+                $after_price=($cart->product->price-($cart->product->price*$cart->product->discount)/100);
+                $cart->amount = $after_price * $request->quantity;
+            }
+
+            if(isset($request->size)){
+                $cart->size = $request->size;
+            }
+
+            $cart->save();
+            return response()->json(['status' => true, 'message' => 'Cart successfully updated!'], 200);
+        }else{
+            return response()->json(['status' => false, 'message' => 'Cart Invalid!'], 200);
+        }
+
+        /* $error = '';
         $success = '';
         // return $request->quant;
         foreach ($request->quantity as $k=>$quant) {
@@ -104,7 +127,7 @@ class CartsController extends Controller
                 $error = 'Cart Invalid!';
             }
         }
-        return redirect()->route('getCarts')->with('success', $success);
+        return redirect()->route('getCarts')->with('success', $success); */
     }
 
     public function deleteToCart(Request $request){

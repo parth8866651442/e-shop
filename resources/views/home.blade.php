@@ -133,8 +133,8 @@
                         @php
                             $after_discount=($product->price-($product->price*$product->discount)/100);
                         @endphp
-                        ${{number_format($after_discount,2)}}
-                        <del style="padding-left:4%;">${{number_format($product->price,2)}}</del>
+                        {{numberFormat($after_discount,2)}}
+                        <del style="padding-left:4%;">{{numberFormat($product->price,2)}}</del>
                     </h3>
                 </div>
             </div>

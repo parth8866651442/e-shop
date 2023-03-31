@@ -31,6 +31,7 @@ Route::group(['prefix' => 'products'], function () {
     Route::get('/sub-category-wise-products/{slug}/{sub_slug}', [App\Http\Controllers\ProductController::class,'subCategoryWiseproducts'])->name('getSubCategoryWiseproducts');
     Route::match(['get', 'post'], '/filter',[App\Http\Controllers\ProductController::class,'filterParams'])->name('setFilterParams');
     Route::get('/product-info/{slug}', [App\Http\Controllers\ProductController::class,'productDetail'])->name('getProductDetail');
+    Route::get('/search',[App\Http\Controllers\ProductController::class,'products'])->name('productSearch');
 });
 
 // -------- blog -------- //

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Arr;
 use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Product;
@@ -14,6 +15,13 @@ class ProductController extends Controller
 {
     public function products(Request $request)
     {
+        $oldQuery = request()->query();
+        $newQuery = Arr::except($oldQuery, ['_token']);
+
+        if(isset($oldQuery['_token'])){
+            return redirect()->route('productSearch', [Arr::query($newQuery)]);
+        }
+
         $sortBy = 'created_at';
         if(isset($request->sortBy)){
             $sortBy = $request->sortBy;
@@ -33,8 +41,19 @@ class ProductController extends Controller
         if(!empty($priceRange)){
             $products->whereBetween('price',$priceRange);
         }
+
+        if($request->search){
+            $products->where('title','like','%'.$request->search.'%')
+            ->orwhere('slug','like','%'.$request->search.'%');
+
+        }
+
+        if($request->category_id){
+            $products->where('category_id',$request->category_id);
+        }
+
         $products = $products->paginate($show);
-        
+
         $maxPrice = DB::table('products')->max('price');
 
         $categories=Category::getAllParentWithChild();
