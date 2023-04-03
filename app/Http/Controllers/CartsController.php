@@ -71,10 +71,7 @@ class CartsController extends Controller
     }
 
     public function updateToCart(Request $request){
-        /* print_r($request->id);
-        echo '<br>';
-        print_r($request->quantity); */
-
+        
         $id = Helper::decode($request->id);
         $cart = Cart::with('product')->find($id);
 
@@ -95,39 +92,6 @@ class CartsController extends Controller
         }else{
             return response()->json(['status' => false, 'message' => 'Cart Invalid!'], 200);
         }
-
-        /* $error = '';
-        $success = '';
-        // return $request->quant;
-        foreach ($request->quantity as $k=>$quant) {
-            $id = Helper::decode($request->id[$k]);
-            $cart = Cart::with('product')->find($id);
-            if($quant > 0 && $cart) {
-                // if($cart->product->stock < $quant){
-                //     request()->session()->flash('error','Out of stock');
-                //     return back();
-                // }
-                // $cart->quantity = ($cart->product->stock > $quant) ? $quant  : $cart->product->stock;
-                $cart->quantity = $quant;
-                
-                // if ($cart->product->stock <=0) continue;
-                $after_price=($cart->product->price-($cart->product->price*$cart->product->discount)/100);
-                $cart->amount = $after_price * $quant;
-
-                if(isset($request->size)){
-                    $cart->size = $request->size;
-                }else{
-                    $sizes=explode(',',$cart->product->size);
-                    $cart->size = $sizes[0];
-                }
-
-                $cart->save();
-                $success = 'Cart successfully updated!';
-            }else{
-                $error = 'Cart Invalid!';
-            }
-        }
-        return redirect()->route('getCarts')->with('success', $success); */
     }
 
     public function deleteToCart(Request $request){

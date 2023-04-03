@@ -18,6 +18,7 @@ if (!function_exists('imageUrl')) {
         return Config::get('app.image_url').'/assets/img/'.$default;
     }
 }
+
 if (!function_exists('numberFormat')) {
     function numberFormat($val = '')
     {

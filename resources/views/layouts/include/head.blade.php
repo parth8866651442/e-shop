@@ -41,4 +41,10 @@
 <!-- modernizr css -->
 <script src="{{asset('assets/js/vendor/modernizr-3.11.2.min.js')}}"></script>
 
+<style>
+    .error{
+        color:red;
+    }
+</style>
+
 @stack('styles')
