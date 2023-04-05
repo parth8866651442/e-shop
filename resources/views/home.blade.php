@@ -7,7 +7,7 @@
         <div class="bend niceties preview-2">
             <div id="ensign-nivoslider" class="slides">
                 @foreach($banners as $key=>$banner)
-                    <img src="{{imageUrl($banner->image, 'banner','banner.jpg','false')}}" alt="#" title="#slider-direction-{{$key}}" />
+                    <img src="{{imageUrl($banner->image, 'banner','banner.jpg','false')}}" alt="{{$banner->title}}" title="#slider-direction-{{$key}}" />
                 @endforeach
             </div>
             @foreach($banners as $key=>$banner)
@@ -25,9 +25,17 @@
                                 <div class="wow fadeInUpBig" data-wow-duration="1.8s" data-wow-delay="0.9s">
                                     <p class="slider-brief">{!! ($banner->description) !!}</p>
                                 </div>
-                                <!-- <div class="wow fadeInUpBig" data-wow-duration="2s" data-wow-delay="1.1s">
-                                    <a href="#" class="shop-now">shop now</a>
-                                </div> -->
+                                @if(!empty($banner->category_id))
+                                    @if(!empty($banner->child_category_id))
+                                    <div class="wow fadeInUpBig" data-wow-duration="2s" data-wow-delay="1.1s">
+                                        <a href="{{route('getSubCategoryWiseproducts',[$banner->parentCategory->slug,$banner->childCategory->slug])}}" class="shop-now">shop now</a>
+                                    </div>
+                                    @else
+                                    <div class="wow fadeInUpBig" data-wow-duration="2s" data-wow-delay="1.1s">
+                                        <a href="{{route('getCategoryWiseproducts',$banner->parentCategory->slug)}}" class="shop-now">shop now</a>
+                                    </div>
+                                    @endif
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -60,34 +68,6 @@
                 </div>
             </div>
             @endforeach
-            <!-- <div class="col-xl-4 col-md-6 col-sm-6 padding-0">
-                <div class="single-collection">
-                    <div class="collection-photo">
-                        <a href="#"><img src="{{asset('assets/img/new-collection/2.jpg')}}" alt="" /></a>
-                    </div>
-                    <div class="collection-brief">
-                        <div class="text-right">
-                            <span class="new">new</span>
-                        </div>
-                        <h2>new <br /> <span>fashion</span></h2>
-                        <a href="#" class="shop-now active-shop-now">shop now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6 col-sm-6 padding-0">
-                <div class="single-collection">
-                    <div class="collection-photo">
-                        <a href="#"><img src="{{asset('assets/img/new-collection/3.jpg')}}" alt="" /></a>
-                    </div>
-                    <div class="collection-brief">
-                        <div class="text-right">
-                            <span class="new">new</span>
-                        </div>
-                        <h2>new <br /> <span>fashion</span></h2>
-                        <a href="#" class="shop-now active-shop-now">shop now</a>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
     <!-- NEW-COLLECTION END -->
@@ -110,8 +90,6 @@
                     <a href="{{route('getProductDetail',$product->slug)}}">
                         <img class="primary-photo" src="{{imageUrl($product->productOneImage->name, 'product','product.jpg','false')}}" alt="" />
                         <img class="secondary-photo" src="{{imageUrl($product->productOneImage->name, 'product','product.jpg','false')}}" alt="" />
-                        <!-- <img class="primary-photo" src="{{asset('assets/img/product/1.jpg')}}" alt="" /> -->
-                        <!-- <img class="secondary-photo" src="{{asset('assets/img/product/5.jpg')}}" alt="" /> -->
                     </a>
                     <div class="pro-action">
                         <!-- <a href="#" class="action-btn"><i class="sp-heart"></i><span>Wishlist</span></a> -->
@@ -143,53 +121,6 @@
         </div>
     </div>
     <!-- PRODUCT-AREA END -->
-    <!-- PROMOTIONAL-BANNER START -->
-    <!-- <div class="promotional-banner-area clearfix margin-bottom-80">
-        <div class="promotional-banner">
-            <div class="container-fluid p-0 overflow-hidden">
-                <div class="row">
-                    Single-promo start
-                    <div class="col-lg-6 padding-0">
-                        <div class="single-promo-banner promo-banner-1" style="background: rgba(0, 0, 0, 0) url('{{asset('assets/img/banner/promo-banner/1.jpg')}}') no-repeat scroll center center;">
-                            <img src="img/banner/promo-banner/1.jpg" alt="" />
-                            <div class="promo-banner-brief">
-                                <h2>sale !</h2>
-                                <h3>up to <span>30%</span> off</h3>
-                                <h4>mens best products</h4>
-                                <a class="shop-now active-shop-now" href="#">shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                    Single-promo End
-                    Single-promo start
-                    <div class="col-lg-6 padding-0">
-                        <div class="single-promo-banner promo-banner-2" style="background: rgba(0, 0, 0, 0) url('{{asset('assets/img/banner/promo-banner/2.jpg')}}') no-repeat scroll center center;">
-                            <img src="img/banner/promo-banner/2.jpg" alt="" />
-                            <div class="promo-banner-brief">
-                                <div class="count-down">
-                                    <div class="timer">
-                                        <div data-countdown="2022/12/31"></div>
-                                    </div>
-                                </div>
-                                <div class="upcomming-brief">
-                                    <h2>upcomming best collection</h2>
-                                    <h3><span>degles</span> warm</h3>
-                                    <ul>
-                                        <li>100% cotton</li>
-                                        <li>best manufacturing</li>
-                                        <li>high quality materials</li>
-                                    </ul>
-                                    <a class="shop-now" href="#">pre order</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    Single-promo End
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- PROMOTIONAL-BANNER END -->
     <!-- TESTIMONIAL-AREA START -->
     <div class="testimonial-area margin-bottom-80" style="background: rgba(0, 0, 0, 0) url('{{asset('assets/img/bg/testimonial-bg.jpg')}}') no-repeat scroll center center;">
         <div class="testimonial">

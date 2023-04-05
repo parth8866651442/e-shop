@@ -1622,7 +1622,7 @@ label{
 }
 .blog-post-date span:first-child {
   margin-bottom: 2px;
-  text-transform: lowercase;
+  text-transform: capitalize;
 }
 .blog-post-date span:last-child {
   text-transform: uppercase;
